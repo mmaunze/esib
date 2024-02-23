@@ -1,36 +1,66 @@
-# vue
+# README para Frontend do Sistema de Biblioteca em Vue.js
 
-This template should help get you started developing with Vue 3 in Vite.
+## Descrição
 
-## Recommended IDE Setup
+Este projeto implementa o frontend de um sistema de biblioteca completo utilizando Vue.js. O backend é desenvolvido em Java com Spring Boot e utiliza PostgreSQL como banco de dados. O sistema permite o gerenciamento de livros, autores, empréstimos e usuários.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) (and disable Vetur).
+## Funcionalidades
 
-## Type Support for `.vue` Imports in TS
+* **Gerenciamento de Livros:**
+  * Listar livros.
+  * Pesquisar livros por título, autor e ISBN.
+  * Visualizar detalhes de um livro.
+* **Gerenciamento de Autores:**
+  * Listar autores.
+  * Pesquisar autores por nome.
+  * Visualizar detalhes de um autor.
+* **Gerenciamento de Empréstimos:**
+  * Listar empréstimos.
+  * Registrar empréstimos de livros para usuários.
+  * Devolver livros emprestados.
+  * Visualizar histórico de empréstimos de um usuário.
+* **Gerenciamento de Usuários:**
+  * Listar usuários.
+  * Pesquisar usuários por nome e email.
+  * Visualizar detalhes de um usuário.
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates.
+## Tecnologias Utilizadas
 
-However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can run `Volar: Switch TS Plugin on/off` from VSCode command palette.
+* Vue.js 3
+* Vue Router
+* Vuex
+* Axios
+* BootstrapVue
 
-## Customize configuration
+## Instalação e Configuração
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+1. Clone este repositório.
+2. Instale o Node.js e o Yarn.
+3. Execute o comando `yarn install` para instalar as dependências do projeto.
+4. Inicie o servidor de desenvolvimento usando o comando `yarn serve`.
 
-## Project Setup
+## Documentação
 
-```sh
-npm install
-```
+A documentação da API do backend está disponível em [link a ser fornecido].
 
-### Compile and Hot-Reload for Development
+## Contribuições
 
-```sh
-npm run dev
-```
+Contribuições são bem-vindas! Para mais informações, consulte o guia de contribuição em [link a ser fornecido].
 
-### Type-Check, Compile and Minify for Production
+## Licença
 
-```sh
-npm run build
-```
-# prefaculdade
+Este projeto está licenciado sob a licença MIT.
+
+## Autor
+
+Meldo Leonardo Maunze
+
+## Agradecimentos
+
+* [Nome dos colaboradores (se houver)]
+
+## Links Úteis
+
+* Repositório do Backend: [https://github.com/mmaunze/api.esib.com](https://github.com/mmaunze/api.esib.com)
+* Documentação da API: # (link a ser fornecido)
+* Guia de Contribuição: # (link a ser fornecido)
