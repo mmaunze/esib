@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # README para Frontend do Sistema de Biblioteca em Vue.js
+=======
+# Frontend do Sistema de Biblioteca em Vue.js
+>>>>>>> dc4d1ff7ed58b0f0ab73ef7a61ffe9edda9cb3c3
 
 ## Descrição
 
@@ -7,6 +11,7 @@ Este projeto implementa o frontend de um sistema de biblioteca completo utilizan
 ## Funcionalidades
 
 * **Gerenciamento de Livros:**
+<<<<<<< HEAD
   * Listar livros.
   * Pesquisar livros por título, autor e ISBN.
   * Visualizar detalhes de um livro.
@@ -23,6 +28,24 @@ Este projeto implementa o frontend de um sistema de biblioteca completo utilizan
   * Listar usuários.
   * Pesquisar usuários por nome e email.
   * Visualizar detalhes de um usuário.
+=======
+    * Listar livros.
+    * Pesquisar livros por título, autor e ISBN.
+    * Visualizar detalhes de um livro.
+* **Gerenciamento de Autores:**
+    * Listar autores.
+    * Pesquisar autores por nome.
+    * Visualizar detalhes de um autor.
+* **Gerenciamento de Empréstimos:**
+    * Listar empréstimos.
+    * Registrar empréstimos de livros para usuários.
+    * Devolver livros emprestados.
+    * Visualizar histórico de empréstimos de um usuário.
+* **Gerenciamento de Usuários:**
+    * Listar usuários.
+    * Pesquisar usuários por nome e email.
+    * Visualizar detalhes de um usuário.
+>>>>>>> dc4d1ff7ed58b0f0ab73ef7a61ffe9edda9cb3c3
 
 ## Tecnologias Utilizadas
 
@@ -36,8 +59,13 @@ Este projeto implementa o frontend de um sistema de biblioteca completo utilizan
 
 1. Clone este repositório.
 2. Instale o Node.js e o Yarn.
-3. Execute o comando `yarn install` para instalar as dependências do projeto.
-4. Inicie o servidor de desenvolvimento usando o comando `yarn serve`.
+<<<<<<< HEAD
+3. Execute o comando `npm install` para instalar as dependências do projeto.
+4. Inicie o servidor de desenvolvimento usando o comando `npm run dev`.
+=======
+3. Execute o comando `npm install` para instalar as dependências do projeto.
+4. Inicie o servidor de desenvolvimento usando o comando `npm run dev`.
+>>>>>>> dc4d1ff7ed58b0f0ab73ef7a61ffe9edda9cb3c3
 
 ## Documentação
 
