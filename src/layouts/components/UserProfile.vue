@@ -30,12 +30,6 @@ const userProfileList = [
   { type: "divider" },
   {
     type: "navItem",
-    icon: "tabler-question-mark",
-    title: "Sobre nós",
-    to: { name: "pages-sobre-nos" },
-  },
-  {
-    type: "navItem",
     icon: "tabler-message",
     title: "Conversas",
     to: {
@@ -49,12 +43,6 @@ const userProfileList = [
   },
 
   { type: "divider" },
-  {
-    type: "navItem",
-    icon: "tabler-currency-dollar",
-    title: "Planos",
-    to: { name: "pages-pricing" },
-  },
   {
     type: "navItem",
     icon: "tabler-credit-card",

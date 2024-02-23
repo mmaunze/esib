@@ -363,7 +363,7 @@ const deleteUser = id => {
                 prepend-icon="tabler-plus"
                 @click="isAddNewUserDrawerVisible = true"
               >
-                Adicionar Instituição
+                Registar Devolução
               </VBtn>
             </div>
           </VCardText>

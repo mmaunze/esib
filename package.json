@@ -1,9 +1,9 @@
 {
-  "name": "prefaculdade",
+  "name": "esib",
   "version": "1.1.0",
   "private": true,
   "scripts": {
-    "dev": "vite --host 0.0.0.0 --port 9000",
+    "dev": "vite --host 0.0.0.0 --port 10000",
     "build": "vite build",
     "preview": "vite preview --port 4000",
     "lint": "eslint . -c .eslintrc.js --fix --ext .ts,.js,.vue,.tsx,.jsx",

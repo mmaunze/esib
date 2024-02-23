@@ -25,28 +25,28 @@ const resolveUserStatusVariant = stat => {
   return "primary"
 }
 
-const resolveUserRoleVariant = role => {
-  if (role === "subscriber")
+const resolveUsertipoUtilizadorVariant = tipoUtilizador => {
+  if (tipoUtilizador === "subscriber")
     return {
       color: "warning",
       icon: "tabler-user",
     }
-  if (role === "author")
+  if (tipoUtilizador === "author")
     return {
       color: "success",
       icon: "tabler-circle-check",
     }
-  if (role === "maintainer")
+  if (tipoUtilizador === "maintainer")
     return {
       color: "primary",
       icon: "tabler-chart-pie-2",
     }
-  if (role === "editor")
+  if (tipoUtilizador === "editor")
     return {
       color: "info",
       icon: "tabler-pencil",
     }
-  if (role === "admin")
+  if (tipoUtilizador === "admin")
     return {
       color: "secondary",
       icon: "tabler-server-2",
@@ -80,23 +80,23 @@ const resolveUserRoleVariant = role => {
               v-else
               class="text-5xl font-weight-medium"
             >
-              {{ avatarText(props.userData.fullName) }}
+              {{ avatarText(props.userData.nome) }}
             </span>
           </VAvatar>
 
           <!-- 👉 User fullName -->
           <h6 class="text-h4 mt-4">
-            {{ props.userData.fullName }}
+            {{ props.userData.nome }}
           </h6>
 
-          <!-- 👉 Role chip -->
+          <!-- 👉 tipoUtilizador chip -->
           <VChip
             label
-            :color="resolveUserRoleVariant(props.userData.role).color"
+            :color="resolveUsertipoUtilizadorVariant(props.userData.tipoUtilizador).color"
             size="small"
             class="text-capitalize mt-3"
           >
-            {{ props.userData.role }}
+            {{ props.userData.tipoUtilizador }}
           </VChip>
         </VCardText>
 
@@ -157,7 +157,7 @@ const resolveUserRoleVariant = role => {
                 <h6 class="text-h6">
                   Username:
                   <span class="text-body-1">
-                    {{ props.userData.fullName }}
+                    {{ props.userData.nome }}
                   </span>
                 </h6>
               </VListItemTitle>
@@ -180,10 +180,10 @@ const resolveUserRoleVariant = role => {
                   <VChip
                     label
                     size="small"
-                    :color="resolveUserStatusVariant(props.userData.status)"
+                    :color="resolveUserStatusVariant(props.userData.departamento)"
                     class="text-capitalize"
                   >
-                    {{ props.userData.status }}
+                    {{ props.userData.departamento }}
                   </VChip>
                 </h6>
               </VListItemTitle>
@@ -192,9 +192,9 @@ const resolveUserRoleVariant = role => {
             <VListItem>
               <VListItemTitle>
                 <h6 class="text-h6">
-                  Role:
+                  tipoUtilizador:
                   <span class="text-capitalize text-body-1">{{
-                    props.userData.role
+                    props.userData.tipoUtilizador
                   }}</span>
                 </h6>
               </VListItemTitle>
@@ -215,7 +215,7 @@ const resolveUserRoleVariant = role => {
               <VListItemTitle>
                 <h6 class="text-h6">
                   Contact:
-                  <span class="text-body-1">{{ props.userData.contact }}</span>
+                  <span class="text-body-1">{{ props.userData.contacto }}</span>
                 </h6>
               </VListItemTitle>
             </VListItem>
@@ -224,7 +224,7 @@ const resolveUserRoleVariant = role => {
               <VListItemTitle>
                 <h6 class="text-h6">
                   Language:
-                  <span class="text-body-1">{{ props.userData.language }}</span>
+                  <span class="text-body-1">{{ props.userData.areaCientifica }}</span>
                 </h6>
               </VListItemTitle>
             </VListItem>

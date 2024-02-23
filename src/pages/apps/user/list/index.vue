@@ -7,9 +7,9 @@ import { VDataTableServer } from "vuetify/labs/VDataTable"
 
 const userListStore = useUserListStore()
 const searchQuery = ref("")
-const selectedRole = ref()
-const selectedPlan = ref()
-const selectedStatus = ref()
+const selectedtipoUtilizador = ref()
+const selecteddepartamento = ref()
+const selectedareaCientifica = ref()
 const totalPage = ref(1)
 const totalUsers = ref(0)
 const users = ref([])
@@ -25,27 +25,27 @@ const options = ref({
 // Headers
 const headers = [
   {
-    title: "User",
+    title: "Nome Completo",
     key: "user",
   },
   {
-    title: "Role",
-    key: "role",
+    title: "Tipo Utilizador",
+    key: "tipoUtilizador",
   },
   {
-    title: "Plan",
-    key: "plan",
+    title: "Departamento",
+    key: "departamento",
   },
   {
-    title: "Billing",
-    key: "billing",
+    title: "Contacto",
+    key: "contacto",
   },
   {
-    title: "Status",
-    key: "status",
+    title: "Area Cientifica",
+    key: "areaCientifica",
   },
   {
-    title: "Actions",
+    title: "Detalhes",
     key: "actions",
     sortable: false,
   },
@@ -56,9 +56,9 @@ const fetchUsers = () => {
   userListStore
     .fetchUsers({
       q: searchQuery.value,
-      status: selectedStatus.value,
-      plan: selectedPlan.value,
-      role: selectedRole.value,
+      areaCientifica: selectedareaCientifica.value,
+      departamento: selecteddepartamento.value,
+      tipoUtilizador: selectedtipoUtilizador.value,
       options: options.value,
     })
     .then(response => {
@@ -75,30 +75,30 @@ const fetchUsers = () => {
 watchEffect(fetchUsers)
 
 // 👉 search filters
-const roles = [
+const tipoUtilizadors = [
   {
-    title: "administrador",
+    title: "Administrador",
     value: "administrador",
   },
   {
-    title: "Author",
-    value: "author",
+    title: "Bibliotecario",
+    value: "bibliotecario",
   },
   {
-    title: "Editor",
-    value: "editor",
+    title: "Estudante",
+    value: "estudante",
   },
   {
-    title: "Maintainer",
-    value: "maintainer",
+    title: "Docente",
+    value: "docente",
   },
   {
-    title: "Subscriber",
-    value: "subscriber",
+    title: "Cta",
+    value: "cta",
   },
 ]
 
-const plans = [
+const departamentos = [
   {
     title: "Basic",
     value: "basic",
@@ -117,7 +117,7 @@ const plans = [
   },
 ]
 
-const status = [
+const areaCientifica = [
   {
     title: "privado",
     value: "privado",
@@ -132,31 +132,31 @@ const status = [
   },
 ]
 
-const resolveUserRoleVariant = role => {
-  const roleLowerCase = role.toLowerCase()
-  if (roleLowerCase === "subscriber")
-    return {
-      color: "warning",
-      icon: "tabler-circle-check",
-    }
-  if (roleLowerCase === "author")
-    return {
-      color: "success",
-      icon: "tabler-user",
-    }
-  if (roleLowerCase === "maintainer")
+const resolveUsertipoUtilizadorVariant = tipoUtilizador => {
+  const tipoUtilizadorLowerCase = tipoUtilizador.toLowerCase()
+  if (tipoUtilizadorLowerCase === "cta")
     return {
       color: "primary",
-      icon: "tabler-chart-pie-2",
+      icon: "tabler-circle-check",
     }
-  if (roleLowerCase === "editor")
+  if (tipoUtilizadorLowerCase === "bibliotecario")
     return {
       color: "info",
+      icon: "tabler-user",
+    }
+  if (tipoUtilizadorLowerCase === "docente")
+    return {
+      color: "warning",
+      icon: "tabler-chart-pie-2",
+    }
+  if (tipoUtilizadorLowerCase === "estudante")
+    return {
+      color: "error",
       icon: "tabler-edit",
     }
-  if (roleLowerCase === "administrador")
+  if (tipoUtilizadorLowerCase === "Administrador")
     return {
-      color: "secondary",
+      color: "success",
       icon: "tabler-device-laptop",
     }
 
@@ -166,11 +166,11 @@ const resolveUserRoleVariant = role => {
   }
 }
 
-const resolveUserStatusVariant = stat => {
+const resolveUserareaCientificaVariant = stat => {
   const statLowerCase = stat.toLowerCase()
-  if (statLowerCase === "privado") return "warning"
-  if (statLowerCase === "active") return "success"
-  if (statLowerCase === "inactive") return "secondary"
+  if (statLowerCase !== "privado") return "success"
+  if (statLowerCase === "active") return "waring"
+  if (statLowerCase === "inactive") return "error"
 
   return "primary"
 }
@@ -267,41 +267,41 @@ const deleteUser = id => {
           <!-- 👉 Filters -->
           <VCardText>
             <VRow>
-              <!-- 👉 Select Role -->
+              <!-- 👉 Select tipoUtilizador -->
               <VCol
                 cols="12"
                 sm="4"
               >
                 <AppSelect
-                  v-model="selectedRole"
-                  label="Select Role"
-                  :items="roles"
+                  v-model="selectedtipoUtilizador"
+                  label="Select tipoUtilizador"
+                  :items="tipoUtilizadors"
                   clearable
                   clear-icon="tabler-x"
                 />
               </VCol>
-              <!-- 👉 Select Plan -->
+              <!-- 👉 Select departamento -->
               <VCol
                 cols="12"
                 sm="4"
               >
                 <AppSelect
-                  v-model="selectedPlan"
-                  label="Select Plan"
-                  :items="plans"
+                  v-model="selecteddepartamento"
+                  label="Select departamento"
+                  :items="departamentos"
                   clearable
                   clear-icon="tabler-x"
                 />
               </VCol>
-              <!-- 👉 Select Status -->
+              <!-- 👉 Select areaCientifica -->
               <VCol
                 cols="12"
                 sm="4"
               >
                 <AppSelect
-                  v-model="selectedStatus"
-                  label="Select Status"
-                  :items="status"
+                  v-model="selectedareaCientifica"
+                  label="Select areaCientifica"
+                  :items="areaCientifica"
                   clearable
                   clear-icon="tabler-x"
                 />
@@ -379,7 +379,9 @@ const deleteUser = id => {
                   :variant="!item.raw.avatar ? 'tonal' : undefined"
                   :color="
                     !item.raw.avatar
-                      ? resolveUserRoleVariant(item.raw.role).color
+                      ? resolveUsertipoUtilizadorVariant(
+                        item.raw.tipoUtilizador
+                      ).color
                       : undefined
                   "
                   class="me-3"
@@ -388,7 +390,7 @@ const deleteUser = id => {
                     v-if="item.raw.avatar"
                     :src="item.raw.avatar"
                   />
-                  <span v-else>{{ avatarText(item.raw.fullName) }}</span>
+                  <span v-else>{{ avatarText(item.raw.nome) }}</span>
                 </VAvatar>
 
                 <div class="d-flex flex-column">
@@ -400,7 +402,7 @@ const deleteUser = id => {
                       }"
                       class="font-weight-medium user-list-name"
                     >
-                      {{ item.raw.fullName }}
+                      {{ item.raw.nome }}
                     </RouterLink>
                   </h6>
 
@@ -409,39 +411,49 @@ const deleteUser = id => {
               </div>
             </template>
 
-            <!-- 👉 Role -->
-            <template #item.role="{ item }">
+            <!-- 👉 tipoUtilizador -->
+            <template #item.tipoUtilizador="{ item }">
               <div class="d-flex align-center gap-4">
                 <VAvatar
                   :size="30"
-                  :color="resolveUserRoleVariant(item.raw.role).color"
+                  :color="
+                    resolveUsertipoUtilizadorVariant(item.raw.tipoUtilizador)
+                      .color
+                  "
                   variant="tonal"
                 >
                   <VIcon
                     :size="20"
-                    :icon="resolveUserRoleVariant(item.raw.role).icon"
+                    :icon="
+                      resolveUsertipoUtilizadorVariant(item.raw.tipoUtilizador)
+                        .icon
+                    "
                   />
                 </VAvatar>
-                <span class="text-capitalize">{{ item.raw.role }}</span>
+                <span class="text-capitalize">{{
+                  item.raw.tipoUtilizador
+                }}</span>
               </div>
             </template>
 
-            <!-- Plan -->
-            <template #item.plan="{ item }">
+            <!-- departamento -->
+            <template #item.departamento="{ item }">
               <span class="text-capitalize font-weight-medium">{{
-                item.raw.currentPlan
+                item.raw.departamento
               }}</span>
             </template>
 
-            <!-- Status -->
-            <template #item.status="{ item }">
+            <!-- areaCientifica -->
+            <template #item.areaCientifica="{ item }">
               <VChip
-                :color="resolveUserStatusVariant(item.raw.status)"
+                :color="
+                  resolveUserareaCientificaVariant(item.raw.areaCientifica)
+                "
                 size="small"
                 label
                 class="text-capitalize"
               >
-                {{ item.raw.status }}
+                {{ item.raw.areaCientifica }}
               </VChip>
             </template>
 

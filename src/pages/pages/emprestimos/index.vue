@@ -1,18 +1,18 @@
 <script setup>
 import { paginationMeta } from "@/@fake-db/utils"
-import AddNewUserDrawer from "@/views/apps/user/list/AddNewUserDrawer.vue"
+import AdicionarNovoCurso from "@/views/apps/user/list/AddNewUserDrawer.vue"
 import { useUserListStore } from "@/views/apps/user/useUserListStore"
 import { avatarText } from "@core/utils/formatters"
 import { VDataTableServer } from "vuetify/labs/VDataTable"
 
-const userListStore = useUserListStore()
-const searchQuery = ref("")
+const listaCursos = useUserListStore()
+const termoPesquisa = ref("")
 const selectedRole = ref()
 const selectedPlan = ref()
 const selectedStatus = ref()
-const totalPage = ref(1)
-const totalUsers = ref(0)
-const users = ref([])
+const totalPaginas = ref(1)
+const totalCursos = ref(0)
+const cursos = ref([])
 
 const options = ref({
   page: 1,
@@ -22,30 +22,31 @@ const options = ref({
   search: undefined,
 })
 
+
 // Headers
 const headers = [
   {
-    title: "Instituição de Ensino",
+    title: "Obra",
     key: "user",
   },
   {
-    title: "Provincia",
+    title: "Area Cientifica",
     key: "role",
   },
   {
-    title: "Categoria de Instituição",
+    title: "Registo",
     key: "plan",
   },
   {
-    title: "Cursos  Disponiveis",
+    title: "Utente",
     key: "billing",
   },
   {
-    title: "Tipo de Instituição",
+    title: "Bibliotecario",
     key: "status",
   },
   {
-    title: "Detalhes",
+    title: "Devolucao",
     key: "actions",
     sortable: false,
   },
@@ -53,18 +54,18 @@ const headers = [
 
 // 👉 Fetching users
 const fetchUsers = () => {
-  userListStore
+  listaCursos
     .fetchUsers({
-      q: searchQuery.value,
+      q: termoPesquisa.value,
       status: selectedStatus.value,
       plan: selectedPlan.value,
       role: selectedRole.value,
       options: options.value,
     })
     .then(response => {
-      users.value = response.data.users
-      totalPage.value = response.data.totalPage
-      totalUsers.value = response.data.totalUsers
+      cursos.value = response.data.users
+      totalPaginas.value = response.data.totalPage
+      totalCursos.value = response.data.totalUsers
       options.value.page = response.data.page
     })
     .catch(error => {
@@ -120,19 +121,19 @@ const roles = [
 
 const plans = [
   {
-    title: "Instituto de Saude",
+    title: "Universidade",
     value: "basic",
   },
   {
-    title: "Instituto de Professores",
+    title: "Instituto Superior",
     value: "company",
   },
   {
-    title: "Instituto Comercial e Industriar",
+    title: "Escola Superior",
     value: "enterprise",
   },
   {
-    title: "Institutos Medios Politecnicos",
+    title: "Academia",
     value: "team",
   },
 ]
@@ -198,7 +199,7 @@ const resolveUserStatusVariant = stat => {
 const isAddNewUserDrawerVisible = ref(false)
 
 const addNewUser = userData => {
-  userListStore.addUser(userData)
+  listaCursos.addUser(userData)
 
   // refetch User
   fetchUsers()
@@ -209,40 +210,40 @@ const userListMeta = [
   {
     icon: "tabler-user",
     color: "primary",
-    title: "Institutos de Professores",
+    title: "Universidades",
     stats: "21,459",
 
-    subtitle: "Institutos disponiveis",
+    subtitle: "Escolas Disponveis",
   },
   {
     icon: "tabler-user-plus",
     color: "error",
-    title: "Institutos de Saude",
+    title: "Institutos Superiores",
     stats: "4,567",
 
-    subtitle: "institutos disponiveis",
+    subtitle: "Escolas Disponveis",
   },
 
   {
     icon: "tabler-user-exclamation",
     color: "warning",
-    title: "Institutos Industriais",
+    title: "Escolas Superiores",
     stats: "237",
 
-    subtitle: "institutos disponiveis",
+    subtitle: "Escolas Disponveis",
   },
   {
     icon: "tabler-user-exclamation",
     color: "error",
-    title: "Institutos Politecnicos",
+    title: "Academias",
     stats: "237",
 
-    subtitle: "institutos disponiveis",
+    subtitle: "Escolas Disponveis",
   },
 ]
 
 const deleteUser = id => {
-  userListStore.deleteUser(id)
+  listaCursos.deleteUser(id)
 
   // refetch User
   fetchUsers()
@@ -282,7 +283,7 @@ const deleteUser = id => {
       </VCol>
 
       <VCol cols="12">
-        <VCard title="Pesquisar Instituição de Ensino Medio">
+        <VCard title="Pesquisar Instituição de Ensino Superior">
           <!-- 👉 Filters -->
           <VCardText>
             <VRow>
@@ -352,7 +353,7 @@ const deleteUser = id => {
               <!-- 👉 Search  -->
               <div style="inline-size: 10rem">
                 <AppTextField
-                  v-model="searchQuery"
+                  v-model="termoPesquisa"
                   placeholder="Pesquisar"
                   density="compact"
                 />
@@ -363,7 +364,7 @@ const deleteUser = id => {
                 prepend-icon="tabler-plus"
                 @click="isAddNewUserDrawerVisible = true"
               >
-                Adicionar Instituição
+                Registar Novo Emprestimo
               </VBtn>
             </div>
           </VCardText>
@@ -374,8 +375,8 @@ const deleteUser = id => {
           <VDataTableServer
             v-model:items-per-page="options.itemsPerPage"
             v-model:page="options.page"
-            :items="users"
-            :items-length="totalUsers"
+            :items="cursos"
+            :items-length="totalCursos"
             :headers="headers"
             class="text-no-wrap"
             @update:options="options = $event"
@@ -513,16 +514,16 @@ const deleteUser = id => {
               <VDivider />
               <div class="d-flex align-center justify-sm-space-between justify-center flex-wrap gap-3 pa-5 pt-3">
                 <p class="text-sm text-disabled mb-0">
-                  {{ paginationMeta(options, totalUsers) }}
+                  {{ paginationMeta(options, totalCursos) }}
                 </p>
 
                 <VPagination
                   v-model="options.page"
-                  :length="Math.ceil(totalUsers / options.itemsPerPage)"
+                  :length="Math.ceil(totalCursos / options.itemsPerPage)"
                   :total-visible="
                     $vuetify.display.xs
                       ? 1
-                      : Math.ceil(totalUsers / options.itemsPerPage)
+                      : Math.ceil(totalCursos / options.itemsPerPage)
                   "
                 >
                   <template #prev="slotProps">
@@ -554,7 +555,7 @@ const deleteUser = id => {
         </VCard>
 
         <!-- 👉 Add New User -->
-        <AddNewUserDrawer
+        <AdicionarNovoCurso
           v-model:isDrawerOpen="isAddNewUserDrawerVisible"
           @user-data="addNewUser"
         />

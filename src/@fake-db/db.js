@@ -3,9 +3,7 @@ import './apps/user-list'
 import './jwt'
 import mock from './mock'
 import './pages/ajuda'
-import './pages/datatable'
 import './pages/faq'
-import './pages/profile'
 
 // Apps
 import './apps/chat'

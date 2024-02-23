@@ -1,10 +1,26 @@
 <script setup>
+import utilizadores from "@/@fake-db/apps/user-list"
 import { paginationMeta } from "@/@fake-db/utils"
 import AddNewUserDrawer from "@/views/apps/user/list/AddNewUserDrawer.vue"
 import { useUserListStore } from "@/views/apps/user/useUserListStore"
-import { avatarText } from "@core/utils/formatters"
-import { registerRuntimeCompiler } from "vue"
-import utilizadores from "@/@fake-db/apps/user-list"
+
+
+const livro = {
+  titulo: "titulo",
+  autores: "autores",
+  nrPaginas: 10,
+  localPublicacao: "localPublicacao",
+  anoPublicacao: 2020,
+  idioma: "idioma",
+  estado: "estado",
+  areaCientifica: "areaCientifica",
+  fotografia: "fotografia",
+  editora: "editora",
+  isbn: "isbn",
+  edicao: 2,
+  volume: 1,
+}
+
 
 const usuario = JSON.parse(localStorage.getItem("userData"))
 
@@ -12,11 +28,12 @@ const Id = Number(usuario.id)
 const userIndex = utilizadores.findIndex(e => e.id === Id)
 const userData = utilizadores[userIndex]
 
-const userListStore = useUserListStore()
+const userListStore = useUserListStore() // lista de obras
+
 const searchQuery = ref("")
-const selectedRole = ref()
-const selectedPlan = ref()
-const selectedStatus = ref()
+const selectedtipoUtilizador = ref()
+const selecteddepartamento = ref()
+const selectedareaCientifica = ref()
 const totalPage = ref(1)
 const totalUsers = ref(0)
 const users = ref([])
@@ -30,7 +47,7 @@ const options = ref({
 })
 
 function administrador() {
-  return userData.role.toLowerCase() === "administrador"
+  return userData.tipoUtilizador.toLowerCase() === "administrador"
 }
 
 // 👉 Fetching users
@@ -38,9 +55,9 @@ const fetchUsers = () => {
   userListStore
     .fetchUsers({
       q: searchQuery.value,
-      status: selectedStatus.value,
-      plan: selectedPlan.value,
-      role: selectedRole.value,
+      areaCientifica: selectedareaCientifica.value,
+      departamento: selecteddepartamento.value,
+      tipoUtilizador: selectedtipoUtilizador.value,
       options: options.value,
     })
     .then(response => {
@@ -57,116 +74,104 @@ const fetchUsers = () => {
 watchEffect(fetchUsers)
 
 // 👉 search filters
-const roles = [
+const tipoUtilizadors = [
   {
-    title: "Ciências Exactas",
-    value: "administrador",
+    title: "Administrador",
+    value: "Administrador",
   },
   {
-    title: "Ciências Sociais",
-    value: "author",
+    title: "Bibliotecario",
+    value: "Bibliotecario",
   },
   {
-    title: "Ciências Agrarias ",
-    value: "editor",
+    title: "Estudante",
+    value: "Estudante",
   },
   {
-    title: "Ciências de Saúde",
-    value: "maintainer",
+    title: "Docente",
+    value: "Docente",
   },
   {
-    title: "Engenharia ",
-    value: "subscriber",
-  },
-  {
-    title: "Artes e Cultura",
-    value: "administrador",
-  },
-  {
-    title: "Ciencias Polciais e Militares",
-    value: "author",
-  },
-  {
-    title: "Ciências Corporativas",
-    value: "editor",
+    title: "Outros Funcionarios",
+    value: "Cta",
   },
 ]
 
-const plans = [
+const departamentos = [
   {
-    title: "Presencial Laboral",
+    title: "Disponivel",
     value: "basic",
   },
   {
-    title: "Presencial Pos Laboral",
-    value: "company",
+    title: "Ecologia Marinha",
+    value: "Ecologia Marinha",
   },
   {
-    title: "Ensino Online",
-    value: "enterprise",
+    title: "Fisica",
+    value: "Fisica",
   },
   {
-    title: "Ensino a Distancia",
+    title: "Com multa",
     value: "team",
   },
 ]
 
-const status = [
+const areaCientifica = [
   {
-    title: "Publica",
+    title: "Livro",
     value: "privado",
   },
   {
-    title: "Privada",
+    title: "Monografia",
     value: "active",
   },
   {
-    title: "Ambos",
+    title: "Revista",
     value: "inactive",
   },
 ]
 
-const resolveUserRoleVariant = role => {
-  const roleLowerCase = role.toLowerCase()
-  if (roleLowerCase === "subscriber")
+const resolveUsertipoUtilizadorVariant = tipoUtilizador => {
+  const tipoUtilizadorLowerCase = tipoUtilizador.toLowerCase()
+  if (tipoUtilizadorLowerCase === "cta")
     return {
       color: "warning",
       icon: "tabler-circle-check",
     }
-  if (roleLowerCase === "author")
+  if (tipoUtilizadorLowerCase === "estudante")
     return {
       color: "success",
       icon: "tabler-user",
     }
-  if (roleLowerCase === "maintainer")
+  if (tipoUtilizadorLowerCase === "docente")
     return {
       color: "primary",
       icon: "tabler-chart-pie-2",
     }
-  if (roleLowerCase === "editor")
+  if (tipoUtilizadorLowerCase === "bibliotecario")
     return {
       color: "info",
       icon: "tabler-edit",
     }
-  if (roleLowerCase === "administrador")
+  if (tipoUtilizadorLowerCase === "administrador")
     return {
       color: "secondary",
       icon: "tabler-device-laptop",
     }
 
   return {
-    color: "primary",
+    color: "warning",
     icon: "tabler-user",
   }
 }
 
-const resolveUserStatusVariant = stat => {
+const resolveUserareaCientificaVariant = stat => {
   const statLowerCase = stat.toLowerCase()
   if (statLowerCase === "privado") return "warning"
   if (statLowerCase === "active") return "success"
   if (statLowerCase === "inactive") return "secondary"
 
-  return "primary"
+  return "success"
 }
 
 const isAddNewUserDrawerVisible = ref(false)
@@ -183,64 +188,31 @@ const userListMeta = [
   {
     icon: "tabler-user",
     color: "primary",
-    title: "Ciências Exactas",
-    stats: "21,459",
-    subtitle: "Cursos Disponiveis",
+    title: "Livros Academicos",
+    stats: "981",
+    subtitle: " ",
   },
   {
     icon: "tabler-user-plus",
     color: "error",
-    title: "Ciências Sociais",
-    stats: "4,567",
-    subtitle: "Cursos Disponiveis",
+    title: "Monografias",
+    stats: "342",
+    subtitle: " ",
   },
   {
     icon: "tabler-user-check",
     color: "success",
-    title: "Ciências Agrarias ",
-    stats: "19,860",
-    subtitle: "Cursos Disponiveis",
+    title: "Revistas",
+    stats: "130",
+    subtitle: " ",
   },
 
   {
     icon: "tabler-user-exclamation",
     color: "warning",
-    title: " Ciências de Saúde",
+    title: "Livros Literarios",
     stats: "237",
-    subtitle: "Cursos Disponiveis",
-  },
-  {
-    icon: "tabler-user",
-    color: "primary",
-    title: "Ciências Corporativas",
-    stats: "21,459",
-
-    subtitle: "Cursos Disponiveis",
-  },
-  {
-    icon: "tabler-user-plus",
-    color: "error",
-    title: "Engenharia",
-    stats: "4,567",
-
-    subtitle: "Cursos Disponiveis",
-  },
-
-  {
-    icon: "tabler-user-exclamation",
-    color: "warning",
-    title: "Artes e Cultura",
-    stats: "237",
-
-    subtitle: "Cursos Disponiveis",
-  },
-  {
-    icon: "tabler-user-exclamation",
-    color: "error",
-    title: "Ciências Policiais e Militares",
-    stats: "237",
-
-    subtitle: "Cursos Disponiveis",
+    subtitle: " ",
   },
 ]
 
@@ -253,11 +225,11 @@ const deleteUser = id => {
 
   window.alert(
     " usuario \t " +
-      utili.fullName +
+      utili.nome +
       " Removido \n as " +
       new Date() +
       "\n por " +
-      userData.fullName,
+      userData.nome,
   )
 
   // refetch User
@@ -301,45 +273,45 @@ const verCurso = id => {
       </VCol>
 
       <VCol cols="12">
-        <VCard title="Pesquisar Curso">
+        <VCard title="Pesquisar obra">
           <!-- 👉 Filters -->
           <VCardText>
             <VRow>
-              <!-- 👉 Select Role -->
+              <!-- 👉 Select tipoUtilizador -->
               <VCol
                 cols="12"
                 sm="4"
               >
                 <AppSelect
-                  v-model="selectedRole"
+                  v-model="selectedtipoUtilizador"
                   label="Selecionar Campo de Estudo"
-                  :items="roles"
+                  :items="tipoUtilizadors"
                   clearable
                   clear-icon="tabler-x"
                 />
               </VCol>
-              <!-- 👉 Select Plan -->
+              <!-- 👉 Select departamento -->
               <VCol
                 cols="12"
                 sm="4"
               >
                 <AppSelect
-                  v-model="selectedPlan"
-                  label="Seleccionar Modalidade"
-                  :items="plans"
+                  v-model="selecteddepartamento"
+                  label="Seleccionar Estado"
+                  :items="departamentos"
                   clearable
                   clear-icon="tabler-x"
                 />
               </VCol>
-              <!-- 👉 Select Status -->
+              <!-- 👉 Select areaCientifica -->
               <VCol
                 cols="12"
                 sm="4"
               >
                 <AppSelect
-                  v-model="selectedStatus"
-                  label="Seleccionar Tipo de Instituicao"
-                  :items="status"
+                  v-model="selectedareaCientifica"
+                  label="Seleccionar Tipo de Obra"
+                  :items="areaCientifica"
                   clearable
                   clear-icon="tabler-x"
                 />
@@ -361,16 +333,16 @@ const verCurso = id => {
                   { value: 98, title: '98' },
                   { value: -1, title: 'Ver tudo' },
                 ]"
-                style="width: 6.25rem;"
+                style="width: 6.25rem"
                 @update:model-value="options.itemsPerPage = parseInt($event)"
               />
             </div>
 
             <VSpacer />
 
-            <div class="app-user-search-filter d-flex align-center flex-wrap gap-5">
+            <div class="app-user-search-filter d-flex align-center flex-wrap gap-5,">
               <!-- 👉 Search  -->
-              <div style="inline-size: 16rem;">
+              <div style="inline-size: 16rem">
                 <AppTextField
                   v-model="searchQuery"
                   placeholder="Pesquisar"
@@ -383,7 +355,7 @@ const verCurso = id => {
                 prepend-icon="tabler-plus"
                 @click="isAddNewUserDrawerVisible = true"
               >
-                Adicionar novo curso
+                Adicionar nova obra
               </VBtn>
             </div>
           </VCardText>
@@ -402,7 +374,7 @@ const verCurso = id => {
             >
               <VCard class="mb-3">
                 <VCardTitle class="mb-4 mt-2">
-                  {{ user.fullName }}
+                  {{ user.nome }}
                 </VCardTitle>
 
                 <VImg
@@ -413,41 +385,46 @@ const verCurso = id => {
                   <span
                   v-else
                   class="text-9xl"
-                  >{{ avatarText(user.fullName) }}</span> 
+                  >{{ avatarText(user.nome) }}</span> 
                 -->
 
                 <VCardText>
                   <div class="d-flex align-center gap-4">
                     <VBtn
-                      :color="resolveUserRoleVariant(user.role).color"
+                      :color="
+                        resolveUsertipoUtilizadorVariant(user.tipoUtilizador)
+                          .color
+                      "
                       variant="tonal"
                       size="small"
                       label
                       class="mb-3"
                     >
-                      {{ user.role }}
+                      {{ user.tipoUtilizador }}
                     </VBtn>
                   </div>
                   <span class="text-capitalize font-weight-medium">{{
-                    "      " + user.currentPlan
+                    "      " + user.departamento
                   }}</span>
                   <p
-                    :color="resolveUserStatusVariant(user.status)"
+                    :color="
+                      resolveUserareaCientificaVariant(user.areaCientifica)
+                    "
                     size="small"
                     label
                     class="text-capitalize"
                   >
-                    O curso de {{ user.fullName }} pela {{ user.company }} eh um
-                    curso de ensino superior que forma ...
+                    O curso de {{ user.nome }} pela {{ user.departamento }} eh
+                    um curso de ensino superior que forma ...
                   </p>
                 </VCardText>
 
                 <VCardText
-                  v-if="!administrador()"
+                  v-if="administrador()"
                   class="text-center"
                 >
                   <VBtn
-                    style=" margin-right: 0.25rem;"
+                    style="margin-right: 0.25rem"
                     size="small"
                     color="error"
                     @click="deleteUser(user.id)"
@@ -455,12 +432,12 @@ const verCurso = id => {
                     Remover
                   </VBtn>
                   <VBtn
-                    style=" margin-left: 0.25rem;"
+                    style="margin-left: 0.25rem"
                     size="small"
                     color="primary"
                     @click="verCurso(user.id)"
                   >
-                    Detalhes
+                    Editar
                   </VBtn>
                 </VCardText>
 
@@ -469,12 +446,20 @@ const verCurso = id => {
                   class="text-center"
                 >
                   <VBtn
-                    class="text-center"
+                    style="margin-right: 0.25rem"
                     size="small"
-                    :color="primary"
+                    color="success"
                     @click="deleteUser(user.id)"
                   >
-                    Detalhes do Curso
+                    Reservar
+                  </VBtn>
+                  <VBtn
+                    style="margin-left: 0.25rem"
+                    size="small"
+                    color="primary"
+                    @click="verCurso(user.id)"
+                  >
+                    Detalhes
                   </VBtn>
                 </VCardText>
               </VCard>
