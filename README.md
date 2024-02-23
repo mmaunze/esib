@@ -36,8 +36,8 @@ Este projeto implementa o frontend de um sistema de biblioteca completo utilizan
 
 1. Clone este repositório.
 2. Instale o Node.js e o Yarn.
-3. Execute o comando `yarn install` para instalar as dependências do projeto.
-4. Inicie o servidor de desenvolvimento usando o comando `yarn serve`.
+3. Execute o comando `npm install` para instalar as dependências do projeto.
+4. Inicie o servidor de desenvolvimento usando o comando `npm run dev`.
 
 ## Documentação
 
