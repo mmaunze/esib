@@ -1,75 +1,70 @@
-<<<<<<< HEAD
-# README para Frontend do Sistema de Biblioteca em Vue.js
-=======
-# Frontend do Sistema de Biblioteca em Vue.js
->>>>>>> dc4d1ff7ed58b0f0ab73ef7a61ffe9edda9cb3c3
+# Sistema de Biblioteca em Java com Spring Boot e PostgreSQL
 
 ## Descrição
 
-Este projeto implementa o frontend de um sistema de biblioteca completo utilizando Vue.js. O backend é desenvolvido em Java com Spring Boot e utiliza PostgreSQL como banco de dados. O sistema permite o gerenciamento de livros, autores, empréstimos e usuários.
+Este projeto implementa um sistema de biblioteca completo utilizando Java com Spring Boot para o backend e PostgreSQL como banco de dados. O frontend é desenvolvido em Vue.js (em um projeto separado). O sistema permite o gerenciamento de livros, autores, empréstimos e usuários.
 
 ## Funcionalidades
 
-* **Gerenciamento de Livros:**
-<<<<<<< HEAD
-  * Listar livros.
-  * Pesquisar livros por título, autor e ISBN.
-  * Visualizar detalhes de um livro.
-* **Gerenciamento de Autores:**
-  * Listar autores.
-  * Pesquisar autores por nome.
-  * Visualizar detalhes de um autor.
-* **Gerenciamento de Empréstimos:**
-  * Listar empréstimos.
-  * Registrar empréstimos de livros para usuários.
-  * Devolver livros emprestados.
-  * Visualizar histórico de empréstimos de um usuário.
-* **Gerenciamento de Usuários:**
-  * Listar usuários.
-  * Pesquisar usuários por nome e email.
-  * Visualizar detalhes de um usuário.
-=======
-    * Listar livros.
-    * Pesquisar livros por título, autor e ISBN.
-    * Visualizar detalhes de um livro.
-* **Gerenciamento de Autores:**
-    * Listar autores.
-    * Pesquisar autores por nome.
-    * Visualizar detalhes de um autor.
-* **Gerenciamento de Empréstimos:**
-    * Listar empréstimos.
-    * Registrar empréstimos de livros para usuários.
-    * Devolver livros emprestados.
-    * Visualizar histórico de empréstimos de um usuário.
-* **Gerenciamento de Usuários:**
-    * Listar usuários.
-    * Pesquisar usuários por nome e email.
-    * Visualizar detalhes de um usuário.
->>>>>>> dc4d1ff7ed58b0f0ab73ef7a61ffe9edda9cb3c3
+### Gerenciamento de Livros
+
+- Cadastrar, editar e excluir livros.
+- Pesquisar livros por título, autor e ISBN.
+- Visualizar detalhes de um livro.
+
+### Gerenciamento de Autores
+
+- Cadastrar, editar e excluir autores.
+- Pesquisar autores por nome.
+- Visualizar detalhes de um autor.
+
+### Gerenciamento de Empréstimos
+
+- Registrar empréstimos de livros para usuários.
+- Devolver livros emprestados.
+- Visualizar histórico de empréstimos de um usuário.
+
+### Gerenciamento de Usuários
+
+- Cadastrar, editar e excluir usuários.
+- Pesquisar usuários por nome e email.
+- Visualizar detalhes de um usuário.
 
 ## Tecnologias Utilizadas
 
-* Vue.js 3
-* Vue Router
-* Vuex
-* Axios
-* BootstrapVue
+### Backend
+
+- Java 17
+- Spring Boot 2.7.0
+- PostgreSQL
+- Lombok
+- Hibernate
+- Spring Data JPA
+- Spring Security
+- JWT
+
+### Frontend
+
+- Vue.js 3 (em um projeto separado)
 
 ## Instalação e Configuração
 
+### Backend
+
 1. Clone este repositório.
-2. Instale o Node.js e o Yarn.
-<<<<<<< HEAD
-3. Execute o comando `npm install` para instalar as dependências do projeto.
-4. Inicie o servidor de desenvolvimento usando o comando `npm run dev`.
-=======
-3. Execute o comando `npm install` para instalar as dependências do projeto.
-4. Inicie o servidor de desenvolvimento usando o comando `npm run dev`.
->>>>>>> dc4d1ff7ed58b0f0ab73ef7a61ffe9edda9cb3c3
+2. Instale o Java 17 e o Maven.
+3. Importe o projeto para o seu IDE favorito (ex: IntelliJ IDEA).
+4. Configure o banco de dados PostgreSQL.
+5. Inicie o servidor Spring Boot usando o comando `mvn spring-boot:run`.
+
+### Frontend
+
+1. Acesse o repositório do frontend [aqui](https://github.com/mmaunze/esib).
+2. Siga as instruções de instalação e configuração do projeto Vue.js.
 
 ## Documentação
 
-A documentação da API do backend está disponível em [link a ser fornecido].
+A documentação completa da API está disponível em [link a ser fornecido].
 
 ## Contribuições
 
@@ -85,10 +80,8 @@ Meldo Leonardo Maunze
 
 ## Agradecimentos
 
-* [Nome dos colaboradores (se houver)]
-
 ## Links Úteis
 
-* Repositório do Backend: [https://github.com/mmaunze/api.esib.com](https://github.com/mmaunze/api.esib.com)
-* Documentação da API: # (link a ser fornecido)
-* Guia de Contribuição: # (link a ser fornecido)
+- [Repositório do Frontend](https://github.com/mmaunze/esib)
+- [Documentação da API](#) (link a ser fornecido)
+- [Guia de Contribuição](#) (link a ser fornecido)
