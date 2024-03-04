@@ -1,34 +1,10 @@
 <script setup>
-import utilizadores from "@/@fake-db/apps/user-list"
 import { paginationMeta } from "@/@fake-db/utils"
 import AddNewUserDrawer from "@/views/apps/user/list/AddNewUserDrawer.vue"
 import { useUserListStore } from "@/views/apps/user/useUserListStore"
+import { avatarText } from "@core/utils/formatters"
 
-
-const livro = {
-  titulo: "titulo",
-  autores: "autores",
-  nrPaginas: 10,
-  localPublicacao: "localPublicacao",
-  anoPublicacao: 2020,
-  idioma: "idioma",
-  estado: "estado",
-  areaCientifica: "areaCientifica",
-  fotografia: "fotografia",
-  editora: "editora",
-  isbn: "isbn",
-  edicao: 2,
-  volume: 1,
-}
-
-
-const usuario = JSON.parse(localStorage.getItem("userData"))
-
-const Id = Number(usuario.id)
-const userIndex = utilizadores.findIndex(e => e.id === Id)
-const userData = utilizadores[userIndex]
-
-const userListStore = useUserListStore() // lista de obras
+const listaUtilizadores = useUserListStore()
 
 const searchQuery = ref("")
 const selectedtipoUtilizador = ref()
@@ -36,23 +12,19 @@ const selecteddepartamento = ref()
 const selectedareaCientifica = ref()
 const totalPage = ref(1)
 const totalUsers = ref(0)
-const users = ref([])
+const utilizadores = ref([])
 
 const options = ref({
   page: 1,
-  itemsPerPage: 8,
+  itemsPerPage: 9,
   sortBy: [],
   groupBy: [],
   search: undefined,
 })
 
-function administrador() {
-  return userData.tipoUtilizador.toLowerCase() === "administrador"
-}
-
 // 👉 Fetching users
-const fetchUsers = () => {
-  userListStore
+const buscarUtilizadores = () => {
+  listaUtilizadores
     .fetchUsers({
       q: searchQuery.value,
       areaCientifica: selectedareaCientifica.value,
@@ -61,7 +33,7 @@ const fetchUsers = () => {
       options: options.value,
     })
     .then(response => {
-      users.value = response.data.users
+      utilizadores.value = response.data.users
       totalPage.value = response.data.totalPage
       totalUsers.value = response.data.totalUsers
       options.value.page = response.data.page
@@ -71,63 +43,68 @@ const fetchUsers = () => {
     })
 }
 
-watchEffect(fetchUsers)
+watchEffect(buscarUtilizadores)
 
 // 👉 search filters
 const tipoUtilizadors = [
   {
     title: "Administrador",
-    value: "Administrador",
+    value: "administrador",
   },
   {
     title: "Bibliotecario",
-    value: "Bibliotecario",
+    value: "bibliotecario",
   },
   {
     title: "Estudante",
-    value: "Estudante",
+    value: "estudante",
   },
   {
     title: "Docente",
-    value: "Docente",
+    value: "docente",
   },
   {
-    title: "Outros Funcionarios",
-    value: "Cta",
+    title: "Cta",
+    value: "cta",
   },
 ]
 
 const departamentos = [
   {
-    title: "Disponivel",
-    value: "basic",
+    title: "Departamento de Engenharia Informatica",
+    value: "DEI",
   },
   {
-    title: "Ecologia Marinha",
-    value: "Ecologia Marinha",
+    title: "Departamento de Engenharia Mecanica",
+    value: "DEM",
   },
   {
-    title: "Fisica",
-    value: "Fisica",
+    title: "Departamento de Engenharia Geologica",
+    value: "DEG",
   },
   {
-    title: "Com multa",
-    value: "team",
+    title: "Departamento de Engenharia Civil",
+    value: "DEC",
   },
 ]
 
+function administrador() {
+  return true
+}
+
+
 const areaCientifica = [
   {
-    title: "Livro",
-    value: "privado",
+    title: "Filosofia",
+    value: "Filosofia",
   },
   {
-    title: "Monografia",
-    value: "active",
+    title: "Engenharia",
+    value: "Engenharia",
   },
   {
-    title: "Revista",
-    value: "inactive",
+    title: "Quimica",
+    value: "Quimica",
   },
 ]
 
@@ -135,52 +112,52 @@ const resolveUsertipoUtilizadorVariant = tipoUtilizador => {
   const tipoUtilizadorLowerCase = tipoUtilizador.toLowerCase()
   if (tipoUtilizadorLowerCase === "cta")
     return {
-      color: "warning",
-      icon: "tabler-circle-check",
-    }
-  if (tipoUtilizadorLowerCase === "estudante")
-    return {
-      color: "success",
-      icon: "tabler-user",
-    }
-  if (tipoUtilizadorLowerCase === "docente")
-    return {
       color: "primary",
-      icon: "tabler-chart-pie-2",
+      icon: "tabler-circle-check",
     }
   if (tipoUtilizadorLowerCase === "bibliotecario")
     return {
       color: "info",
+      icon: "tabler-user",
+    }
+  if (tipoUtilizadorLowerCase === "docente")
+    return {
+      color: "warning",
+      icon: "tabler-chart-pie-2",
+    }
+  if (tipoUtilizadorLowerCase === "estudante")
+    return {
+      color: "error",
       icon: "tabler-edit",
     }
-  if (tipoUtilizadorLowerCase === "administrador")
+  if (tipoUtilizadorLowerCase === "Administrador")
     return {
-      color: "secondary",
+      color: "success",
       icon: "tabler-device-laptop",
     }
 
   return {
-    color: "warning",
+    color: "primary",
     icon: "tabler-user",
   }
 }
 
 const resolveUserareaCientificaVariant = stat => {
   const statLowerCase = stat.toLowerCase()
-  if (statLowerCase === "privado") return "warning"
-  if (statLowerCase === "active") return "success"
-  if (statLowerCase === "inactive") return "secondary"
+  if (statLowerCase !== "privado") return "success"
+  if (statLowerCase === "active") return "waring"
+  if (statLowerCase === "inactive") return "error"
 
-  return "success"
+  return "primary"
 }
 
 const isAddNewUserDrawerVisible = ref(false)
 
 const addNewUser = userData => {
-  userListStore.addUser(userData)
+  listaUtilizadores.addUser(userData)
 
   // refetch User
-  fetchUsers()
+  buscarUtilizadores()
 }
 
 // 👉 List
@@ -188,56 +165,42 @@ const userListMeta = [
   {
     icon: "tabler-user",
     color: "primary",
-    title: "Livros Academicos",
-    stats: "981",
-    subtitle: " ",
+    title: "Estudantes",
+    stats: "459",
+    percentage: +29,
+    subtitle: "Total Users",
   },
   {
     icon: "tabler-user-plus",
     color: "error",
-    title: "Monografias",
-    stats: "342",
-    subtitle: " ",
+    title: "Docentes",
+    stats: "4,567",
+    percentage: +18,
+    subtitle: "Last week analytics",
   },
   {
     icon: "tabler-user-check",
     color: "success",
-    title: "Revistas",
-    stats: "130",
-    subtitle: " ",
+    title: "Bibliotecarios",
+    stats: "19,860",
+    percentage: -14,
+    subtitle: "Last week analytics",
   },
-
   {
     icon: "tabler-user-exclamation",
     color: "warning",
-    title: "Livros Literarios",
+    title: "CTA",
     stats: "237",
-    subtitle: " ",
+    percentage: +42,
+    subtitle: "Last week analytics",
   },
 ]
 
 const deleteUser = id => {
-  userListStore.deleteUser(id)
-
-  const Id = Number(id)
-  const userIndex = utilizadores.findIndex(e => e.id === Id)
-  const utili = utilizadores[userIndex]
-
-  window.alert(
-    " usuario \t " +
-      utili.nome +
-      " Removido \n as " +
-      new Date() +
-      "\n por " +
-      userData.nome,
-  )
+  listaUtilizadores.deleteUser(id)
 
   // refetch User
-  fetchUsers()
-}
-
-const verCurso = id => {
-  window.print()
+  buscarUtilizadores()
 }
 </script>
 
@@ -252,13 +215,15 @@ const verCurso = id => {
         lg="3"
       >
         <VCard>
-          <VCardText class="d-flex align-center justify-space-between">
+          <VCardText class="d-flex justify-space-between">
             <div>
-              <span class="text-h6">{{ meta.title }}</span>
+              <span>{{ meta.title }}</span>
               <div class="d-flex align-center gap-2 my-1">
                 <h6 class="text-h4">
                   {{ meta.stats }}
                 </h6>
+                <span :class="meta.percentage > 0 ? 'text-success' : 'text-error'">( {{ meta.percentage > 0 ? "+" : "" }}
+                  {{ meta.percentage }}%)</span>
               </div>
               <span>{{ meta.subtitle }}</span>
             </div>
@@ -267,13 +232,14 @@ const verCurso = id => {
               rounded
               variant="tonal"
               :color="meta.color"
+              :icon="meta.icon"
             />
           </VCardText>
         </VCard>
       </VCol>
 
       <VCol cols="12">
-        <VCard title="Pesquisar obra">
+        <VCard title="Pesquisar um livro">
           <!-- 👉 Filters -->
           <VCardText>
             <VRow>
@@ -284,7 +250,7 @@ const verCurso = id => {
               >
                 <AppSelect
                   v-model="selectedtipoUtilizador"
-                  label="Selecionar Campo de Estudo"
+                  label="Seleccionar o Idioma"
                   :items="tipoUtilizadors"
                   clearable
                   clear-icon="tabler-x"
@@ -297,7 +263,7 @@ const verCurso = id => {
               >
                 <AppSelect
                   v-model="selecteddepartamento"
-                  label="Seleccionar Estado"
+                  label="Seleccionar o estado do Livro"
                   :items="departamentos"
                   clearable
                   clear-icon="tabler-x"
@@ -310,7 +276,7 @@ const verCurso = id => {
               >
                 <AppSelect
                   v-model="selectedareaCientifica"
-                  label="Seleccionar Tipo de Obra"
+                  label="Seleccionar a area cientifica"
                   :items="areaCientifica"
                   clearable
                   clear-icon="tabler-x"
@@ -326,26 +292,27 @@ const verCurso = id => {
               <AppSelect
                 :model-value="options.itemsPerPage"
                 :items="[
-                  { value: 4, title: '4' },
-                  { value: 8, title: '8' },
-                  { value: 24, title: '24' },
-                  { value: 48, title: '48' },
-                  { value: 98, title: '98' },
-                  { value: -1, title: 'Ver tudo' },
+                  { value: 3, title: '3' },
+                  { value: 15, title: '15' },
+                  { value: 30, title: '30' },
+                  { value: 60, title: '60' },
+                  { value: 90, title: '90' },
+                  { value: -1, title: 'ver tudo' },
                 ]"
-                style="width: 6.25rem"
-                @update:model-value="options.itemsPerPage = parseInt($event)"
+                style="width: 6.25rem;"
+                @update:model-value="
+                  options.itemsPerPage = parseInt($event, 9)
+                "
               />
             </div>
-
             <VSpacer />
 
-            <div class="app-user-search-filter d-flex align-center flex-wrap gap-5,">
+            <div class="app-user-search-filter d-flex align-center flex-wrap gap-4">
               <!-- 👉 Search  -->
-              <div style="inline-size: 16rem">
+              <div style="inline-size: 16rem;">
                 <AppTextField
                   v-model="searchQuery"
-                  placeholder="Pesquisar"
+                  placeholder="Pesquisar livros..."
                   density="compact"
                 />
               </div>
@@ -355,22 +322,25 @@ const verCurso = id => {
                 prepend-icon="tabler-plus"
                 @click="isAddNewUserDrawerVisible = true"
               >
-                Adicionar nova obra
+                Cadastrar Utilizador
               </VBtn>
             </div>
           </VCardText>
 
           <VDivider />
         </VCard>
+
+        
+        <!-- SECTION -->
         <section class="mt-7">
           <VRow text-align="center">
             <VCol
-              v-for="user in users"
+              v-for="user in utilizadores"
               :key="user.id"
               cols="12"
               sm="6"
-              md="4"
-              lg="3"
+              md="3"
+              lg="4"
             >
               <VCard class="mb-3">
                 <VCardTitle class="mb-4 mt-2">
@@ -381,6 +351,7 @@ const verCurso = id => {
                   :src="user.avatar"
                   aspect-ratio="2"
                 />
+                  
                 <!--
                   <span
                   v-else
@@ -390,11 +361,16 @@ const verCurso = id => {
 
                 <VCardText>
                   <div class="d-flex align-center gap-4">
+                    <span
+                      variant="tonal"
+                      size="small"
+                      label
+                      class="mb-3"
+                    >
+                      {{ user.sexo }}
+                    </span>
                     <VBtn
-                      :color="
-                        resolveUsertipoUtilizadorVariant(user.tipoUtilizador)
-                          .color
-                      "
+                      :color="resolveUsertipoUtilizadorVariant(user.tipoUtilizador).color"
                       variant="tonal"
                       size="small"
                       label
@@ -402,29 +378,36 @@ const verCurso = id => {
                     >
                       {{ user.tipoUtilizador }}
                     </VBtn>
+                    <VBtn
+                      variant="tonal"
+                      size="small"
+                      label
+                      class="mb-3"
+                    >
+                      {{ user.departamento }}
+                    </VBtn>
                   </div>
-                  <span class="text-capitalize font-weight-medium">{{
-                    "      " + user.departamento
-                  }}</span>
-                  <p
-                    :color="
-                      resolveUserareaCientificaVariant(user.areaCientifica)
-                    "
+                  <p class="font-weight-small">
+                    <br> {{ user.contacto }}
+                    <br> {{ user.email }}
+                  </p>
+                  <VChip
+                    :color="primary"
                     size="small"
                     label
                     class="text-capitalize"
                   >
-                    O curso de {{ user.nome }} pela {{ user.departamento }} eh
-                    um curso de ensino superior que forma ...
-                  </p>
+                    {{ user.areaCientifica }}
+                  </VChip>
                 </VCardText>
 
+                
                 <VCardText
                   v-if="administrador()"
                   class="text-center"
                 >
                   <VBtn
-                    style="margin-right: 0.25rem"
+                    style="margin-right: 0.25rem;"
                     size="small"
                     color="error"
                     @click="deleteUser(user.id)"
@@ -432,12 +415,15 @@ const verCurso = id => {
                     Remover
                   </VBtn>
                   <VBtn
-                    style="margin-left: 0.25rem"
+                    style="margin-left: 0.25rem;"
                     size="small"
                     color="primary"
-                    @click="verCurso(user.id)"
+                    :to="{
+                      name: 'apps-user-view-id',
+                      params: { id: user.id },
+                    }"
                   >
-                    Editar
+                    Detalhes
                   </VBtn>
                 </VCardText>
 
@@ -446,7 +432,7 @@ const verCurso = id => {
                   class="text-center"
                 >
                   <VBtn
-                    style="margin-right: 0.25rem"
+                    style="margin-right: 0.25rem;"
                     size="small"
                     color="success"
                     @click="deleteUser(user.id)"
@@ -454,10 +440,13 @@ const verCurso = id => {
                     Reservar
                   </VBtn>
                   <VBtn
-                    style="margin-left: 0.25rem"
+                    style="margin-left: 0.25rem;"
                     size="small"
                     color="primary"
-                    @click="verCurso(user.id)"
+                    :to="{
+                      name: 'apps-user-view-id',
+                      params: { id: user.id },
+                    }"
                   >
                     Detalhes
                   </VBtn>
@@ -505,6 +494,8 @@ const verCurso = id => {
             </VPagination>
           </div>
         </section>
+        <!-- SECTION -->
+
 
         <!-- 👉 Add New User -->
         <AddNewUserDrawer

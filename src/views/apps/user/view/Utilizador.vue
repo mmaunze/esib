@@ -8,12 +8,6 @@ const props = defineProps({
   },
 })
 
-const standardPlan = {
-  plan: "Standard",
-  price: 99,
-  benefits: ["10 Users", "Up to 10GB storage", "Basic Support"],
-}
-
 const isEditarInformacoesVisible = ref(false)
 const isUpgradePlanDialogVisible = ref(false)
 
@@ -26,27 +20,27 @@ const resolveUserStatusVariant = stat => {
 }
 
 const resolveUsertipoUtilizadorVariant = tipoUtilizador => {
-  if (tipoUtilizador === "subscriber")
+  if (tipoUtilizador === "Administrador")
     return {
       color: "warning",
       icon: "tabler-user",
     }
-  if (tipoUtilizador === "author")
+  if (tipoUtilizador === "Bibliotecario")
     return {
       color: "success",
       icon: "tabler-circle-check",
     }
-  if (tipoUtilizador === "maintainer")
+  if (tipoUtilizador === "Estudante")
     return {
       color: "primary",
       icon: "tabler-chart-pie-2",
     }
-  if (tipoUtilizador === "editor")
+  if (tipoUtilizador === "Docente")
     return {
       color: "info",
       icon: "tabler-pencil",
     }
-  if (tipoUtilizador === "admin")
+  if (tipoUtilizador === "Cta")
     return {
       color: "secondary",
       icon: "tabler-server-2",
@@ -100,64 +94,36 @@ const resolveUsertipoUtilizadorVariant = tipoUtilizador => {
           </VChip>
         </VCardText>
 
-        <VCardText class="d-flex justify-center flex-wrap mt-3">
-          <!-- 👉 Done task -->
-          <div class="d-flex align-center me-8">
-            <VAvatar
-              :size="38"
-              rounded
-              color="primary"
-              variant="tonal"
-              class="me-3"
-            >
-              <VIcon icon="tabler-checkbox" />
-            </VAvatar>
-
-            <div>
-              <h6 class="text-h6">
-                {{ kFormatter(props.userData.taskDone) }}
-              </h6>
-              <span class="text-sm">Task Done</span>
-            </div>
-          </div>
-
-          <!-- 👉 Done Project -->
-          <div class="d-flex align-center me-4">
-            <VAvatar
-              :size="38"
-              rounded
-              color="primary"
-              variant="tonal"
-              class="me-3"
-            >
-              <VIcon icon="tabler-briefcase" />
-            </VAvatar>
-
-            <div>
-              <h6 class="text-h6">
-                {{ kFormatter(props.userData.projectDone) }}
-              </h6>
-              <span class="text-sm">Project Done</span>
-            </div>
-          </div>
-        </VCardText>
-
+      
         <VDivider />
 
         <!-- 👉 Detalhes -->
         <VCardText>
           <p class="text-sm text-uppercase text-disabled">
-            Details
+            Detalhes do Utilizador
           </p>
+
+          
 
           <!-- 👉 User Detalhes list -->
           <VList class="card-list mt-2">
+<VListItem>
+              <VListItemTitle>
+                <h6 class="text-h6">
+                  id:
+                  <span class="text-body-1">
+                    {{ props.userData.id }}
+                  </span>
+                </h6>
+              </VListItemTitle>
+            </VListItem>
+
             <VListItem>
               <VListItemTitle>
                 <h6 class="text-h6">
                   Username:
                   <span class="text-body-1">
-                    {{ props.userData.nome }}
+                    {{ props.userData.username }}
                   </span>
                 </h6>
               </VListItemTitle>
@@ -175,7 +141,7 @@ const resolveUsertipoUtilizadorVariant = tipoUtilizador => {
             <VListItem>
               <VListItemTitle>
                 <h6 class="text-h6">
-                  Status:
+                  Departamento:
 
                   <VChip
                     label
@@ -192,7 +158,7 @@ const resolveUsertipoUtilizadorVariant = tipoUtilizador => {
             <VListItem>
               <VListItemTitle>
                 <h6 class="text-h6">
-                  tipoUtilizador:
+                  Tipo de Utilizador:
                   <span class="text-capitalize text-body-1">{{
                     props.userData.tipoUtilizador
                   }}</span>
@@ -203,9 +169,9 @@ const resolveUsertipoUtilizadorVariant = tipoUtilizador => {
             <VListItem>
               <VListItemTitle>
                 <h6 class="text-h6">
-                  Tax ID:
+                  Area Cientifica:
                   <span class="text-body-1">
-                    {{ props.userData.taxId }}
+                    {{ props.userData.areaCientifica }}
                   </span>
                 </h6>
               </VListItemTitle>
@@ -214,28 +180,27 @@ const resolveUsertipoUtilizadorVariant = tipoUtilizador => {
             <VListItem>
               <VListItemTitle>
                 <h6 class="text-h6">
-                  Contact:
+                  Contacto:
                   <span class="text-body-1">{{ props.userData.contacto }}</span>
                 </h6>
               </VListItemTitle>
             </VListItem>
 
-            <VListItem>
+            <VListItem v-if="props.userData.sexo ==='M'">
               <VListItemTitle>
                 <h6 class="text-h6">
-                  Language:
-                  <span class="text-body-1">{{ props.userData.areaCientifica }}</span>
+                  Sexo:
+                  <span class="text-body-1"> Masculino
+                  </span>
                 </h6>
               </VListItemTitle>
             </VListItem>
-
-            <VListItem>
+            <VListItem v-else>
               <VListItemTitle>
                 <h6 class="text-h6">
-                  provincia:
-                  <span class="text-body-1">{{
-                    props.userData.provincia
-                  }}</span>
+                  Sexo:
+                  <span class="text-body-1"> Feminino
+                  </span>
                 </h6>
               </VListItemTitle>
             </VListItem>
@@ -249,103 +214,15 @@ const resolveUsertipoUtilizadorVariant = tipoUtilizador => {
             class="me-4"
             @click="isEditarInformacoesVisible = true"
           >
-            Edit
+            Editar
           </VBtn>
 
           <VBtn
             variant="tonal"
             color="error"
           >
-            Suspend
+            Banir
           </VBtn>
-        </VCardText>
-      </VCard>
-    </VCol>
-    <!-- !SECTION -->
-
-    <!-- SECTION Plano Actual -->
-    <VCol cols="12">
-      <VCard>
-        <VCardText class="d-flex">
-          <!-- 👉 Standard Chip -->
-          <VChip
-            label
-            color="primary"
-            size="small"
-            class="font-weight-medium"
-          >
-            Popular
-          </VChip>
-
-          <VSpacer />
-
-          <!-- 👉 Current Price  -->
-          <div class="d-flex align-center">
-            <sup class="text-primary text-sm font-weight-regular">$</sup>
-            <h3 class="text-h3 text-primary">
-              99
-            </h3>
-            <sub class="mt-3"><h6 class="text-sm font-weight-regular text-disabled">
-              / month
-            </h6></sub>
-          </div>
-        </VCardText>
-
-        <VCardText>
-          <!-- 👉 Price Benefits -->
-          <VList class="card-list">
-            <VListItem
-              v-for="benefit in standardPlan.benefits"
-              :key="benefit"
-            >
-              <VIcon
-                size="12"
-                color="#A8AAAE"
-                class="me-2"
-                icon="tabler-circle"
-              />
-              <span>{{ benefit }}</span>
-            </VListItem>
-          </VList>
-
-          <!-- 👉 Days -->
-          <div class="my-6">
-            <div class="d-flex mt-3 mb-2">
-              <h6 class="text-base font-weight-medium">
-                Days
-              </h6>
-              <VSpacer />
-              <h6 class="text-base font-weight-medium">
-                26 of 30 Days
-              </h6>
-            </div>
-
-            <!-- 👉 Progress -->
-            <VProgressLinear
-              rounded
-              rounded-bar
-              :model-value="65"
-              height="10"
-              color="primary"
-            />
-
-            <p class="mt-2">
-              4 days remaining
-            </p>
-          </div>
-
-          <!-- 👉 Actualizar -->
-          <div class="d-flex gap-4">
-            <VBtn @click="isUpgradePlanDialogVisible = true">
-              Actualizar
-            </VBtn>
-            <VBtn
-              variant="tonal"
-              color="default"
-            >
-              cancel
-            </VBtn>
-          </div>
         </VCardText>
       </VCard>
     </VCol>

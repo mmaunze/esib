@@ -4,8 +4,8 @@ import UserBioPanel from "@/views/apps/user/view/Utilizador.vue"
 import UserTabAccount from "@/views/apps/user/view/Conta.vue"
 import UserTabBillingsPlans from "@/views/apps/user/view/Pagamentos.vue"
 import UserTabseguranca from "@/views/apps/user/view/Seguranca.vue"
-import UserTabConnections from '@/views/apps/user/view/Amigos.vue'
-import UserTabNotifications from '@/views/apps/user/view/Notificacoes.vue'
+import UserTabConnections from '@/views/apps/user/view/Movimentos.vue'
+import UserTabNotifications from '@/views/apps/user/view/Emprestimos.vue'
 
 
 const userListStore = useUserListStore()
@@ -16,23 +16,25 @@ const userTab = ref(null)
 const tabs = [
   {
     icon: "tabler-user-check",
-    title: "Minha Conta",
+    title: "Conta",
   },
   {
-    icon: "tabler-lock",
-    title: "Segurança",
+    icon: 'tabler-basket',
+    title: 'Emprestimos',
   },
+  
   {
     icon: "tabler-currency-dollar",
     title: "Pagamentos",
   },
+ 
   {
-    icon: 'tabler-bell',
-    title: 'Notificações',
+    icon: 'tabler-arrow-up',
+    title: 'Movimentos',
   },
   {
-    icon: 'tabler-link',
-    title: 'Amigos',
+    icon: "tabler-lock",
+    title: "Segurança",
   },
 ]
 
@@ -83,18 +85,19 @@ userListStore.fetchUser(Number(route.params.id)).then(response => {
         </VWindowItem>
 
         <VWindowItem>
-          <UserTabseguranca />
+          <UserTabNotifications />
         </VWindowItem>
 
         <VWindowItem>
           <UserTabBillingsPlans />
         </VWindowItem>
-        <VWindowItem>
-          <UserTabNotifications />
-        </VWindowItem>
 
         <VWindowItem>
           <UserTabConnections />
+        </VWindowItem>
+
+        <VWindowItem>
+          <UserTabseguranca />
         </VWindowItem>
       </VWindow>
     </VCol>

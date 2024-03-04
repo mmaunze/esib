@@ -28,7 +28,7 @@ export const { themeConfig, layoutConfig } = defineThemeConfig({
   footer: { type: FooterType.Static },
   verticalNav: {
     isVerticalNavCollapsed: false,
-    defaultNavItemIconProps: { icon: '', size: 10 },
+    defaultNavItemIconProps: { icon: 'tabler-menu-2', size: 10 },
     isVerticalNavSemiDark: false,
   },
   horizontalNav: {
@@ -39,8 +39,8 @@ export const { themeConfig, layoutConfig } = defineThemeConfig({
     chevronDown: { icon: 'tabler-chevron-down' },
     chevronRight: { icon: 'tabler-chevron-right', size: 18 },
     close: { icon: 'tabler-x' },
-    verticalNavPinned: { icon: 'tabler-menu-2' },
-    verticalNavUnPinned: { icon: 'tabler-menu-2' },
+    verticalNavPinned: { icon: 'tabler-chevron-left', size: 30 },
+    verticalNavUnPinned: { icon: 'tabler-chevron-right', size: 30 },
     sectionTitlePlaceholder: { icon: 'tabler-separator' },
   },
 })

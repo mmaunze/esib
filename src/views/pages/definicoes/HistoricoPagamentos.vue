@@ -14,7 +14,7 @@ const selectedRows = ref([])
 
 const options = ref({
   page: 1,
-  itemsPerPage: 10,
+  itemsPerPage: 4,
   sortBy: [],
   groupBy: [],
   search: undefined,
@@ -34,25 +34,20 @@ const headers = [
     sortable: false,
   },
   {
-    title: "Client",
+    title: "Obra",
     key: "client",
   },
   {
-    title: "Total",
+    title: "Dias",
     key: "total",
   },
   {
-    title: "Date",
+    title: "Data",
     key: "date",
   },
   {
-    title: "Balance",
+    title: "Bibliotecario",
     key: "balance",
-  },
-  {
-    title: "Actions",
-    key: "actions",
-    sortable: false,
   },
 ]
 
@@ -232,7 +227,7 @@ watchEffect(() => {
               'Partial Payment',
               'Past Due',
             ]"
-            style="inline-size: 12rem"
+            style="inline-size: 12rem;"
           />
         </div>
       </div>
@@ -268,40 +263,6 @@ watchEffect(() => {
         </RouterLink>
       </template>
 
-      <!-- trending -->
-      <template #item.trending="{ item }">
-        <VTooltip>
-          <template #activator="{ props }">
-            <VAvatar
-              :size="30"
-              v-bind="props"
-              :color="
-                resolveInvoiceStatusVariantAndIcon(item.raw.invoiceStatus)
-                  .variant
-              "
-              variant="tonal"
-            >
-              <VIcon
-                :size="20"
-                :icon="
-                  resolveInvoiceStatusVariantAndIcon(item.raw.invoiceStatus)
-                    .icon
-                "
-              />
-            </VAvatar>
-          </template>
-          <p class="mb-0">
-            {{ item.raw.invoiceStatus }}
-          </p>
-          <p class="mb-0">
-            Balance: {{ item.raw.balance }}
-          </p>
-          <p class="mb-0">
-            Due date: {{ item.raw.dueDate }}
-          </p>
-        </VTooltip>
-      </template>
-
       <!-- client -->
       <template #item.client="{ item }">
         <div class="d-flex align-center">
@@ -329,11 +290,6 @@ watchEffect(() => {
             <span class="text-sm">{{ item.raw.client.companyEmail }}</span>
           </div>
         </div>
-      </template>
-
-      <!-- Total -->
-      <template #item.total="{ item }">
-        ${{ item.raw.total }}
       </template>
 
       <!-- Issued Date -->
@@ -388,22 +344,7 @@ watchEffect(() => {
         </template>
       </template>
 
-      <!-- Actions -->
-      <template #item.actions="{ item }">
-        <IconBtn @click="deleteInvoice(item.raw.id)">
-          <VIcon icon="tabler-trash" />
-        </IconBtn>
-
-        <IconBtn :to="{ name: 'apps-invoice-preview-id', params: { id: item.raw.id } }">
-          <VIcon icon="tabler-eye" />
-        </IconBtn>
-
-        <BotaoMais
-          :menu-list="computedMoreList(item.raw.id)"
-          item-props
-          color="undefined"
-        />
-      </template>
+  
 
       <template #bottom>
         <VDivider />
@@ -447,6 +388,7 @@ watchEffect(() => {
       </template>
     </VDataTableServer>
     <!-- !SECTION -->
+
     <VDivider />
   </VCard>
 </template>

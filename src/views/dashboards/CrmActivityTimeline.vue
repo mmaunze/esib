@@ -3,7 +3,7 @@ import avatar1 from "@images/avatars/avatar-1.png"
 
 const moreList = [
   {
-    title: "Refresh",
+    title: "Recarregar",
     value: "Refresh",
   },
   {
@@ -11,14 +11,14 @@ const moreList = [
     value: "Download",
   },
   {
-    title: "View All",
+    title: "Ver tudo",
     value: "View All",
   },
 ]
 </script>
 
 <template>
-  <VCard title="Activity Timeline">
+  <VCard title="Historico de Actividades">
     <template #append>
       <div class="me-n2">
         <BotaoMais :menu-list="moreList" />

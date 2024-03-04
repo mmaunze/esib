@@ -7,6 +7,11 @@ export default [
     icon: { icon: 'tabler-book' },
     children: [
       {
+        title: 'Todas Obras',
+        icon: { icon: 'tabler-plus' },
+        to: 'pages-obras',
+      },
+      {
         title: 'Livros',
         icon: { icon: 'tabler-plus' },
         to: 'pages-obras-livros',

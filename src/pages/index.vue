@@ -1,58 +1,57 @@
 <script setup>
-import SobreNos from '@/views/dashboards/EcommerceCongratulationsJohn.vue'
-import CrmActivityTimeline from '@/views/dashboards/CrmActivityTimeline.vue'
-import CrmBrowserStates from '@/views/dashboards/CrmBrowserStates.vue'
-import CrmRecentTransactions from '@/views/dashboards/CrmRecentTransactions.vue'
-import CrmSessionsBarWithGapCharts from '@/views/dashboards/CrmSessionsBarWithGapCharts.vue'
+import CrmActivityTimeline from "@/views/dashboards/CrmActivityTimeline.vue"
+import CrmBrowserStates from "@/views/dashboards/CrmBrowserStates.vue"
+import CrmRecentTransactions from "@/views/dashboards/CrmRecentTransactions.vue"
+import SobreNos from "@/views/dashboards/EcommerceCongratulationsJohn.vue"
 
 const simpleStatisticsDemoCards = [
   {
-    icon: 'tabler-currency-dollar',
-    color: 'info',
-    title: 'Cursos Superiores',
-    subTitle: 'Last week',
-    stat: '1.28k',
-    change: 'ver cursos',
+    icon: "tabler-currency-dollar",
+    color: "info",
+    title: "Cursos Superiores",
+    subTitle: "Last week",
+    stat: "1.28k",
+    change: "ver cursos",
   },
   {
-    icon: 'tabler-chart-bar',
-    color: 'success',
-    title: 'Cursos Medios',
-    subTitle: 'Last week',
-    stat: '$4,673',
-    change: 'ver cursos',
+    icon: "tabler-chart-bar",
+    color: "success",
+    title: "Cursos Medios",
+    subTitle: "Last week",
+    stat: "$4,673",
+    change: "ver cursos",
   },
   {
-    icon: 'tabler-currency-dollar',
-    color: 'primary',
-    title: 'Ensino Superior',
-    subTitle: 'Last week',
-    stat: '1.28k',
-    change: 'ver faculdades',
+    icon: "tabler-currency-dollar",
+    color: "primary",
+    title: "Ensino Superior",
+    subTitle: "Last week",
+    stat: "1.28k",
+    change: "ver faculdades",
   },
   {
-    icon: 'tabler-chart-bar',
-    color: 'info',
-    title: 'Ensino Superior',
-    subTitle: 'Last week',
-    stat: '$4,673',
-    change: 'ver institutos',
+    icon: "tabler-chart-bar",
+    color: "info",
+    title: "Ensino Superior",
+    subTitle: "Last week",
+    stat: "$4,673",
+    change: "ver institutos",
   },
   {
-    icon: 'tabler-currency-dollar',
-    color: 'warning',
-    title: 'Exames Superior',
-    subTitle: 'Last week',
-    stat: '1.28k',
-    change: 'buscar exames',
+    icon: "tabler-currency-dollar",
+    color: "warning",
+    title: "Exames Superior",
+    subTitle: "Last week",
+    stat: "1.28k",
+    change: "buscar exames",
   },
   {
-    icon: 'tabler-chart-bar',
-    color: 'info',
-    title: 'Exames Medios',
-    subTitle: 'Last week',
-    stat: '$4,673',
-    change: 'buscar exames',
+    icon: "tabler-chart-bar",
+    color: "info",
+    title: "Exames Medios",
+    subTitle: "Last week",
+    stat: "$4,673",
+    change: "buscar exames",
   },
 ]
 </script>
@@ -80,7 +79,7 @@ const simpleStatisticsDemoCards = [
             variant="tonal"
             rounded
             size="42"
-          > 
+          >
             {{ demo.title }}
           </h4>
           <p class="text-sm text-disabled my-1 mb-0">
@@ -88,7 +87,7 @@ const simpleStatisticsDemoCards = [
           </p>
           <p class="mb-3">
             {{ demo.stat }}
-          </p>            
+          </p>
           <VBtn
             :color="demo.color"
             onclick="window.print()"

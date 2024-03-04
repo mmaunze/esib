@@ -3,66 +3,37 @@ import { paginationMeta } from "@/@fake-db/utils"
 import AddNewUserDrawer from "@/views/apps/user/list/AddNewUserDrawer.vue"
 import { useUserListStore } from "@/views/apps/user/useUserListStore"
 import { avatarText } from "@core/utils/formatters"
-import { VDataTableServer } from "vuetify/labs/VDataTable"
 
-const userListStore = useUserListStore()
+const listaUtilizadores = useUserListStore()
+
 const searchQuery = ref("")
-const selectedtipoUtilizador = ref()
-const selecteddepartamento = ref()
-const selectedareaCientifica = ref()
+const selectedTipoUtilizador = ref()
+const selectedDepartamento = ref()
+const selectedAreaCientifica = ref()
 const totalPage = ref(1)
 const totalUsers = ref(0)
-const users = ref([])
+const utilizadores = ref([])
 
 const options = ref({
   page: 1,
-  itemsPerPage: 10,
+  itemsPerPage: 8,
   sortBy: [],
   groupBy: [],
   search: undefined,
 })
 
-// Headers
-const headers = [
-  {
-    title: "Nome Completo",
-    key: "user",
-  },
-  {
-    title: "Tipo Utilizador",
-    key: "tipoUtilizador",
-  },
-  {
-    title: "Departamento",
-    key: "departamento",
-  },
-  {
-    title: "Contacto",
-    key: "contacto",
-  },
-  {
-    title: "Area Cientifica",
-    key: "areaCientifica",
-  },
-  {
-    title: "Detalhes",
-    key: "actions",
-    sortable: false,
-  },
-]
-
 // 👉 Fetching users
-const fetchUsers = () => {
-  userListStore
+const buscarUtilizadores = () => {
+  listaUtilizadores
     .fetchUsers({
       q: searchQuery.value,
-      areaCientifica: selectedareaCientifica.value,
-      departamento: selecteddepartamento.value,
-      tipoUtilizador: selectedtipoUtilizador.value,
+      areaCientifica: selectedAreaCientifica.value,
+      departamento: selectedDepartamento.value,
+      tipoUtilizador: selectedTipoUtilizador.value,
       options: options.value,
     })
     .then(response => {
-      users.value = response.data.users
+      utilizadores.value = response.data.users
       totalPage.value = response.data.totalPage
       totalUsers.value = response.data.totalUsers
       options.value.page = response.data.page
@@ -72,7 +43,7 @@ const fetchUsers = () => {
     })
 }
 
-watchEffect(fetchUsers)
+watchEffect(buscarUtilizadores)
 
 // 👉 search filters
 const tipoUtilizadors = [
@@ -100,37 +71,174 @@ const tipoUtilizadors = [
 
 const departamentos = [
   {
-    title: "Basic",
-    value: "basic",
+    title: "Departamento de Engenharia Informatica",
+    value: "DEI",
   },
   {
-    title: "Company",
-    value: "company",
+    title: "Departamento de Engenharia Mecanica",
+    value: "DEM",
   },
   {
-    title: "Enterprise",
-    value: "enterprise",
+    title: "Departamento de Engenharia Geologica",
+    value: "DEG",
   },
   {
-    title: "Team",
-    value: "team",
+    title: "Departamento de Engenharia Civil",
+    value: "DEC",
   },
 ]
 
+function administrador() {
+  return true
+}
+
 const areaCientifica = [
   {
-    title: "privado",
-    value: "privado",
+    title: "Filosofia",
+    value: "Filosofia",
   },
   {
-    title: "Active",
-    value: "active",
+    title: "Engenharia",
+    value: "Engenharia",
   },
   {
-    title: "Inactive",
-    value: "inactive",
+    title: "Química",
+    value: "Quimica",
+  },
+  {
+    title: "Biologia",
+    value: "Biologia",
+  },
+  {
+    title: "Matemática",
+    value: "Matematica",
+  },
+  {
+    title: "Ciências Sociais",
+    value: "CienciasSociais",
+  },
+  {
+    title: "Medicina",
+    value: "Medicina",
+  },
+  {
+    title: "Informática",
+    value: "Informatica",
+  },
+  {
+    title: "Psicologia",
+    value: "Psicologia",
+  },
+  {
+    title: "Economia",
+    value: "Economia",
+  },
+  {
+    title: "Arquitetura",
+    value: "Arquitetura",
+  },
+  {
+    title: "História",
+    value: "Historia",
+  },
+  {
+    title: "Geografia",
+    value: "Geografia",
+  },
+  {
+    title: "Arte",
+    value: "Arte",
+  },
+  {
+    title: "Educação",
+    value: "Educacao",
+  },
+  {
+    title: "Biomedicina",
+    value: "Biomedicina",
+  },
+  {
+    title: "Engenharia Civil",
+    value: "EngenhariaCivil",
+  },
+  {
+    title: "Arqueologia",
+    value: "Arqueologia",
+  },
+  {
+    title: "Sociologia",
+    value: "Sociologia",
+  },
+  {
+    title: "Nutrição",
+    value: "Nutricao",
+  },
+  {
+    title: "Farmácia",
+    value: "Farmacia",
+  },
+  {
+    title: "Linguística",
+    value: "Linguistica",
+  },
+  {
+    title: "Ciência da Computação",
+    value: "CienciaDaComputacao",
+  },
+  {
+    title: "Administração",
+    value: "Administracao",
+  },
+  {
+    title: "Comunicação Social",
+    value: "ComunicacaoSocial",
+  },
+  {
+    title: "Bioquímica",
+    value: "Bioquimica",
+  },
+  {
+    title: "Engenharia Elétrica",
+    value: "EngenhariaEletrica",
+  },
+  {
+    title: "Antropologia",
+    value: "Antropologia",
+  },
+  {
+    title: "Ciências Ambientais",
+    value: "CienciasAmbientais",
+  },
+  {
+    title: "Artes Visuais",
+    value: "ArtesVisuais",
+  },
+  {
+    title: "Literatura",
+    value: "Literatura",
+  },
+  {
+    title: "Ciências Políticas",
+    value: "CienciasPoliticas",
+  },
+  {
+    title: "Geologia",
+    value: "Geologia",
+  },
+  {
+    title: "Física Quântica",
+    value: "FisicaQuantica",
+  },
+  {
+    title: "Engenharia Mecânica",
+    value: "EngenhariaMecanica",
+  },
+  {
+    title: "Física",
+    value: "Fisica",
   },
 ]
+
 
 const resolveUsertipoUtilizadorVariant = tipoUtilizador => {
   const tipoUtilizadorLowerCase = tipoUtilizador.toLowerCase()
@@ -166,22 +274,22 @@ const resolveUsertipoUtilizadorVariant = tipoUtilizador => {
   }
 }
 
-const resolveUserareaCientificaVariant = stat => {
-  const statLowerCase = stat.toLowerCase()
-  if (statLowerCase !== "privado") return "success"
-  if (statLowerCase === "active") return "waring"
-  if (statLowerCase === "inactive") return "error"
+const resolveUserareaCientificaVariant = areaCientifica => {
+  const statLowerCase = areaCientifica.toLowerCase()
+  if (statLowerCase == "Economia") return "success"
+  if (statLowerCase === "biologia") return "waring"
+  if (statLowerCase === "quimica") return "info"
 
-  return "primary"
+  return "error"
 }
 
 const isAddNewUserDrawerVisible = ref(false)
 
 const addNewUser = userData => {
-  userListStore.addUser(userData)
+  listaUtilizadores.addUser(userData)
 
   // refetch User
-  fetchUsers()
+  buscarUtilizadores()
 }
 
 // 👉 List
@@ -189,42 +297,39 @@ const userListMeta = [
   {
     icon: "tabler-user",
     color: "primary",
-    title: "Session",
-    stats: "21,459",
-    percentage: +29,
-    subtitle: "Total Users",
+    title: "Estudantes",
+    stats: "710",
+   
+  
   },
   {
     icon: "tabler-user-plus",
     color: "error",
-    title: "Paid Users",
-    stats: "4,567",
-    percentage: +18,
-    subtitle: "Last week analytics",
+    title: "Docentes",
+    stats: "134",
+   
   },
   {
     icon: "tabler-user-check",
     color: "success",
-    title: "Active Users",
-    stats: "19,860",
-    percentage: -14,
-    subtitle: "Last week analytics",
+    title: "Bibliotecarios",
+    stats: "19",
+   
   },
   {
     icon: "tabler-user-exclamation",
     color: "warning",
-    title: "privado Users",
-    stats: "237",
-    percentage: +42,
-    subtitle: "Last week analytics",
+    title: "CTA",
+    stats: "76",
+   
   },
 ]
 
 const deleteUser = id => {
-  userListStore.deleteUser(id)
+  listaUtilizadores.deleteUser(id)
 
   // refetch User
-  fetchUsers()
+  buscarUtilizadores()
 }
 </script>
 
@@ -246,10 +351,7 @@ const deleteUser = id => {
                 <h6 class="text-h4">
                   {{ meta.stats }}
                 </h6>
-                <span :class="meta.percentage > 0 ? 'text-success' : 'text-error'">( {{ meta.percentage > 0 ? "+" : "" }}
-                  {{ meta.percentage }}%)</span>
               </div>
-              <span>{{ meta.subtitle }}</span>
             </div>
 
             <VAvatar
@@ -263,7 +365,7 @@ const deleteUser = id => {
       </VCol>
 
       <VCol cols="12">
-        <VCard title="Search Filter">
+        <VCard title="Pesquisar Utilizador">
           <!-- 👉 Filters -->
           <VCardText>
             <VRow>
@@ -272,9 +374,9 @@ const deleteUser = id => {
                 cols="12"
                 sm="4"
               >
-                <AppSelect
-                  v-model="selectedtipoUtilizador"
-                  label="Select tipoUtilizador"
+                <VAutocomplete
+                  v-model="selectedTipoUtilizador"
+                  label="Seleccionar tipo de Utilizador "
                   :items="tipoUtilizadors"
                   clearable
                   clear-icon="tabler-x"
@@ -285,9 +387,9 @@ const deleteUser = id => {
                 cols="12"
                 sm="4"
               >
-                <AppSelect
-                  v-model="selecteddepartamento"
-                  label="Select departamento"
+                <VAutocomplete
+                  v-model="selectedDepartamento"
+                  label="Seleccionar o Departamento"
                   :items="departamentos"
                   clearable
                   clear-icon="tabler-x"
@@ -298,9 +400,9 @@ const deleteUser = id => {
                 cols="12"
                 sm="4"
               >
-                <AppSelect
-                  v-model="selectedareaCientifica"
-                  label="Select areaCientifica"
+                <VAutocomplete
+                  v-model="selectedAreaCientifica"
+                  label="Seleccionar a Area Cientifica"
                   :items="areaCientifica"
                   clearable
                   clear-icon="tabler-x"
@@ -316,13 +418,13 @@ const deleteUser = id => {
               <AppSelect
                 :model-value="options.itemsPerPage"
                 :items="[
-                  { value: 10, title: '10' },
-                  { value: 25, title: '25' },
-                  { value: 50, title: '50' },
-                  { value: 100, title: '100' },
-                  { value: -1, title: 'All' },
+                  { value: 8, title: '8' },
+                  { value: 24, title: '24' },
+                  { value: 48, title: '48' },
+                  { value: 96, title: '96' },
+                  { value: -1, title: 'Ver Todos' },
                 ]"
-                style="width: 6.25rem"
+                style="width: 6.25rem;"
                 @update:model-value="
                   options.itemsPerPage = parseInt($event, 10)
                 "
@@ -332,7 +434,7 @@ const deleteUser = id => {
 
             <div class="app-user-search-filter d-flex align-center flex-wrap gap-4">
               <!-- 👉 Search  -->
-              <div style="inline-size: 10rem">
+              <div style="inline-size: 10rem;">
                 <AppTextField
                   v-model="searchQuery"
                   placeholder="Search"
@@ -340,221 +442,185 @@ const deleteUser = id => {
                 />
               </div>
 
-              <!-- 👉 Export button -->
-              <VBtn
-                variant="tonal"
-                color="secondary"
-                prepend-icon="tabler-screen-share"
-              >
-                Export
-              </VBtn>
-
               <!-- 👉 Add user button -->
               <VBtn
                 prepend-icon="tabler-plus"
                 @click="isAddNewUserDrawerVisible = true"
               >
-                Add New User
+                Cadastrar Utilizador
               </VBtn>
             </div>
           </VCardText>
 
           <VDivider />
-
-          <!-- SECTION datatable -->
-          <VDataTableServer
-            v-model:items-per-page="options.itemsPerPage"
-            v-model:page="options.page"
-            :items="users"
-            :items-length="totalUsers"
-            :headers="headers"
-            class="text-no-wrap"
-            @update:options="options = $event"
-          >
-            <!-- User -->
-            <template #item.user="{ item }">
-              <div class="d-flex align-center">
-                <VAvatar
-                  size="34"
-                  :variant="!item.raw.avatar ? 'tonal' : undefined"
-                  :color="
-                    !item.raw.avatar
-                      ? resolveUsertipoUtilizadorVariant(
-                        item.raw.tipoUtilizador
-                      ).color
-                      : undefined
-                  "
-                  class="me-3"
-                >
-                  <VImg
-                    v-if="item.raw.avatar"
-                    :src="item.raw.avatar"
-                  />
-                  <span v-else>{{ avatarText(item.raw.nome) }}</span>
-                </VAvatar>
-
-                <div class="d-flex flex-column">
-                  <h6 class="text-base">
-                    <RouterLink
-                      :to="{
-                        name: 'apps-user-view-id',
-                        params: { id: item.raw.id },
-                      }"
-                      class="font-weight-medium user-list-name"
-                    >
-                      {{ item.raw.nome }}
-                    </RouterLink>
-                  </h6>
-
-                  <span class="text-sm text-medium-emphasis">@{{ item.raw.email }}</span>
-                </div>
-              </div>
-            </template>
-
-            <!-- 👉 tipoUtilizador -->
-            <template #item.tipoUtilizador="{ item }">
-              <div class="d-flex align-center gap-4">
-                <VAvatar
-                  :size="30"
-                  :color="
-                    resolveUsertipoUtilizadorVariant(item.raw.tipoUtilizador)
-                      .color
-                  "
-                  variant="tonal"
-                >
-                  <VIcon
-                    :size="20"
-                    :icon="
-                      resolveUsertipoUtilizadorVariant(item.raw.tipoUtilizador)
-                        .icon
-                    "
-                  />
-                </VAvatar>
-                <span class="text-capitalize">{{
-                  item.raw.tipoUtilizador
-                }}</span>
-              </div>
-            </template>
-
-            <!-- departamento -->
-            <template #item.departamento="{ item }">
-              <span class="text-capitalize font-weight-medium">{{
-                item.raw.departamento
-              }}</span>
-            </template>
-
-            <!-- areaCientifica -->
-            <template #item.areaCientifica="{ item }">
-              <VChip
-                :color="
-                  resolveUserareaCientificaVariant(item.raw.areaCientifica)
-                "
-                size="small"
-                label
-                class="text-capitalize"
-              >
-                {{ item.raw.areaCientifica }}
-              </VChip>
-            </template>
-
-            <!-- Actions -->
-            <template #item.actions="{ item }">
-              <IconBtn @click="deleteUser(item.raw.id)">
-                <VIcon icon="tabler-trash" />
-              </IconBtn>
-
-              <IconBtn>
-                <VIcon icon="tabler-edit" />
-              </IconBtn>
-
-              <VBtn
-                icon
-                variant="text"
-                size="small"
-                color="medium-emphasis"
-              >
-                <VIcon
-                  size="24"
-                  icon="tabler-dots-vertical"
-                />
-
-                <VMenu activator="parent">
-                  <VList>
-                    <VListItem
-                      :to="{
-                        name: 'apps-user-view-id',
-                        params: { id: item.raw.id },
-                      }"
-                    >
-                      <template #prepend>
-                        <VIcon icon="tabler-eye" />
-                      </template>
-
-                      <VListItemTitle>View</VListItemTitle>
-                    </VListItem>
-
-                    <VListItem link>
-                      <template #prepend>
-                        <VIcon icon="tabler-pencil" />
-                      </template>
-                      <VListItemTitle>Edit</VListItemTitle>
-                    </VListItem>
-
-                    <VListItem @click="deleteUser(item.raw.id)">
-                      <template #prepend>
-                        <VIcon icon="tabler-trash" />
-                      </template>
-                      <VListItemTitle>Delete</VListItemTitle>
-                    </VListItem>
-                  </VList>
-                </VMenu>
-              </VBtn>
-            </template>
-
-            <!-- pagination -->
-            <template #bottom>
-              <VDivider />
-              <div class="d-flex align-center justify-sm-space-between justify-center flex-wrap gap-3 pa-5 pt-3">
-                <p class="text-sm text-disabled mb-0">
-                  {{ paginationMeta(options, totalUsers) }}
-                </p>
-
-                <VPagination
-                  v-model="options.page"
-                  :length="Math.ceil(totalUsers / options.itemsPerPage)"
-                  :total-visible="
-                    $vuetify.display.xs
-                      ? 1
-                      : Math.ceil(totalUsers / options.itemsPerPage)
-                  "
-                >
-                  <template #prev="slotProps">
-                    <VBtn
-                      variant="tonal"
-                      color="default"
-                      v-bind="slotProps"
-                      :icon="false"
-                    >
-                      Previous
-                    </VBtn>
-                  </template>
-
-                  <template #next="slotProps">
-                    <VBtn
-                      variant="tonal"
-                      color="default"
-                      v-bind="slotProps"
-                      :icon="false"
-                    >
-                      Next
-                    </VBtn>
-                  </template>
-                </VPagination>
-              </div>
-            </template>
-          </VDataTableServer>
-          <!-- SECTION -->
         </VCard>
+
+        
+        <!-- SECTION -->
+        <section class="mt-7">
+          <VRow text-align="center">
+            <VCol
+              v-for="user in utilizadores"
+              :key="user.id"
+              cols="12"
+              sm="6"
+              md="4"
+              lg="3"
+            >
+              <VCard class="mb-3">
+                <VCardTitle class="mb-4 mt-2">
+                  {{ user.nome }}
+                </VCardTitle>
+
+                <VImg
+                  :src="user.avatar"
+                  aspect-ratio="2"
+                />
+                  
+                <!--
+                  <span
+                  v-else
+                  class="text-9xl"
+                  >{{ avatarText(user.nome) }}</span> 
+                -->
+
+                <VCardText>
+                  <div class="d-flex align-center gap-4">
+                    <span
+                      variant="tonal"
+                      size="small"
+                      label
+                      class="mb-3"
+                    >
+                      {{ user.sexo }}
+                    </span>
+                    <VBtn
+                      :color="resolveUsertipoUtilizadorVariant(user.tipoUtilizador).color"
+                      variant="tonal"
+                      size="small"
+                      label
+                      class="mb-3"
+                    >
+                      {{ user.tipoUtilizador }}
+                    </VBtn>
+                    <VBtn
+                      variant="tonal"
+                      size="small"
+                      label
+                      class="mb-3"
+                    >
+                      {{ user.departamento }}
+                    </VBtn>
+                  </div>
+                  <p class="font-weight-small">
+                    <br> {{ user.contacto }}
+                    <br> {{ user.email }}
+                  </p>
+                  <VChip
+                    :color="resolveUserareaCientificaVariant(user.areaCientifica)"
+                    size="small"
+                    label
+                    class="text-capitalize"
+                  >
+                    {{ user.areaCientifica }}
+                  </VChip>
+                </VCardText>
+
+                
+                <VCardText
+                  v-if="administrador()"
+                  class="text-center"
+                >
+                  <VBtn
+                    style="margin-right: 0.25rem;"
+                    size="small"
+                    color="error"
+                    @click="deleteUser(user.id)"
+                  >
+                    Remover
+                  </VBtn>
+                  <VBtn
+                    style="margin-left: 0.25rem;"
+                    size="small"
+                    color="primary"
+                    :to="{
+                      name: 'apps-user-view-id',
+                      params: { id: user.id },
+                    }"
+                  >
+                    Detalhes
+                  </VBtn>
+                </VCardText>
+
+                <VCardText
+                  v-else
+                  class="text-center"
+                >
+                  <VBtn
+                    style="margin-right: 0.25rem;"
+                    size="small"
+                    color="success"
+                    @click="deleteUser(user.id)"
+                  >
+                    Reservar
+                  </VBtn>
+                  <VBtn
+                    style="margin-left: 0.25rem;"
+                    size="small"
+                    color="primary"
+                    :to="{
+                      name: 'apps-user-view-id',
+                      params: { id: user.id },
+                    }"
+                  >
+                    Detalhes
+                  </VBtn>
+                </VCardText>
+              </VCard>
+            </VCol>
+          </VRow>
+
+          <!-- pagination -->
+          <VDivider />
+
+          <div>
+            <p class="text-sm text-disabled mb-0">
+              {{ paginationMeta(options, totalUsers) }}
+            </p>
+            <VPagination
+              v-model="options.page"
+              :length="Math.ceil(totalUsers / options.itemsPerPage)"
+              :total-visible="
+                $vuetify.display.xs
+                  ? 1
+                  : Math.ceil(totalUsers / options.itemsPerPage)
+              "
+            >
+              <template #prev="slotProps">
+                <VBtn
+                  variant="tonal"
+                  color="default"
+                  v-bind="slotProps"
+                  :icon="false"
+                >
+                  <VIcon>tabler-chevron-left</VIcon>
+                </VBtn>
+              </template>
+              <template #next="slotProps">
+                <VBtn
+                  variant="tonal"
+                  color="default"
+                  v-bind="slotProps"
+                  :icon="false"
+                >
+                  <VIcon>tabler-chevron-right</VIcon>
+                </VBtn>
+              </template>
+            </VPagination>
+          </div>
+        </section>
+        <!-- SECTION -->
+
 
         <!-- 👉 Add New User -->
         <AddNewUserDrawer

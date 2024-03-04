@@ -1,87 +1,51 @@
-# Sistema de Biblioteca em Java com Spring Boot e PostgreSQL
+# Sistema de Orientação Vocacional em Desenvolvimento
 
 ## Descrição
 
-Este projeto implementa um sistema de biblioteca completo utilizando Java com Spring Boot para o backend e PostgreSQL como banco de dados. O frontend é desenvolvido em Vue.js (em um projeto separado). O sistema permite o gerenciamento de livros, autores, empréstimos e usuários.
+O Sistema de Orientação Vocacional é um projeto em constante evolução, dedicado a guiar estudantes na crucial decisão sobre suas carreiras profissionais. Este sistema busca fornecer orientações personalizadas, permitindo aos estudantes explorar caminhos alinhados com seus interesses e habilidades.
 
-## Funcionalidades
+## Funcionalidades Planejadas
 
-### Gerenciamento de Livros
+1. **Orientação de Carreiras:**
+   - Informações abrangentes sobre diversas carreiras, incluindo descrições, habilidades necessárias, perspectivas de emprego e salários médios.
+   - Avaliações de interesses e habilidades para recomendações personalizadas.
 
-- Cadastrar, editar e excluir livros.
-- Pesquisar livros por título, autor e ISBN.
-- Visualizar detalhes de um livro.
+2. **Exames Pré-Faculdade:**
+   - Exames abrangentes para avaliar conhecimentos em áreas como matemática, ciências, línguas e habilidades cognitivas.
+   - Feedback detalhado e sugestões de estudo.
 
-### Gerenciamento de Autores
-
-- Cadastrar, editar e excluir autores.
-- Pesquisar autores por nome.
-- Visualizar detalhes de um autor.
-
-### Gerenciamento de Empréstimos
-
-- Registrar empréstimos de livros para usuários.
-- Devolver livros emprestados.
-- Visualizar histórico de empréstimos de um usuário.
-
-### Gerenciamento de Usuários
-
-- Cadastrar, editar e excluir usuários.
-- Pesquisar usuários por nome e email.
-- Visualizar detalhes de um usuário.
+3. **Busca de Cursos e Faculdades:**
+   - Pesquisa personalizada de cursos e faculdades com base em critérios como localização, área de estudo e custos.
+   - Informações atualizadas sobre cursos, currículos e requisitos de admissão.
 
 ## Tecnologias Utilizadas
 
-### Backend
+- **Frontend:**
+  - HTML, CSS e JavaScript (Vue.js)
+  - Framework de UI (Bootstrap)
+- **Backend:**
+  - Linguagem de Programação (ex: Python, Java)
+  - Framework Web (ex: Django, Spring Boot)
+- **Banco de Dados:**
+  - Banco de dados relacional (ex: MySQL, PostgreSQL)
 
-- Java 17
-- Spring Boot 2.7.0
-- PostgreSQL
-- Lombok
-- Hibernate
-- Spring Data JPA
-- Spring Security
-- JWT
+## Próximos Passos
 
-### Frontend
-
-- Vue.js 3 (em um projeto separado)
-
-## Instalação e Configuração
-
-### Backend
-
-1. Clone este repositório.
-2. Instale o Java 17 e o Maven.
-3. Importe o projeto para o seu IDE favorito (ex: IntelliJ IDEA).
-4. Configure o banco de dados PostgreSQL.
-5. Inicie o servidor Spring Boot usando o comando `mvn spring-boot:run`.
-
-### Frontend
-
-1. Acesse o repositório do frontend [aqui](https://github.com/mmaunze/esib).
-2. Siga as instruções de instalação e configuração do projeto Vue.js.
-
-## Documentação
-
-A documentação completa da API está disponível em [link a ser fornecido].
+- **Desenvolvimento do Backend:** Implementação das funcionalidades planejadas no backend, incluindo a lógica de negócios, APIs e integração com o banco de dados.
+- **Desenvolvimento do Frontend:** Criação da interface do usuário interativa e responsiva.
+- **Testes e Validação:** Realização de testes unitários e de integração, validação com usuários beta.
+- **Lançamento e Iteração:** Lançamento inicial para um grupo piloto, seguido pela iteração com base no feedback recebido.
 
 ## Contribuições
 
-Contribuições são bem-vindas! Para mais informações, consulte o guia de contribuição em [link a ser fornecido].
+Contribuições são bem-vindas! Entre em contato com a equipe de desenvolvimento para colaborar.
 
 ## Licença
 
-Este projeto está licenciado sob a licença MIT.
+Este projeto está licenciado sob a licença [inserir licença].
 
-## Autor
+## Equipe
 
-Meldo Leonardo Maunze
+- [Meldo Leonardo Maunze]
+- [Nome dos Membros da Equipe]
 
-## Agradecimentos
-
-## Links Úteis
-
-- [Repositório do Frontend](https://github.com/mmaunze/esib)
-- [Documentação da API](#) (link a ser fornecido)
-- [Guia de Contribuição](#) (link a ser fornecido)
