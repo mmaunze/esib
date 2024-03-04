@@ -1,51 +1,101 @@
-# Sistema de Orientação Vocacional em Desenvolvimento
+# Sistema de Biblioteca em Vue.js com Vite e npm
 
 ## Descrição
 
-O Sistema de Orientação Vocacional é um projeto em constante evolução, dedicado a guiar estudantes na crucial decisão sobre suas carreiras profissionais. Este sistema busca fornecer orientações personalizadas, permitindo aos estudantes explorar caminhos alinhados com seus interesses e habilidades.
+Este projeto implementa o frontend de um sistema de biblioteca completo, utilizando Vue.js com Vite como bundler e npm para gerenciamento de pacotes. Ele é integrado ao backend implementado em Java com Spring Boot e PostgreSQL como banco de dados. O sistema permite o gerenciamento de livros, autores, empréstimos, usuários, multas e relatórios.
 
-## Funcionalidades Planejadas
+## Funcionalidades
 
-1. **Orientação de Carreiras:**
-   - Informações abrangentes sobre diversas carreiras, incluindo descrições, habilidades necessárias, perspectivas de emprego e salários médios.
-   - Avaliações de interesses e habilidades para recomendações personalizadas.
+### Gerenciamento de Livros:
 
-2. **Exames Pré-Faculdade:**
-   - Exames abrangentes para avaliar conhecimentos em áreas como matemática, ciências, línguas e habilidades cognitivas.
-   - Feedback detalhado e sugestões de estudo.
+- Cadastrar, editar e excluir livros.
+- Pesquisar livros por título, autor e ISBN.
+- Visualizar detalhes de um livro.
 
-3. **Busca de Cursos e Faculdades:**
-   - Pesquisa personalizada de cursos e faculdades com base em critérios como localização, área de estudo e custos.
-   - Informações atualizadas sobre cursos, currículos e requisitos de admissão.
+### Gerenciamento de Autores:
+
+- Cadastrar, editar e excluir autores.
+- Pesquisar autores por nome.
+- Visualizar detalhes de um autor.
+
+### Gerenciamento de Empréstimos:
+
+- Registrar empréstimos de livros para usuários.
+- Devolver livros emprestados.
+- Visualizar histórico de empréstimos de um usuário.
+- Registar e pagar multas associadas aos empréstimos.
+
+### Gerenciamento de Usuários:
+
+- Cadastrar, editar e excluir usuários.
+- Pesquisar usuários por nome e email.
+- Visualizar detalhes de um usuário.
+
+### Registo e Pagamento de Multas:
+
+- Registar multas associadas a atrasos na devolução de livros.
+- Efetuar o pagamento das multas pendentes.
+
+### Consulta de Movimentos:
+
+- Consultar o histórico de movimentos, incluindo empréstimos, devoluções e pagamentos de multas.
+
+### Produção de Relatórios Periódicos:
+
+- Gerar relatórios periódicos em formato PDF com estatísticas e informações relevantes do sistema.
 
 ## Tecnologias Utilizadas
 
-- **Frontend:**
-  - HTML, CSS e JavaScript (Vue.js)
-  - Framework de UI (Bootstrap)
-- **Backend:**
-  - Linguagem de Programação (ex: Python, Java)
-  - Framework Web (ex: Django, Spring Boot)
-- **Banco de Dados:**
-  - Banco de dados relacional (ex: MySQL, PostgreSQL)
+### Frontend:
 
-## Próximos Passos
+- Vue.js 3
+- Vite
+- npm
 
-- **Desenvolvimento do Backend:** Implementação das funcionalidades planejadas no backend, incluindo a lógica de negócios, APIs e integração com o banco de dados.
-- **Desenvolvimento do Frontend:** Criação da interface do usuário interativa e responsiva.
-- **Testes e Validação:** Realização de testes unitários e de integração, validação com usuários beta.
-- **Lançamento e Iteração:** Lançamento inicial para um grupo piloto, seguido pela iteração com base no feedback recebido.
+### Backend:
+
+- Java 17
+- Spring Boot 2.7.0
+- PostgreSQL
+- Lombok
+- Hibernate
+- Spring Data JPA
+- Spring Security
+- JWT
+
+## Instalação e Configuração
+
+### Frontend:
+
+1. Clone este repositório.
+2. Certifique-se de ter o [Node.js](https://nodejs.org/) instalado.
+3. Execute `npm install` para instalar as dependências.
+4. Execute `npm run dev` para iniciar o servidor de desenvolvimento.
+
+### Backend:
+
+1. Siga as instruções de instalação e configuração do backend, conforme mencionado no README do [repositório do backend](https://github.com/mmaunze/api.esib.com).
+
+## Documentação
+
+A documentação completa da API está disponível em [link a ser fornecido].
 
 ## Contribuições
 
-Contribuições são bem-vindas! Entre em contato com a equipe de desenvolvimento para colaborar.
+Contribuições são bem-vindas! Para mais informações, consulte o guia de contribuição em [link a ser fornecido].
 
 ## Licença
 
-Este projeto está licenciado sob a licença [inserir licença].
+Este projeto está licenciado sob a licença MIT.
 
-## Equipe
+## Autor
 
-- [Meldo Leonardo Maunze]
-- [Nome dos Membros da Equipe]
+Meldo Leonardo Maunze
 
+## Agradecimentos
+
+## Links Úteis
+
+- [Repositório do Backend](https://github.com/mmaunze/api.esib.com)
+- [Documentação da API](#) (link a ser fornecido)
+- [Guia de Contribuição](#) (link a ser fornecido)
