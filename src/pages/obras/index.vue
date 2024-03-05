@@ -1,7 +1,7 @@
 <script setup>
 import { paginationMeta } from "@/@fake-db/utils"
-import AddNewObraDrawer from "@/views/pages/obras/AddNewObraDrawer.vue"
-import { useObraListStore } from "@/views/pages/obras/useObraListStore"
+import AddNewObraDrawer from "@/views/obras/AddNewObraDrawer.vue"
+import { useObraListStore } from "@/views/obras/useObraListStore"
 
 // Dados
 
@@ -425,7 +425,7 @@ const isAddNewObraDrawerVisible = ref(false)
             </div>
             <VSpacer />
 
-            <div class="app-user-search-filter d-flex align-center flex-wrap gap-4">
+            <div class="utilizadores-search-filter d-flex align-center flex-wrap gap-4">
               <div style="inline-size: 10rem">
                 <AppTextField
                   v-model="searchQuery"
@@ -542,7 +542,7 @@ const isAddNewObraDrawerVisible = ref(false)
                     size="small"
                     color="primary"
                     :to="{
-                      name: 'apps-user-view-id',
+                      name: 'utilizadores-utilizador-id',
                       params: { id: user.id },
                     }"
                   >
@@ -567,7 +567,7 @@ const isAddNewObraDrawerVisible = ref(false)
                     size="small"
                     color="primary"
                     :to="{
-                      name: 'apps-user-view-id',
+                      name: 'utilizadores-utilizador-id',
                       params: { id: user.id },
                     }"
                   >
@@ -630,7 +630,7 @@ const isAddNewObraDrawerVisible = ref(false)
 </template>
 
 <style lang="scss">
-.app-user-search-filter {
+.utilizadores-search-filter {
   inline-size: 31.6rem;
 }
 

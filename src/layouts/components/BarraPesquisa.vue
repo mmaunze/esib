@@ -1,14 +1,14 @@
 <script setup>
-import axios from "@axios"
-import { useThemeConfig } from "@core/composable/useThemeConfig"
-import Shepherd from "shepherd.js"
+import axios from "@axios";
+import { useThemeConfig } from "@core/composable/useThemeConfig";
+import Shepherd from "shepherd.js";
 
-const { appContentLayoutNav } = useThemeConfig()
+const { appContentLayoutNav } = useThemeConfig();
 
-defineOptions({ inheritAttrs: false })
+defineOptions({ inheritAttrs: false });
 
 // 👉 Is App Search Bar Visible
-const isAppSearchBarVisible = ref(false)
+const isAppSearchBarVisible = ref(false);
 
 // 👉 Default suggestions
 const suggestionGroups = [
@@ -33,7 +33,7 @@ const suggestionGroups = [
       {
         icon: "tabler-users",
         title: "User List",
-        url: { name: "apps-user-list" },
+        url: { name: "utilizadores" },
       },
     ],
   },
@@ -115,7 +115,7 @@ const suggestionGroups = [
       },
     ],
   },
-]
+];
 
 // 👉 No Data suggestion
 const noDataSuggestions = [
@@ -137,49 +137,43 @@ const noDataSuggestions = [
     icon: "tabler-cash",
     url: { name: "pages-pricing" },
   },
-]
+];
 
-const searchQuery = ref("")
-const searchResult = ref([])
-const router = useRouter()
+const searchQuery = ref("");
+const searchResult = ref([]);
+const router = useRouter();
 
 // 👉 fetch search result API
 watchEffect(() => {
   axios
     .get("/app-bar/search", { params: { q: searchQuery.value } })
-    .then(response => {
-      searchResult.value = response.data
-    })
-})
+    .then((response) => {
+      searchResult.value = response.data;
+    });
+});
 
-const redirectToSuggestedOrSearchedPage = selected => {
-  router.push(selected.url)
-  isAppSearchBarVisible.value = false
-  searchQuery.value = ""
-}
+const redirectToSuggestedOrSearchedPage = (selected) => {
+  router.push(selected.url);
+  isAppSearchBarVisible.value = false;
+  searchQuery.value = "";
+};
 
 const LazyBarraPesquisa = defineAsyncComponent(() =>
-  import("@/@core/components/BarraPesquisa.vue"),
-)
+  import("@/@core/components/BarraPesquisa.vue")
+);
 </script>
 
 <template>
   <div
     class="d-flex align-center cursor-pointer"
     v-bind="$attrs"
-    style="user-select: none;"
+    style="user-select: none"
     @click="isAppSearchBarVisible = !isAppSearchBarVisible"
   >
     <!-- 👉 Search Trigger button -->
     <!-- close active tour while opening search bar using icon -->
-    <IconBtn
-      class="me-1"
-      @click="Shepherd.activeTour?.cancel()"
-    >
-      <VIcon
-        size="26"
-        icon="tabler-search"
-      />
+    <IconBtn class="me-1" @click="Shepherd.activeTour?.cancel()">
+      <VIcon size="26" icon="tabler-search" />
     </IconBtn>
 
     <span

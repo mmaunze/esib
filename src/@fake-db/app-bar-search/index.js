@@ -2,7 +2,7 @@
 import mock from '@/@fake-db/mock'
 
 const database = [
-  
+
   {
     id: 5,
     url: { name: 'apps-chat' },
@@ -40,14 +40,14 @@ const database = [
   },
   {
     id: 12,
-    url: { name: 'apps-user-list' },
+    url: { name: 'utilizadores' },
     icon: 'tabler-user',
     title: 'User List',
     category: 'appsPages',
   },
   {
     id: 13,
-    url: { name: 'apps-user-view-id', params: { id: 21 } },
+    url: { name: 'utilizadores-utilizador-id', params: { id: 21 } },
     icon: 'tabler-eye',
     title: 'User View',
     category: 'appsPages',
@@ -151,7 +151,7 @@ const database = [
     category: 'appsPages',
   },
 
-  
+
   {
     id: 79,
     url: { name: 'access-control' },
@@ -159,7 +159,7 @@ const database = [
     title: 'Access Control (ACL)',
     category: 'chartsMisc',
   },
- 
+
   {
     id: 83,
     url: { name: 'extensions-tour' },

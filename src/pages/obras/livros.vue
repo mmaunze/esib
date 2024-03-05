@@ -1,10 +1,9 @@
 <script setup>
 import { paginationMeta } from "@/@fake-db/utils"
-import AddNewUserDrawer from "@/views/apps/user/list/AddNewUserDrawer.vue"
-import { useUserListStore } from "@/views/apps/user/useUserListStore"
-import { avatarText } from "@core/utils/formatters"
+import AddNewUserDrawer from "@/views/user/AddNewUtilizadorDrawer.vue"
+import { useUtilizadorListStore } from "@/views/user/useUtilizadorListStore"
 
-const listaUtilizadores = useUserListStore()
+const listaUtilizadores = useUtilizadorListStore()
 
 const searchQuery = ref("")
 const selectedtipoUtilizador = ref()
@@ -91,7 +90,6 @@ const departamentos = [
 function administrador() {
   return true
 }
-
 
 const areaCientifica = [
   {
@@ -299,17 +297,15 @@ const deleteUser = id => {
                   { value: 90, title: '90' },
                   { value: -1, title: 'ver tudo' },
                 ]"
-                style="width: 6.25rem;"
-                @update:model-value="
-                  options.itemsPerPage = parseInt($event, 9)
-                "
+                style="width: 6.25rem"
+                @update:model-value="options.itemsPerPage = parseInt($event, 9)"
               />
             </div>
             <VSpacer />
 
-            <div class="app-user-search-filter d-flex align-center flex-wrap gap-4">
+            <div class="utilizadores-search-filter d-flex align-center flex-wrap gap-4">
               <!-- 👉 Search  -->
-              <div style="inline-size: 16rem;">
+              <div style="inline-size: 16rem">
                 <AppTextField
                   v-model="searchQuery"
                   placeholder="Pesquisar livros..."
@@ -330,7 +326,6 @@ const deleteUser = id => {
           <VDivider />
         </VCard>
 
-        
         <!-- SECTION -->
         <section class="mt-7">
           <VRow text-align="center">
@@ -351,7 +346,7 @@ const deleteUser = id => {
                   :src="user.avatar"
                   aspect-ratio="2"
                 />
-                  
+
                 <!--
                   <span
                   v-else
@@ -370,7 +365,10 @@ const deleteUser = id => {
                       {{ user.sexo }}
                     </span>
                     <VBtn
-                      :color="resolveUsertipoUtilizadorVariant(user.tipoUtilizador).color"
+                      :color="
+                        resolveUsertipoUtilizadorVariant(user.tipoUtilizador)
+                          .color
+                      "
                       variant="tonal"
                       size="small"
                       label
@@ -388,8 +386,9 @@ const deleteUser = id => {
                     </VBtn>
                   </div>
                   <p class="font-weight-small">
-                    <br> {{ user.contacto }}
-                    <br> {{ user.email }}
+                    <br>
+                    {{ user.contacto }} <br>
+                    {{ user.email }}
                   </p>
                   <VChip
                     :color="primary"
@@ -401,13 +400,12 @@ const deleteUser = id => {
                   </VChip>
                 </VCardText>
 
-                
                 <VCardText
                   v-if="administrador()"
                   class="text-center"
                 >
                   <VBtn
-                    style="margin-right: 0.25rem;"
+                    style="margin-right: 0.25rem"
                     size="small"
                     color="error"
                     @click="deleteUser(user.id)"
@@ -415,11 +413,11 @@ const deleteUser = id => {
                     Remover
                   </VBtn>
                   <VBtn
-                    style="margin-left: 0.25rem;"
+                    style="margin-left: 0.25rem"
                     size="small"
                     color="primary"
                     :to="{
-                      name: 'apps-user-view-id',
+                      name: 'utilizadores-utilizador-id',
                       params: { id: user.id },
                     }"
                   >
@@ -432,7 +430,7 @@ const deleteUser = id => {
                   class="text-center"
                 >
                   <VBtn
-                    style="margin-right: 0.25rem;"
+                    style="margin-right: 0.25rem"
                     size="small"
                     color="success"
                     @click="deleteUser(user.id)"
@@ -440,11 +438,11 @@ const deleteUser = id => {
                     Reservar
                   </VBtn>
                   <VBtn
-                    style="margin-left: 0.25rem;"
+                    style="margin-left: 0.25rem"
                     size="small"
                     color="primary"
                     :to="{
-                      name: 'apps-user-view-id',
+                      name: 'utilizadores-utilizador-id',
                       params: { id: user.id },
                     }"
                   >
@@ -496,7 +494,6 @@ const deleteUser = id => {
         </section>
         <!-- SECTION -->
 
-
         <!-- 👉 Add New User -->
         <AddNewUserDrawer
           v-model:isDrawerOpen="isAddNewUserDrawerVisible"
@@ -508,7 +505,7 @@ const deleteUser = id => {
 </template>
 
 <style lang="scss">
-.app-user-search-filter {
+.utilizadores-search-filter {
   inline-size: 31.6rem;
 }
 

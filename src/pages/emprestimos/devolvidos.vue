@@ -1,11 +1,11 @@
 <script setup>
 import { paginationMeta } from "@/@fake-db/utils"
-import AdicionarNovoCurso from "@/views/apps/user/list/AddNewUserDrawer.vue"
-import { useUserListStore } from "@/views/apps/user/useUserListStore"
+import AdicionarNovoCurso from "@/views/user/AddNewUtilizadorDrawer.vue"
+import { useUtilizadorListStore } from "@/views/user/useUtilizadorListStore"
 import { avatarText } from "@core/utils/formatters"
 import { VDataTableServer } from "vuetify/labs/VDataTable"
 
-const listaCursos = useUserListStore()
+const listaCursos = useUtilizadorListStore()
 const termoPesquisa = ref("")
 const selectedRole = ref()
 const selectedPlan = ref()
@@ -348,7 +348,7 @@ const deleteUser = id => {
             </div>
             <VSpacer />
 
-            <div class="app-user-search-filter d-flex align-center flex-wrap gap-4">
+            <div class="utilizadores-search-filter d-flex align-center flex-wrap gap-4">
               <!-- 👉 Search  -->
               <div style="inline-size: 10rem">
                 <AppTextField
@@ -404,7 +404,7 @@ const deleteUser = id => {
                   <h6 class="text-base">
                     <RouterLink
                       :to="{
-                        name: 'apps-user-view-id',
+                        name: 'utilizadores-utilizador-id',
                         params: { id: item.raw.id },
                       }"
                       class="font-weight-medium user-list-name"
@@ -479,7 +479,7 @@ const deleteUser = id => {
                   <VList>
                     <VListItem
                       :to="{
-                        name: 'apps-user-view-id',
+                        name: 'utilizadores-utilizador-id',
                         params: { id: item.raw.id },
                       }"
                     >
@@ -564,7 +564,7 @@ const deleteUser = id => {
 </template>
 
 <style lang="scss">
-.app-user-search-filter {
+.utilizadores-search-filter {
   inline-size: 31.6rem;
 }
 

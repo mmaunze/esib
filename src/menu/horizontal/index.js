@@ -1,8 +1,8 @@
-import cursos from './cursos'
-import escolas from './escolas'
-import exames from './exames'
+import obras from './obras'
 import inicio from './inicio'
-import ensino_medio from './movimentos'
-import orientacao from './orientacao'
+import movimentos from './movimentos'
+import emprestimos from './emprestimos'
+import utilizadores from './utilizadores'
+import multas from './multas'
 
-export default [...inicio, ...orientacao, ...cursos, ...escolas, ...exames, ...ensino_medio]
+export default [...inicio, ...obras, ...emprestimos, ...multas, ...utilizadores, ...movimentos ]

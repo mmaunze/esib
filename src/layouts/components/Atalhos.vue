@@ -4,8 +4,8 @@ const atalhos = [
     icon: "tabler-user",
     title: "Contactos",
     subtitle: "Ver Contactos",
-    to: { name: "apps-user-list" },
-  },  
+    to: { name: "utilizadores" },
+  },
   {
     icon: "tabler-book",
     title: "Cursos",
@@ -40,7 +40,7 @@ const atalhos = [
     subtitle: "FAQs & Articles",
     to: { name: "pages-ajuda" },
   },
-]
+];
 </script>
 
 <template>

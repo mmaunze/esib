@@ -1,11 +1,11 @@
 <script setup>
-import users from '@/@fake-db/apps/user-list'
+import utilizadores from "@/@fake-db/pages/utilizadores";
 
-const usuario = JSON.parse(localStorage.getItem("userData") || "null")
+const usuario = JSON.parse(localStorage.getItem("userData") || "null");
 
-const Id = Number(usuario.id)
-const userIndex = users.findIndex(e => e.id === Id)
-const userData = users[userIndex]
+const Id = Number(usuario.id);
+const userIndex = utilizadores.findIndex((e) => e.id === Id);
+const userData = utilizadores[userIndex];
 
 const accountData = {
   avatarImg: userData.avatar,
@@ -17,38 +17,37 @@ const accountData = {
   address: userData.address,
   provincia: userData.provincia,
   zip: userData.zip,
-}
+};
 
-
-const refInputEl = ref()
-const isConfirmarOpen = ref(false)
-const accountDataLocal = ref(structuredClone(accountData))
-const isAccountDeactivated = ref(false)
+const refInputEl = ref();
+const isConfirmarOpen = ref(false);
+const accountDataLocal = ref(structuredClone(accountData));
+const isAccountDeactivated = ref(false);
 
 const validateAccountDeactivation = [
-  v => !!v || "Confirmar Desactivação da Conta",
-]
+  (v) => !!v || "Confirmar Desactivação da Conta",
+];
 
 const resetForm = () => {
-  accountDataLocal.value = structuredClone(accountData)
-}
+  accountDataLocal.value = structuredClone(accountData);
+};
 
-const changeAvatar = file => {
-  const fileReader = new FileReader()
-  const { files } = file.target
+const changeAvatar = (file) => {
+  const fileReader = new FileReader();
+  const { files } = file.target;
   if (files && files.length) {
-    fileReader.readAsDataURL(files[0])
+    fileReader.readAsDataURL(files[0]);
     fileReader.onload = () => {
       if (typeof fileReader.result === "string")
-        accountDataLocal.value.avatarImg = fileReader.result
-    }
+        accountDataLocal.value.avatarImg = fileReader.result;
+    };
   }
-}
+};
 
 // Limpar avatar image
 const resetAvatar = () => {
-  accountDataLocal.value.avatarImg = accountData.avatarImg
-}
+  accountDataLocal.value.avatarImg = accountData.avatarImg;
+};
 </script>
 
 <template>
@@ -67,14 +66,8 @@ const resetAvatar = () => {
           <!-- 👉 Upload Photo -->
           <form class="d-flex flex-column justify-center gap-4">
             <div class="d-flex flex-wrap gap-2">
-              <VBtn
-                color="primary"
-                @click="refInputEl?.click()"
-              >
-                <VIcon
-                  icon="tabler-upload"
-                  class="d-sm-none"
-                />
+              <VBtn color="primary" @click="refInputEl?.click()">
+                <VIcon icon="tabler-upload" class="d-sm-none" />
                 <span class="d-none d-sm-block">Carregar Foto</span>
               </VBtn>
 
@@ -85,7 +78,7 @@ const resetAvatar = () => {
                 accept=".jpeg,.png,.jpg,GIF"
                 hidden
                 @input="changeAvatar"
-              >
+              />
 
               <VBtn
                 type="reset"
@@ -94,15 +87,12 @@ const resetAvatar = () => {
                 @click="resetAvatar"
               >
                 <span class="d-none d-sm-block">Limpar</span>
-                <VIcon
-                  icon="tabler-reload"
-                  class="d-sm-none"
-                />
+                <VIcon icon="tabler-reload" class="d-sm-none" />
               </VBtn>
             </div>
 
             <p class="text-body-1 mb-0">
-              Formato Permitdio :  JPG, GIF ou PNG. Max size of 800K
+              Formato Permitdio : JPG, GIF ou PNG. Max size of 800K
             </p>
           </form>
         </VCardText>
@@ -114,10 +104,7 @@ const resetAvatar = () => {
           <VForm class="mt-6">
             <VRow>
               <!-- 👉 Primeiro Nome -->
-              <VCol
-                md="6"
-                cols="12"
-              >
+              <VCol md="6" cols="12">
                 <AppTextField
                   v-model="accountDataLocal.firstName"
                   label="Primeiro Nome"
@@ -125,10 +112,7 @@ const resetAvatar = () => {
               </VCol>
 
               <!-- 👉 Apelido -->
-              <VCol
-                md="6"
-                cols="12"
-              >
+              <VCol md="6" cols="12">
                 <AppTextField
                   v-model="accountDataLocal.lastName"
                   label="Apelido"
@@ -136,10 +120,7 @@ const resetAvatar = () => {
               </VCol>
 
               <!-- 👉 Email -->
-              <VCol
-                cols="12"
-                md="6"
-              >
+              <VCol cols="12" md="6">
                 <AppTextField
                   v-model="accountDataLocal.email"
                   label="E-mail"
@@ -148,10 +129,7 @@ const resetAvatar = () => {
               </VCol>
 
               <!-- 👉 Organization -->
-              <VCol
-                cols="12"
-                md="6"
-              >
+              <VCol cols="12" md="6">
                 <AppTextField
                   v-model="accountDataLocal.org"
                   label="Organization"
@@ -159,10 +137,7 @@ const resetAvatar = () => {
               </VCol>
 
               <!-- 👉 Phone -->
-              <VCol
-                cols="12"
-                md="6"
-              >
+              <VCol cols="12" md="6">
                 <AppTextField
                   v-model="accountDataLocal.contact"
                   label="Telefone"
@@ -170,10 +145,7 @@ const resetAvatar = () => {
               </VCol>
 
               <!-- 👉 Endereço -->
-              <VCol
-                cols="12"
-                md="6"
-              >
+              <VCol cols="12" md="6">
                 <AppTextField
                   v-model="accountDataLocal.address"
                   label="Address"
@@ -181,10 +153,7 @@ const resetAvatar = () => {
               </VCol>
 
               <!-- 👉 State -->
-              <VCol
-                cols="12"
-                md="6"
-              >
+              <VCol cols="12" md="6">
                 <AppSelect
                   v-model="accountDataLocal.provincia"
                   label="Provincia"
@@ -193,29 +162,16 @@ const resetAvatar = () => {
               </VCol>
 
               <!-- 👉 Código Postal -->
-              <VCol
-                cols="12"
-                md="6"
-              >
+              <VCol cols="12" md="6">
                 <AppTextField
                   v-model="accountDataLocal.zip"
                   label="Código Postal"
                 />
               </VCol>
 
-          
-
-           
-
               <!-- 👉 Form Actions -->
-              <VCol
-                cols="12"
-                class="d-flex flex-wrap gap-4"
-              >
-                <VBtn
-                  type="sumbit"
-                  @click.prevent="actualizarDados"
-                >
+              <VCol cols="12" class="d-flex flex-wrap gap-4">
+                <VBtn type="sumbit" @click.prevent="actualizarDados">
                   Actualizar
                 </VBtn>
 

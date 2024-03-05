@@ -1,11 +1,8 @@
 <script setup>
-import { paginationMeta } from "@/@fake-db/utils"
-import AdicionarNovoCurso from "@/views/apps/user/list/AddNewUserDrawer.vue"
-import { useUserListStore } from "@/views/apps/user/useUserListStore"
-import { avatarText } from "@core/utils/formatters"
-import { VDataTableServer } from "vuetify/labs/VDataTable"
+import AdicionarNovoCurso from "@/views/user/AddNewUtilizadorDrawer.vue"
+import { useUtilizadorListStore } from "@/views/user/useUtilizadorListStore"
 
-const listaCursos = useUserListStore()
+const listaCursos = useUtilizadorListStore()
 const termoPesquisa = ref("")
 const selectedRole = ref()
 const selectedPlan = ref()
@@ -21,7 +18,6 @@ const options = ref({
   groupBy: [],
   search: undefined,
 })
-
 
 // 👉 Fetching users
 const fetchUsers = () => {
@@ -45,7 +41,6 @@ const fetchUsers = () => {
 }
 
 watchEffect(fetchUsers)
-
 
 const isAddNewUserDrawerVisible = ref(false)
 
@@ -191,7 +186,7 @@ const deleteUser = id => {
 </template>
 
 <style lang="scss">
-.app-user-search-filter {
+.utilizadores-search-filter {
   inline-size: 31.6rem;
 }
 

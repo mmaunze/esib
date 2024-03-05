@@ -1,7 +1,6 @@
 import mock from '@/@fake-db/mock'
 import { genId, paginateArray } from '@/@fake-db/utils'
 import avatar1 from '@images/avatars/avatar-1.png'
-import avatar2 from '@images/avatars/avatar-2.png'
 
 
 const userData = JSON.parse(localStorage.getItem("userData") || "null")
@@ -33,7 +32,7 @@ fetch(url)
 
 // 👉  return users
 // eslint-disable-next-line sonarjs/cognitive-complexity
-mock.onGet('/apps/users/list').reply(config => {
+mock.onGet('/utilizadores').reply(config => {
   const { q = '', tipoUtilizador = null, departamento = null, areaCientifica = null, options = {} }
     = config.params ?? {}
 
@@ -106,7 +105,7 @@ mock.onGet('/apps/users/list').reply(config => {
 })
 
 // 👉 Add user
-mock.onPost('/apps/users/user').reply(config => {
+mock.onPost('/utilizadores/utilizador').reply(config => {
   const { user } = JSON.parse(config.data)
 
   user.id = genId(users)
@@ -116,7 +115,7 @@ mock.onPost('/apps/users/user').reply(config => {
 })
 
 // 👉 Get Single user
-mock.onGet(/\/apps\/users\/\d+/).reply(config => {
+mock.onGet(/\/utilizadores\/\d+/).reply(config => {
   // Get event id from URL
   const userId = config.url?.substring(config.url.lastIndexOf('/') + 1)
 
@@ -137,7 +136,7 @@ mock.onGet(/\/apps\/users\/\d+/).reply(config => {
   return [404]
 })
 
-mock.onDelete(/\/apps\/users\/\d+/).reply(config => {
+mock.onDelete(/\/utilizadores\/\d+/).reply(config => {
   // Get user id from URL
   const userId = config.url?.substring(config.url.lastIndexOf('/') + 1)
 

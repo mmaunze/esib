@@ -1,7 +1,7 @@
 <script setup>
 import { paginationMeta } from "@/@fake-db/utils"
-import { useMonografiaListStore } from "@/views/pages/obras/monografias/useMonografiaListStore"
-import AddNewMonografiaDrawer from "@/views/pages/obras/monografias/AddNewMonografiaDrawer.vue"
+import AddNewMonografiaDrawer from "@/views/obras/monografias/AddNewMonografiaDrawer.vue"
+import { useMonografiaListStore } from "@/views/obras/monografias/useMonografiaListStore"
 
 // Dados
 
@@ -449,7 +449,7 @@ const isAddNewMonografiaDrawerVisible = ref(false)
             </div>
             <VSpacer />
 
-            <div class="app-user-search-filter d-flex align-center flex-wrap gap-4">
+            <div class="utilizadores-search-filter d-flex align-center flex-wrap gap-4">
               <!-- 👉 Search  -->
               <div style="inline-size: 15rem">
                 <AppTextField
@@ -556,7 +556,7 @@ const isAddNewMonografiaDrawerVisible = ref(false)
                     size="small"
                     color="primary"
                     :to="{
-                      name: 'apps-user-view-id',
+                      name: 'utilizadores-utilizador-id',
                       params: { id: user.id },
                     }"
                   >
@@ -581,7 +581,7 @@ const isAddNewMonografiaDrawerVisible = ref(false)
                     size="small"
                     color="primary"
                     :to="{
-                      name: 'apps-user-view-id',
+                      name: 'utilizadores-utilizador-id',
                       params: { id: user.id },
                     }"
                   >
@@ -644,7 +644,7 @@ const isAddNewMonografiaDrawerVisible = ref(false)
 </template>
 
 <style lang="scss">
-.app-user-search-filter {
+.utilizadores-search-filter {
   inline-size: 31.6rem;
 }
 

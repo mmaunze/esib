@@ -1,10 +1,9 @@
 <script setup>
 import { paginationMeta } from "@/@fake-db/utils"
-import AddNewUserDrawer from "@/views/apps/user/list/AddNewUserDrawer.vue"
-import { useUserListStore } from "@/views/apps/user/useUserListStore"
-import { avatarText } from "@core/utils/formatters"
+import AddNewUtilizadorDrawer from "@/views/user/AddNewUtilizadorDrawer.vue"
+import { useUtilizadorListStore } from "@/views/user/useUtilizadorListStore"
 
-const listaUtilizadores = useUserListStore()
+const listaUtilizadores = useUtilizadorListStore()
 
 const searchQuery = ref("")
 const selectedTipoUtilizador = ref()
@@ -239,7 +238,6 @@ const areaCientifica = [
   },
 ]
 
-
 const resolveUsertipoUtilizadorVariant = tipoUtilizador => {
   const tipoUtilizadorLowerCase = tipoUtilizador.toLowerCase()
   if (tipoUtilizadorLowerCase === "cta")
@@ -283,7 +281,7 @@ const resolveUserareaCientificaVariant = areaCientifica => {
   return "error"
 }
 
-const isAddNewUserDrawerVisible = ref(false)
+const isAddNewUtilizadorDrawerVisible = ref(false)
 
 const addNewUser = userData => {
   listaUtilizadores.addUser(userData)
@@ -299,29 +297,24 @@ const userListMeta = [
     color: "primary",
     title: "Estudantes",
     stats: "710",
-   
-  
   },
   {
     icon: "tabler-user-plus",
     color: "error",
     title: "Docentes",
     stats: "134",
-   
   },
   {
     icon: "tabler-user-check",
     color: "success",
     title: "Bibliotecarios",
     stats: "19",
-   
   },
   {
     icon: "tabler-user-exclamation",
     color: "warning",
     title: "CTA",
     stats: "76",
-   
   },
 ]
 
@@ -424,7 +417,7 @@ const deleteUser = id => {
                   { value: 96, title: '96' },
                   { value: -1, title: 'Ver Todos' },
                 ]"
-                style="width: 6.25rem;"
+                style="width: 6.25rem"
                 @update:model-value="
                   options.itemsPerPage = parseInt($event, 10)
                 "
@@ -432,9 +425,9 @@ const deleteUser = id => {
             </div>
             <VSpacer />
 
-            <div class="app-user-search-filter d-flex align-center flex-wrap gap-4">
+            <div class="utilizadores-search-filter d-flex align-center flex-wrap gap-4">
               <!-- 👉 Search  -->
-              <div style="inline-size: 10rem;">
+              <div style="inline-size: 10rem">
                 <AppTextField
                   v-model="searchQuery"
                   placeholder="Search"
@@ -445,7 +438,7 @@ const deleteUser = id => {
               <!-- 👉 Add user button -->
               <VBtn
                 prepend-icon="tabler-plus"
-                @click="isAddNewUserDrawerVisible = true"
+                @click="isAddNewUtilizadorDrawerVisible = true"
               >
                 Cadastrar Utilizador
               </VBtn>
@@ -455,7 +448,6 @@ const deleteUser = id => {
           <VDivider />
         </VCard>
 
-        
         <!-- SECTION -->
         <section class="mt-7">
           <VRow text-align="center">
@@ -476,7 +468,7 @@ const deleteUser = id => {
                   :src="user.avatar"
                   aspect-ratio="2"
                 />
-                  
+
                 <!--
                   <span
                   v-else
@@ -495,7 +487,10 @@ const deleteUser = id => {
                       {{ user.sexo }}
                     </span>
                     <VBtn
-                      :color="resolveUsertipoUtilizadorVariant(user.tipoUtilizador).color"
+                      :color="
+                        resolveUsertipoUtilizadorVariant(user.tipoUtilizador)
+                          .color
+                      "
                       variant="tonal"
                       size="small"
                       label
@@ -513,11 +508,14 @@ const deleteUser = id => {
                     </VBtn>
                   </div>
                   <p class="font-weight-small">
-                    <br> {{ user.contacto }}
-                    <br> {{ user.email }}
+                    <br>
+                    {{ user.contacto }} <br>
+                    {{ user.email }}
                   </p>
                   <VChip
-                    :color="resolveUserareaCientificaVariant(user.areaCientifica)"
+                    :color="
+                      resolveUserareaCientificaVariant(user.areaCientifica)
+                    "
                     size="small"
                     label
                     class="text-capitalize"
@@ -526,13 +524,12 @@ const deleteUser = id => {
                   </VChip>
                 </VCardText>
 
-                
                 <VCardText
                   v-if="administrador()"
                   class="text-center"
                 >
                   <VBtn
-                    style="margin-right: 0.25rem;"
+                    style="margin-right: 0.25rem"
                     size="small"
                     color="error"
                     @click="deleteUser(user.id)"
@@ -540,11 +537,11 @@ const deleteUser = id => {
                     Remover
                   </VBtn>
                   <VBtn
-                    style="margin-left: 0.25rem;"
+                    style="margin-left: 0.25rem"
                     size="small"
                     color="primary"
                     :to="{
-                      name: 'apps-user-view-id',
+                      name: 'utilizadores-utilizador-id',
                       params: { id: user.id },
                     }"
                   >
@@ -557,7 +554,7 @@ const deleteUser = id => {
                   class="text-center"
                 >
                   <VBtn
-                    style="margin-right: 0.25rem;"
+                    style="margin-right: 0.25rem"
                     size="small"
                     color="success"
                     @click="deleteUser(user.id)"
@@ -565,11 +562,11 @@ const deleteUser = id => {
                     Reservar
                   </VBtn>
                   <VBtn
-                    style="margin-left: 0.25rem;"
+                    style="margin-left: 0.25rem"
                     size="small"
                     color="primary"
                     :to="{
-                      name: 'apps-user-view-id',
+                      name: 'utilizadores-utilizador-id',
                       params: { id: user.id },
                     }"
                   >
@@ -621,10 +618,9 @@ const deleteUser = id => {
         </section>
         <!-- SECTION -->
 
-
         <!-- 👉 Add New User -->
-        <AddNewUserDrawer
-          v-model:isDrawerOpen="isAddNewUserDrawerVisible"
+        <AddNewUtilizadorDrawer
+          v-model:isDrawerOpen="isAddNewUtilizadorDrawerVisible"
           @user-data="addNewUser"
         />
       </VCol>
@@ -633,7 +629,7 @@ const deleteUser = id => {
 </template>
 
 <style lang="scss">
-.app-user-search-filter {
+.utilizadores-search-filter {
   inline-size: 31.6rem;
 }
 
