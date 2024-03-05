@@ -1,17 +1,17 @@
 <script setup>
-import { paginationMeta } from "@/@fake-db/utils"
-import AddNewUserDrawer from "@/views/user/AddNewUtilizadorDrawer.vue"
-import { useUtilizadorListStore } from "@/views/user/useUtilizadorListStore"
+import { paginationMeta } from "@/@fake-db/utils";
+import AddNewUserDrawer from "@/views/user/AddNewUtilizadorDrawer.vue";
+import { useUtilizadorListStore } from "@/views/user/useUtilizadorListStore";
 
-const listaUtilizadores = useUtilizadorListStore()
+const listaUtilizadores = useUtilizadorListStore();
 
-const searchQuery = ref("")
-const selectedtipoUtilizador = ref()
-const selecteddepartamento = ref()
-const selectedareaCientifica = ref()
-const totalPage = ref(1)
-const totalUsers = ref(0)
-const utilizadores = ref([])
+const searchQuery = ref("");
+const selectedtipoUtilizador = ref();
+const selecteddepartamento = ref();
+const selectedareaCientifica = ref();
+const totalPage = ref(1);
+const totalUsers = ref(0);
+const utilizadores = ref([]);
 
 const options = ref({
   page: 1,
@@ -19,7 +19,7 @@ const options = ref({
   sortBy: [],
   groupBy: [],
   search: undefined,
-})
+});
 
 // 👉 Fetching users
 const buscarUtilizadores = () => {
@@ -31,18 +31,18 @@ const buscarUtilizadores = () => {
       tipoUtilizador: selectedtipoUtilizador.value,
       options: options.value,
     })
-    .then(response => {
-      utilizadores.value = response.data.users
-      totalPage.value = response.data.totalPage
-      totalUsers.value = response.data.totalUsers
-      options.value.page = response.data.page
+    .then((response) => {
+      utilizadores.value = response.data.users;
+      totalPage.value = response.data.totalPage;
+      totalUsers.value = response.data.totalUsers;
+      options.value.page = response.data.page;
     })
-    .catch(error => {
-      console.error(error)
-    })
-}
+    .catch((error) => {
+      console.error(error);
+    });
+};
 
-watchEffect(buscarUtilizadores)
+watchEffect(buscarUtilizadores);
 
 // 👉 search filters
 const tipoUtilizadors = [
@@ -66,7 +66,7 @@ const tipoUtilizadors = [
     title: "Cta",
     value: "cta",
   },
-]
+];
 
 const departamentos = [
   {
@@ -85,10 +85,10 @@ const departamentos = [
     title: "Departamento de Engenharia Civil",
     value: "DEC",
   },
-]
+];
 
 function administrador() {
-  return true
+  return true;
 }
 
 const areaCientifica = [
@@ -104,59 +104,59 @@ const areaCientifica = [
     title: "Quimica",
     value: "Quimica",
   },
-]
+];
 
-const resolveUsertipoUtilizadorVariant = tipoUtilizador => {
-  const tipoUtilizadorLowerCase = tipoUtilizador.toLowerCase()
+const resolveUsertipoUtilizadorVariant = (tipoUtilizador) => {
+  const tipoUtilizadorLowerCase = tipoUtilizador.toLowerCase();
   if (tipoUtilizadorLowerCase === "cta")
     return {
       color: "primary",
       icon: "tabler-circle-check",
-    }
+    };
   if (tipoUtilizadorLowerCase === "bibliotecario")
     return {
       color: "info",
       icon: "tabler-user",
-    }
+    };
   if (tipoUtilizadorLowerCase === "docente")
     return {
       color: "warning",
       icon: "tabler-chart-pie-2",
-    }
+    };
   if (tipoUtilizadorLowerCase === "estudante")
     return {
       color: "error",
       icon: "tabler-edit",
-    }
+    };
   if (tipoUtilizadorLowerCase === "Administrador")
     return {
       color: "success",
       icon: "tabler-device-laptop",
-    }
+    };
 
   return {
     color: "primary",
     icon: "tabler-user",
-  }
-}
+  };
+};
 
-const resolveUserareaCientificaVariant = stat => {
-  const statLowerCase = stat.toLowerCase()
-  if (statLowerCase !== "privado") return "success"
-  if (statLowerCase === "active") return "waring"
-  if (statLowerCase === "inactive") return "error"
+const resolveUserareaCientificaVariant = (stat) => {
+  const statLowerCase = stat.toLowerCase();
+  if (statLowerCase !== "privado") return "success";
+  if (statLowerCase === "active") return "waring";
+  if (statLowerCase === "inactive") return "error";
 
-  return "primary"
-}
+  return "primary";
+};
 
-const isAddNewUserDrawerVisible = ref(false)
+const isAddNewUserDrawerVisible = ref(false);
 
-const addNewUser = userData => {
-  listaUtilizadores.addUser(userData)
+const addNewUser = (userData) => {
+  listaUtilizadores.addUser(userData);
 
   // refetch User
-  buscarUtilizadores()
-}
+  buscarUtilizadores();
+};
 
 // 👉 List
 const userListMeta = [
@@ -192,14 +192,14 @@ const userListMeta = [
     percentage: +42,
     subtitle: "Last week analytics",
   },
-]
+];
 
-const deleteUser = id => {
-  listaUtilizadores.deleteUser(id)
+const deleteUser = (id) => {
+  listaUtilizadores.deleteUser(id);
 
   // refetch User
-  buscarUtilizadores()
-}
+  buscarUtilizadores();
+};
 </script>
 
 <template>
@@ -220,8 +220,11 @@ const deleteUser = id => {
                 <h6 class="text-h4">
                   {{ meta.stats }}
                 </h6>
-                <span :class="meta.percentage > 0 ? 'text-success' : 'text-error'">( {{ meta.percentage > 0 ? "+" : "" }}
-                  {{ meta.percentage }}%)</span>
+                <span
+                  :class="meta.percentage > 0 ? 'text-success' : 'text-error'"
+                  >( {{ meta.percentage > 0 ? "+" : "" }}
+                  {{ meta.percentage }}%)</span
+                >
               </div>
               <span>{{ meta.subtitle }}</span>
             </div>
@@ -242,10 +245,7 @@ const deleteUser = id => {
           <VCardText>
             <VRow>
               <!-- 👉 Select tipoUtilizador -->
-              <VCol
-                cols="12"
-                sm="4"
-              >
+              <VCol cols="12" sm="4">
                 <AppSelect
                   v-model="selectedtipoUtilizador"
                   label="Seleccionar Idioma"
@@ -255,10 +255,7 @@ const deleteUser = id => {
                 />
               </VCol>
               <!-- 👉 Select departamento -->
-              <VCol
-                cols="12"
-                sm="4"
-              >
+              <VCol cols="12" sm="4">
                 <AppSelect
                   v-model="selecteddepartamento"
                   label="Seleccionar Estado"
@@ -268,10 +265,7 @@ const deleteUser = id => {
                 />
               </VCol>
               <!-- 👉 Select areaCientifica -->
-              <VCol
-                cols="12"
-                sm="4"
-              >
+              <VCol cols="12" sm="4">
                 <AppSelect
                   v-model="selectedareaCientifica"
                   label="Seleccionar area cientifica"
@@ -302,7 +296,9 @@ const deleteUser = id => {
             </div>
             <VSpacer />
 
-            <div class="utilizadores-search-filter d-flex align-center flex-wrap gap-4">
+            <div
+              class="utilizadores-search-filter d-flex align-center flex-wrap gap-4"
+            >
               <!-- 👉 Search  -->
               <div style="inline-size: 16rem">
                 <AppTextField
@@ -341,10 +337,7 @@ const deleteUser = id => {
                   {{ user.nome }}
                 </VCardTitle>
 
-                <VImg
-                  :src="user.avatar"
-                  aspect-ratio="2"
-                />
+                <VImg :src="user.avatar" aspect-ratio="2" />
 
                 <!--
                   <span
@@ -355,12 +348,7 @@ const deleteUser = id => {
 
                 <VCardText>
                   <div class="d-flex align-center gap-4">
-                    <span
-                      variant="tonal"
-                      size="small"
-                      label
-                      class="mb-3"
-                    >
+                    <span variant="tonal" size="small" label class="mb-3">
                       {{ user.sexo }}
                     </span>
                     <VBtn
@@ -375,18 +363,13 @@ const deleteUser = id => {
                     >
                       {{ user.tipoUtilizador }}
                     </VBtn>
-                    <VBtn
-                      variant="tonal"
-                      size="small"
-                      label
-                      class="mb-3"
-                    >
+                    <VBtn variant="tonal" size="small" label class="mb-3">
                       {{ user.departamento }}
                     </VBtn>
                   </div>
                   <p class="font-weight-small">
-                    <br>
-                    {{ user.contacto }} <br>
+                    <br />
+                    {{ user.contacto }} <br />
                     {{ user.email }}
                   </p>
                   <VChip
@@ -399,12 +382,9 @@ const deleteUser = id => {
                   </VChip>
                 </VCardText>
 
-                <VCardText
-                  v-if="administrador()"
-                  class="text-center"
-                >
+                <VCardText v-if="administrador()" class="text-center">
                   <VBtn
-                    style="margin-right: 0.25rem"
+                    style="margin-right: 1.2rem"
                     size="small"
                     color="error"
                     @click="deleteUser(user.id)"
@@ -412,7 +392,7 @@ const deleteUser = id => {
                     Remover
                   </VBtn>
                   <VBtn
-                    style="margin-left: 0.25rem"
+                    style="margin-left: 1.2rem"
                     size="small"
                     color="primary"
                     :to="{
@@ -424,12 +404,9 @@ const deleteUser = id => {
                   </VBtn>
                 </VCardText>
 
-                <VCardText
-                  v-else
-                  class="text-center"
-                >
+                <VCardText v-else class="text-center">
                   <VBtn
-                    style="margin-right: 0.25rem"
+                    style="margin-right: 1.2rem"
                     size="small"
                     color="success"
                     @click="deleteUser(user.id)"
@@ -437,7 +414,7 @@ const deleteUser = id => {
                     Reservar
                   </VBtn>
                   <VBtn
-                    style="margin-left: 0.25rem"
+                    style="margin-left: 1.2rem"
                     size="small"
                     color="primary"
                     :to="{

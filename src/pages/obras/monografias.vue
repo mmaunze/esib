@@ -245,7 +245,7 @@ const areaCientifica = [
 
 const options = ref({
   page: 1,
-  itemsPerPage: 6,
+  itemsPerPage: 8,
   sortBy: [],
   groupBy: [],
   search: undefined,
@@ -451,7 +451,7 @@ const isAddNewMonografiaDrawerVisible = ref(false)
 
             <div class="utilizadores-search-filter d-flex align-center flex-wrap gap-4">
               <!-- 👉 Search  -->
-              <div style="inline-size: 15rem">
+              <div style="inline-size: 1rem">
                 <AppTextField
                   v-model="searchQuery"
                   placeholder="Pesquisar monografias"
@@ -476,8 +476,8 @@ const isAddNewMonografiaDrawerVisible = ref(false)
         <section class="mt-7">
           <VRow text-align="center">
             <VCol
-              v-for="user in monografias"
-              :key="user.id"
+              v-for="monografia in monografias"
+              :key="monografia.id"
               cols="12"
               sm="6"
               md="3"
@@ -485,11 +485,11 @@ const isAddNewMonografiaDrawerVisible = ref(false)
             >
               <VCard class="mb-3">
                 <VCardTitle class="mb-4 mt-2 text-wrap">
-                  {{ user.titulo }}
+                  {{ monografia.titulo }}
                 </VCardTitle>
 
                 <VImg
-                  :src="user.fotografia"
+                  :src="monografia.fotografia"
                   aspect-ratio="2"
                 />
 
@@ -503,39 +503,44 @@ const isAddNewMonografiaDrawerVisible = ref(false)
                 <VCardText>
                   <div class="d-flex align-center gap-4 text-wrap">
                     <VBtn
-                      :color="resolveFaculdadeVariant(user.faculdade).color"
+                      :color="
+                        resolveFaculdadeVariant(monografia.faculdade).color
+                      "
                       variant="tonal"
                       size="small"
                       label
                       class="mb-3"
                     >
-                      {{ user.faculdade }}
+                      {{ monografia.faculdade }}
                     </VBtn>
                   </div>
                   <VBtn
-                    :color="resolvEstadoVariant(user.estado)"
+                    :color="resolvEstadoVariant(monografia.estado)"
                     variant="tonal"
                     size="small"
                     label
                     class="mb-3"
                   >
-                    {{ user.estado }}
+                    {{ monografia.estado }}
                   </VBtn>
                   <p class="font-weight-small text-justify">
-                    Esta Monografia do curso de <b>{{ user.curso }}</b> tem
-                    {{ user.nrPaginas }} paginas, supervisionado por
-                    <b>{{ user.supervisor + " ; " + user.coSupervisor }}</b>
-                    publcado no ano de {{ user.anoPublicacao }},
-                    {{ user.faculdade }}
+                    Esta Monografia do curso de
+                    <b>{{ monografia.curso }}</b> tem
+                    {{ monografia.nrPaginas }} paginas, supervisionado por
+                    <b>{{
+                      monografia.supervisor + " ; " + monografia.coSupervisor
+                    }}</b>
+                    publcado no ano de {{ monografia.anoPublicacao }},
+                    {{ monografia.faculdade }}
                     <Strong>
                       <br>
-                      Autor </Strong>: {{ user.autores }}
+                      Autor </Strong>: {{ monografia.autores }}
                     <Strong>
                       <br>
-                      Idioma</Strong>: {{ user.idioma }}
+                      Idioma</Strong>: {{ monografia.idioma }}
                     <Strong>
                       <br>
-                      Localizacao </Strong>: {{ user.localizacao }}
+                      Localizacao </Strong>: {{ monografia.localizacao }}
                   </p>
                 </VCardText>
 
@@ -544,20 +549,20 @@ const isAddNewMonografiaDrawerVisible = ref(false)
                   class="text-center"
                 >
                   <VBtn
-                    style="margin-right: 0.25rem"
+                    style="margin-right: 1rem"
                     size="small"
                     color="error"
-                    @click="deleteMonografia(user.id)"
+                    @click="deleteMonografia(monografia.id)"
                   >
                     Remover
                   </VBtn>
                   <VBtn
-                    style="margin-left: 0.25rem"
+                    style="margin-left: 1rem"
                     size="small"
                     color="primary"
                     :to="{
                       name: 'utilizadores-utilizador-id',
-                      params: { id: user.id },
+                      params: { id: monografia.id },
                     }"
                   >
                     Detalhes
@@ -569,20 +574,20 @@ const isAddNewMonografiaDrawerVisible = ref(false)
                   class="text-center"
                 >
                   <VBtn
-                    style="margin-right: 0.25rem"
+                    style="margin-right: 1.2rem"
                     size="small"
                     color="success"
-                    @click="deleteMonografia(user.id)"
+                    @click="deleteMonografia(monografia.id)"
                   >
                     Reservar
                   </VBtn>
                   <VBtn
-                    style="margin-left: 0.25rem"
+                    style="margin-left: 1.2rem"
                     size="small"
                     color="primary"
                     :to="{
                       name: 'utilizadores-utilizador-id',
-                      params: { id: user.id },
+                      params: { id: monografia.id },
                     }"
                   >
                     Detalhes

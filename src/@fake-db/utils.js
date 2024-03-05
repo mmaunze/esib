@@ -9,6 +9,7 @@ export const paginationMeta = computed(() => {
     return `A mostrar ${start} a ${end} de ${total} resultados`
   }
 })
+
 export const genId = array => {
   const { length } = array
   let lastIndex = 0

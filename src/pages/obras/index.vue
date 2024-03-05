@@ -232,7 +232,7 @@ const areaCientifica = [
 
 const options = ref({
   page: 1,
-  itemsPerPage: 6,
+  itemsPerPage: 8,
   sortBy: [],
   groupBy: [],
   search: undefined,
@@ -530,7 +530,7 @@ const isAddNewObraDrawerVisible = ref(false)
                   class="text-center"
                 >
                   <VBtn
-                    style="margin-right: 0.25rem"
+                    style="margin-right: 1rem"
                     size="small"
                     color="error"
                     @click="deleteObra(user.id)"
@@ -538,7 +538,7 @@ const isAddNewObraDrawerVisible = ref(false)
                     Remover
                   </VBtn>
                   <VBtn
-                    style="margin-left: 0.25rem"
+                    style="margin-left: 1rem"
                     size="small"
                     color="primary"
                     :to="{
@@ -555,7 +555,7 @@ const isAddNewObraDrawerVisible = ref(false)
                   class="text-center"
                 >
                   <VBtn
-                    style="margin-right: 0.25rem"
+                    style="margin-right: 1rem"
                     size="small"
                     color="success"
                     @click="deleteObra(user.id)"
@@ -563,7 +563,7 @@ const isAddNewObraDrawerVisible = ref(false)
                     Reservar
                   </VBtn>
                   <VBtn
-                    style="margin-left: 0.25rem"
+                    style="margin-left: 1rem"
                     size="small"
                     color="primary"
                     :to="{

@@ -1,13 +1,9 @@
 import './app-bar-search'
-import './pages/monografias'
-import './pages/obras'
 import './jwt'
 import mock from './mock'
-import './pages/ajuda'
 import './pages/datatable'
-import './pages/faq'
 import './pages/profile'
-import './pages/utilizadores'
+
 
 // Apps
 import './apps/chat'
@@ -17,6 +13,15 @@ import './apps/permissions'
 
 // Dashboard
 import './dashboard/analytics'
+
+//pages
+import './pages/monografias'
+import './pages/obras'
+import './pages/utilizadores'
+
+//pages // pages
+import './pages/faq'
+import './pages/ajuda'
 
 // forwards the matched request over network
 mock.onAny().passThrough()
