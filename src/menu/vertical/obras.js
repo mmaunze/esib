@@ -9,22 +9,22 @@ export default [
       {
         title: 'Todas Obras',
         icon: { icon: 'tabler-plus' },
-        to: 'pages-obras',
+        to: 'obras',
       },
       {
         title: 'Livros',
         icon: { icon: 'tabler-plus' },
-        to: 'pages-obras-livros',
+        to: 'obras-livros',
       },
       {
         title: 'Monografias',
         icon: { icon: 'tabler-plus' },
-        to: 'pages-obras-monografias',
+        to: 'obras-monografias',
       },
       {
         title: 'Revistas',
         icon: { icon: 'tabler-plus' },
-        to: 'pages-obras-revistas',
+        to: 'obras-revistas',
       },
     ],
   },

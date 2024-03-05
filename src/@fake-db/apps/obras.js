@@ -13,16 +13,16 @@ fetch(url)
     obras = listaObras.map(obra => ({
       id: obra.id,
       titulo: obra.titulo,
-      autores: obra.autores, 
-      nrPaginas: obra.nrPaginas, 
-      localPublicacao: obra.localPublicacao, 
-      anoPublicacao: obra.anoPublicacao, 
-      areaCientifica: obra.areaCientifica, 
-      localizacao: obra.localizacao, 
-      tipoObra: obra.tipoObra, 
-      fotografia: avatar1, 
-      idioma: obra.idioma, 
-      estado: obra.estado, 
+      autores: obra.autores,
+      nrPaginas: obra.nrPaginas,
+      localPublicacao: obra.localPublicacao,
+      anoPublicacao: obra.anoPublicacao,
+      areaCientifica: obra.areaCientifica,
+      localizacao: obra.localizacao,
+      tipoObra: obra.tipoObra,
+      fotografia: avatar1,
+      idioma: obra.idioma,
+      estado: obra.estado,
       referencia: obra.referencia,
     }))
     console.log('Todas Obras carregadas com Sucesso')
@@ -33,7 +33,7 @@ fetch(url)
 // 👉  return obras
 
 // eslint-disable-next-line sonarjs/cognitive-complexity
-mock.onGet('/pages/obras').reply(config => {
+mock.onGet('/obras').reply(config => {
   const { q = '', tipoObra = null, estado = null, areaCientifica = null, options = {} }
     = config.params ?? {}
 
@@ -125,7 +125,7 @@ mock.onGet('/pages/obras').reply(config => {
 })
 
 // 👉 Add obra
-mock.onPost('/pages/obras/obra').reply(config => {
+mock.onPost('/obras/obra').reply(config => {
   const { obra } = JSON.parse(config.data)
 
   obra.id = genId(obras)
@@ -135,7 +135,7 @@ mock.onPost('/pages/obras/obra').reply(config => {
 })
 
 // 👉 Get Single obra
-mock.onGet(/\/pages\/obras\/\d+/).reply(config => {
+mock.onGet(/\/obras\/\d+/).reply(config => {
   // Get event id from URL
   const obraId = config.url?.substring(config.url.lastIndexOf('/') + 1)
 
@@ -150,7 +150,7 @@ mock.onGet(/\/pages\/obras\/\d+/).reply(config => {
   return [404]
 })
 
-mock.onDelete(/\/pages\/obras\/\d+/).reply(config => {
+mock.onDelete(/\/obras\/\d+/).reply(config => {
   // Get obra id from URL
   const obraId = config.url?.substring(config.url.lastIndexOf('/') + 1)
 

@@ -9,12 +9,12 @@ export default [
       {
         title: 'Emprestimos Activos',
         icon: { icon: 'tabler-plus' },
-        to: 'pages-emprestimos',
+        to: 'emprestimos',
       },
       {
         title: 'Devolucoes',
         icon: { icon: 'tabler-plus' },
-        to: 'pages-emprestimos-devolvidos',
+        to: 'emprestimos-devolvidos',
       },
     ],
   },

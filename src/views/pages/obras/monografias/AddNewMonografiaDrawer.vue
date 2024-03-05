@@ -1,5 +1,5 @@
 <script setup>
-import AppAutocomplete from "@/src/@core/components/app-form-elements/AppAutocomplete.vue"
+import AppAutocomplete from "@/@core/components/app-form-elements/AppAutocomplete.vue"
 import { requiredValidator } from "@validators"
 import { PerfectScrollbar } from "vue3-perfect-scrollbar"
 

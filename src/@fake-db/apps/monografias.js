@@ -3,7 +3,7 @@ import { genId, paginateArray } from '@/@fake-db/utils'
 import avatar1 from '@images/avatars/avatar-5.png'
 
 
-const url = 'http://localhost:8080/monografias'
+const url = 'http://localhost:8080/obras/monografias'
 
 let monografias = []
 
@@ -13,16 +13,16 @@ fetch(url)
     monografias = listaMonografias.map(monografia => ({
       id: monografia.id,
       titulo: monografia.titulo,
-      autores: monografia.autores, 
-      nrPaginas: monografia.nrPaginas, 
-      localPublicacao: monografia.localPublicacao, 
-      anoPublicacao: monografia.anoPublicacao, 
-      areaCientifica: monografia.areaCientifica, 
-      localizacao: monografia.localizacao, 
-      supervisor: monografia.supervisor, 
-      fotografia: avatar1, 
-      idioma: monografia.idioma, 
-      estado: monografia.estado, 
+      autores: monografia.autores,
+      nrPaginas: monografia.nrPaginas,
+      localPublicacao: monografia.localPublicacao,
+      anoPublicacao: monografia.anoPublicacao,
+      areaCientifica: monografia.areaCientifica,
+      localizacao: monografia.localizacao,
+      supervisor: monografia.supervisor,
+      fotografia: avatar1,
+      idioma: monografia.idioma,
+      estado: monografia.estado,
       referencia: monografia.referencia,
       faculdade: monografia.faculdade,
       curso: monografia.curso,
@@ -37,8 +37,8 @@ fetch(url)
 // 👉  return obras
 
 // eslint-disable-next-line sonarjs/cognitive-complexity
-mock.onGet('/pages/obras/monografias').reply(config => {
-  const { q = '', faculdade = null, estado = null, areaCientifica = null, options = {} }
+mock.onGet('/obras/monografias').reply(config => {
+  const { q = '', supervisor = null, faculdade = null, idioma = null, estado = null, areaCientifica = null, options = {} }
     = config.params ?? {}
 
   const { sortBy = '', itemsPerPage = 10, page = 1 } = options
@@ -50,6 +50,8 @@ mock.onGet('/pages/obras/monografias').reply(config => {
     monografia.autores.toLowerCase().includes(queryLower)) &&
     monografia.faculdade === (faculdade || monografia.faculdade)
     && monografia.estado === (estado || monografia.estado)
+    && monografia.idioma === (idioma || monografia.idioma)
+    && monografia.supervisor === (supervisor || monografia.supervisor)
     && monografia.areaCientifica === (areaCientifica || monografia.areaCientifica))).reverse()
 
   // sort obras
@@ -129,7 +131,7 @@ mock.onGet('/pages/obras/monografias').reply(config => {
 })
 
 // 👉 Add obra
-mock.onPost('/pages/obras/monografias/monografia').reply(config => {
+mock.onPost('/obras/monografias/monografia').reply(config => {
   const { obra } = JSON.parse(config.data)
 
   obra.id = genId(monografias)
@@ -139,7 +141,7 @@ mock.onPost('/pages/obras/monografias/monografia').reply(config => {
 })
 
 // 👉 Get Single obra
-mock.onGet(/\/pages\/obras\/monografias\/\d+/).reply(config => {
+mock.onGet(/\/obras\/monografias\/\d+/).reply(config => {
   // Get event id from URL
   const obraId = config.url?.substring(config.url.lastIndexOf('/') + 1)
 
@@ -154,7 +156,7 @@ mock.onGet(/\/pages\/obras\/monografias\/\d+/).reply(config => {
   return [404]
 })
 
-mock.onDelete(/\/pages\/obras\/monografias\/\d+/).reply(config => {
+mock.onDelete(/\/obras\/monografias\/\d+/).reply(config => {
   // Get obra id from URL
   const obraId = config.url?.substring(config.url.lastIndexOf('/') + 1)
 

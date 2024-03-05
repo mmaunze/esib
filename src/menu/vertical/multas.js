@@ -9,12 +9,12 @@ export default [
       {
         title: 'Multas Activas',
         icon: { icon: 'tabler-plus' },
-        to: 'pages-multas',
+        to: 'multas',
       },
       {
         title: 'Multas Pagas',
         icon: { icon: 'tabler-plus' },
-        to: 'pages-multas-pagas',
+        to: 'multas-pagas',
       },
 
     ],

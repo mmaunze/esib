@@ -5,12 +5,12 @@ export default [
   {
     title: 'Movimentos',
     icon: { icon: 'tabler-dots' },
-    to: 'pages-movimentos',
+    to: 'movimentos',
   },
   {
     title: 'Relatorios',
     icon: { icon: 'tabler-chart-pie' },
-    to: 'pages-relatorios',
+    to: 'relatorios',
    
   },
 ]
