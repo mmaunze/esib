@@ -1,97 +1,101 @@
 <script setup>
 import { paginationMeta } from "@/@fake-db/utils"
-import AddNewUserDrawer from "@/views/apps/user/list/AddNewUserDrawer.vue"
-import { useUserListStore } from "@/views/apps/user/useUserListStore"
-import { avatarText } from "@core/utils/formatters"
+import AddNewMonografiaDrawer from "@/views/pages/obras/monografias/AddNewMonografiaDrawer.vue"
+import { useMonografiaListStore } from "@/views/pages/obras/monografias/useMonografiaListStore"
 
-const listaUtilizadores = useUserListStore()
+// Dados
+
+const listaMonografias = useMonografiaListStore()
 
 const searchQuery = ref("")
-const selectedtipoUtilizador = ref()
-const selecteddepartamento = ref()
-const selectedareaCientifica = ref()
+const selectedFaculdade = ref()
+const selectedEstado = ref()
+const selectedAreaCientifica = ref()
 const totalPage = ref(1)
-const totalUsers = ref(0)
-const utilizadores = ref([])
+const totalMonografias = ref(0)
+const monografia = ref([])
 
-const options = ref({
-  page: 1,
-  itemsPerPage: 4,
-  sortBy: [],
-  groupBy: [],
-  search: undefined,
-})
-
-// 👉 Fetching users
-const buscarUtilizadores = () => {
-  listaUtilizadores
-    .fetchUsers({
-      q: searchQuery.value,
-      areaCientifica: selectedareaCientifica.value,
-      departamento: selecteddepartamento.value,
-      tipoUtilizador: selectedtipoUtilizador.value,
-      options: options.value,
-    })
-    .then(response => {
-      utilizadores.value = response.data.users
-      totalPage.value = response.data.totalPage
-      totalUsers.value = response.data.totalUsers
-      options.value.page = response.data.page
-    })
-    .catch(error => {
-      console.error(error)
-    })
-}
-
-watchEffect(buscarUtilizadores)
+// 👉 Estatisticas
+const userListMeta = [
+  {
+    icon: "tabler-book",
+    color: "primary",
+    title: "Livros Academicos",
+    stats: "459",
+  },
+  {
+    icon: "tabler-book-2",
+    color: "error",
+    title: "Monografia",
+    stats: "163",
+  },
+  {
+    icon: "tabler-library",
+    color: "success",
+    title: "Revistas",
+    stats: "87",
+  },
+  {
+    icon: "tabler-book",
+    color: "warning",
+    title: "Livros Literarios",
+    stats: "237",
+  },
+]
 
 // 👉 search filters
-const tipoUtilizadors = [
+//******* Tipos de Obras ********/
+
+
+const faculdades = [
   {
-    title: "Administrador",
-    value: "administrador",
+    title: "Faculdade de Engenharia",
+    value: "Faculdade de Engenharia",
   },
   {
-    title: "Bibliotecario",
-    value: "bibliotecario",
+    title: "Faculdade de Ciencias de Saude",
+    value: "Faculdade de Ciencias de Saude",
   },
   {
-    title: "Estudante",
-    value: "estudante",
+    title: "Faculdade de Ciencias Naturais",
+    value: "Faculdade de Ciencias Naturais",
   },
   {
-    title: "Docente",
-    value: "docente",
+    title: "Faculdade de Arquitectura e Planeamento Fisico",
+    value: "Faculdade de Arquitectura e Planeamento Fisico",
   },
   {
-    title: "Cta",
-    value: "cta",
+    title: "Faculdade de Ciências Sociais e Humanas",
+    value: "Faculdade de Ciências Sociais e Humanas",
+  },
+  {
+    title: "Escola Superior de Negócios - UniLúrio Business School",
+    value: "Escola Superior de Negócios - UniLúrio Business School",
+  },
+  {
+    title: "Faculdade de Ciências Agrárias",
+    value: "Faculdade de Ciências Agrárias",
   },
 ]
 
-const departamentos = [
+//******* Estados *********/
+
+const estados = [
   {
-    title: "Departamento de Engenharia Informatica",
-    value: "DEI",
+    title: "Disponível",
+    value: "Disponível",
   },
   {
-    title: "Departamento de Engenharia Mecanica",
-    value: "DEM",
+    title: "Emprestado",
+    value: "Emprestado",
   },
   {
-    title: "Departamento de Engenharia Geologica",
-    value: "DEG",
-  },
-  {
-    title: "Departamento de Engenharia Civil",
-    value: "DEC",
+    title: "Reservado",
+    value: "Reservado",
   },
 ]
 
-function administrador() {
-  return true
-}
-
+//****** Area Cientificas *********/
 
 const areaCientifica = [
   {
@@ -103,38 +107,222 @@ const areaCientifica = [
     value: "Engenharia",
   },
   {
-    title: "Quimica",
+    title: "Química",
     value: "Quimica",
+  },
+  {
+    title: "Biologia",
+    value: "Biologia",
+  },
+  {
+    title: "Matemática",
+    value: "Matematica",
+  },
+  {
+    title: "Ciências Sociais",
+    value: "CienciasSociais",
+  },
+  {
+    title: "Medicina",
+    value: "Medicina",
+  },
+  {
+    title: "Informática",
+    value: "Informatica",
+  },
+  {
+    title: "Psicologia",
+    value: "Psicologia",
+  },
+  {
+    title: "Economia",
+    value: "Economia",
+  },
+  {
+    title: "Arquitetura",
+    value: "Arquitetura",
+  },
+  {
+    title: "História",
+    value: "Historia",
+  },
+  {
+    title: "Geografia",
+    value: "Geografia",
+  },
+  {
+    title: "Arte",
+    value: "Arte",
+  },
+  {
+    title: "Educação",
+    value: "Educacao",
+  },
+  {
+    title: "Biomedicina",
+    value: "Biomedicina",
+  },
+  {
+    title: "Engenharia Civil",
+    value: "EngenhariaCivil",
+  },
+  {
+    title: "Arqueologia",
+    value: "Arqueologia",
+  },
+  {
+    title: "Sociologia",
+    value: "Sociologia",
+  },
+  {
+    title: "Nutrição",
+    value: "Nutricao",
+  },
+  {
+    title: "Farmácia",
+    value: "Farmacia",
+  },
+  {
+    title: "Linguística",
+    value: "Linguistica",
+  },
+  {
+    title: "Ciência da Computação",
+    value: "CienciaDaComputacao",
+  },
+  {
+    title: "Administração",
+    value: "Administracao",
+  },
+  {
+    title: "Comunicação Social",
+    value: "ComunicacaoSocial",
+  },
+  {
+    title: "Bioquímica",
+    value: "Bioquimica",
+  },
+  {
+    title: "Engenharia Elétrica",
+    value: "EngenhariaEletrica",
+  },
+  {
+    title: "Antropologia",
+    value: "Antropologia",
+  },
+  {
+    title: "Ciências Ambientais",
+    value: "CienciasAmbientais",
+  },
+  {
+    title: "Artes Visuais",
+    value: "ArtesVisuais",
+  },
+  {
+    title: "Literatura",
+    value: "Literatura",
+  },
+  {
+    title: "Ciências Políticas",
+    value: "CienciasPoliticas",
+  },
+  {
+    title: "Geologia",
+    value: "Geologia",
+  },
+  {
+    title: "Física Quântica",
+    value: "FisicaQuantica",
+  },
+  {
+    title: "Engenharia Mecânica",
+    value: "EngenhariaMecanica",
+  },
+  {
+    title: "Física",
+    value: "Fisica",
   },
 ]
 
-const resolveUsertipoUtilizadorVariant = tipoUtilizador => {
-  const tipoUtilizadorLowerCase = tipoUtilizador.toLowerCase()
-  if (tipoUtilizadorLowerCase === "cta")
+const options = ref({
+  page: 1,
+  itemsPerPage: 6,
+  sortBy: [],
+  groupBy: [],
+  search: undefined,
+})
+
+// Funcoes
+
+// 👉 Fetching users
+const buscarMonografias = () => {
+  listaMonografias
+    .fetchMonografias({
+      q: searchQuery.value,
+      areaCientifica: selectedAreaCientifica.value,
+      estado: selectedEstado.value,
+      faculdade: selectedFaculdade.value,
+      options: options.value,
+    })
+    .then(response => {
+      monografia.value = response.data.monografias
+      totalPage.value = response.data.totalPage
+      totalMonografias.value = response.data.totalMonografias
+      options.value.page = response.data.page
+    })
+    .catch(error => {
+      console.error(error)
+    })
+}
+
+const addNewMonografia = monografiaData => {
+  listaMonografias.addMonografia(monografiaData)
+
+  // refetch User
+  buscarMonografias()
+}
+
+const deleteMonografia = id => {
+  listaMonografias.deleteMonografia(id)
+
+  // refetch User
+  buscarMonografias()
+}
+
+watchEffect(buscarMonografias)
+
+function administrador() {
+  return true
+}
+
+const resolveFaculdadeVariant = faculdade => {
+  const tipoUtilizadorLowerCase = faculdade //  tipoObra.toLowerCase()
+  if (tipoUtilizadorLowerCase === "Faculdade de Ciências Agrárias")
     return {
       color: "primary",
       icon: "tabler-circle-check",
     }
-  if (tipoUtilizadorLowerCase === "bibliotecario")
+  if (tipoUtilizadorLowerCase === "Escola Superior de Negócios - UniLúrio Business School")
     return {
       color: "info",
       icon: "tabler-user",
     }
-  if (tipoUtilizadorLowerCase === "docente")
+  if (tipoUtilizadorLowerCase === "Faculdade de Engenharia")
     return {
       color: "warning",
       icon: "tabler-chart-pie-2",
     }
-  if (tipoUtilizadorLowerCase === "estudante")
+  if (tipoUtilizadorLowerCase === "Faculdade de Ciências Sociais e Humanas")
     return {
       color: "error",
       icon: "tabler-edit",
     }
-  if (tipoUtilizadorLowerCase === "Administrador")
+  if (tipoUtilizadorLowerCase === "Faculdade de Ciencias Naturais")
     return {
       color: "success",
-      icon: "tabler-device-laptop",
+      icon: "tabler-edit",
     }
+
 
   return {
     color: "primary",
@@ -142,66 +330,25 @@ const resolveUsertipoUtilizadorVariant = tipoUtilizador => {
   }
 }
 
-const resolveUserareaCientificaVariant = stat => {
-  const statLowerCase = stat.toLowerCase()
-  if (statLowerCase !== "privado") return "success"
-  if (statLowerCase === "active") return "waring"
-  if (statLowerCase === "inactive") return "error"
+const resolveUserareaCientificaVariant = areaCientifica => {
+  const statLowerCase = areaCientifica.toLowerCase()
+  if (statLowerCase == "Economia") return "success"
+  if (statLowerCase === "biologia") return "waring"
+  if (statLowerCase === "quimica") return "info"
 
-  return "primary"
+  return "error"
 }
 
-const isAddNewUserDrawerVisible = ref(false)
+const resolvEstadoVariant = estado => {
+  const statLowerCase = estado.toLowerCase()
+  if (statLowerCase == "Disponível") return "success"
+  if (statLowerCase === "Reservado") return "waring"
+  if (statLowerCase === "Emprestado") return "error"
 
-const addNewUser = userData => {
-  listaUtilizadores.addUser(userData)
-
-  // refetch User
-  buscarUtilizadores()
+  return "info"
 }
 
-// 👉 List
-const userListMeta = [
-  {
-    icon: "tabler-user",
-    color: "primary",
-    title: "Estudantes",
-    stats: "459",
-    percentage: +29,
-    subtitle: "Total Users",
-  },
-  {
-    icon: "tabler-user-plus",
-    color: "error",
-    title: "Docentes",
-    stats: "4,567",
-    percentage: +18,
-    subtitle: "Last week analytics",
-  },
-  {
-    icon: "tabler-user-check",
-    color: "success",
-    title: "Bibliotecarios",
-    stats: "19,860",
-    percentage: -14,
-    subtitle: "Last week analytics",
-  },
-  {
-    icon: "tabler-user-exclamation",
-    color: "warning",
-    title: "CTA",
-    stats: "237",
-    percentage: +42,
-    subtitle: "Last week analytics",
-  },
-]
-
-const deleteUser = id => {
-  listaUtilizadores.deleteUser(id)
-
-  // refetch User
-  buscarUtilizadores()
-}
+const isAddNewMonografiaDrawerVisible = ref(false)
 </script>
 
 <template>
@@ -222,10 +369,7 @@ const deleteUser = id => {
                 <h6 class="text-h4">
                   {{ meta.stats }}
                 </h6>
-                <span :class="meta.percentage > 0 ? 'text-success' : 'text-error'">( {{ meta.percentage > 0 ? "+" : "" }}
-                  {{ meta.percentage }}%)</span>
               </div>
-              <span>{{ meta.subtitle }}</span>
             </div>
 
             <VAvatar
@@ -239,7 +383,7 @@ const deleteUser = id => {
       </VCol>
 
       <VCol cols="12">
-        <VCard title="Pesquisar Monografias">
+        <VCard title="Pesquisar monografias">
           <!-- 👉 Filters -->
           <VCardText>
             <VRow>
@@ -248,10 +392,10 @@ const deleteUser = id => {
                 cols="12"
                 sm="4"
               >
-                <AppSelect
-                  v-model="selectedtipoUtilizador"
-                  label="Seleccionar Faculdade"
-                  :items="tipoUtilizadors"
+                <VAutocomplete
+                  v-model="selectedFaculdade"
+                  label="Seleccionar faculdade "
+                  :items="faculdades"
                   clearable
                   clear-icon="tabler-x"
                 />
@@ -261,10 +405,10 @@ const deleteUser = id => {
                 cols="12"
                 sm="4"
               >
-                <AppSelect
-                  v-model="selecteddepartamento"
-                  label="Seleccionar Curso"
-                  :items="departamentos"
+                <VAutocomplete
+                  v-model="selectedEstado"
+                  label="Seleccionar o estado da obra"
+                  :items="estados"
                   clearable
                   clear-icon="tabler-x"
                 />
@@ -274,9 +418,9 @@ const deleteUser = id => {
                 cols="12"
                 sm="4"
               >
-                <AppSelect
-                  v-model="selectedareaCientifica"
-                  label="Selecccionar area cientifica"
+                <VAutocomplete
+                  v-model="selectedAreaCientifica"
+                  label="Seleccionar a area cientifica"
                   :items="areaCientifica"
                   clearable
                   clear-icon="tabler-x"
@@ -292,27 +436,24 @@ const deleteUser = id => {
               <AppSelect
                 :model-value="options.itemsPerPage"
                 :items="[
-                  { value: 4, title: '4' },
-                  { value: 16, title: '16' },
-                  { value: 32, title: '32' },
-                  { value: 64, title: '64' },
+                  { value: 8, title: '8' },
+                  { value: 24, title: '24' },
+                  { value: 48, title: '48' },
                   { value: 96, title: '96' },
-                  { value: -1, title: 'ver tudo' },
+                  { value: -1, title: 'Ver Todos' },
                 ]"
-                style="width: 6.25rem;"
-                @update:model-value="
-                  options.itemsPerPage = parseInt($event, 4)
-                "
+                style="width: 6.25rem"
+                @update:model-value="options.itemsPerPage = parseInt($event, 8)"
               />
             </div>
             <VSpacer />
 
             <div class="app-user-search-filter d-flex align-center flex-wrap gap-4">
               <!-- 👉 Search  -->
-              <div style="inline-size: 16rem;">
+              <div style="inline-size: 15rem">
                 <AppTextField
                   v-model="searchQuery"
-                  placeholder="pesquisar monografias"
+                  placeholder="Pesquisar monografias"
                   density="compact"
                 />
               </div>
@@ -320,9 +461,9 @@ const deleteUser = id => {
               <!-- 👉 Add user button -->
               <VBtn
                 prepend-icon="tabler-plus"
-                @click="isAddNewUserDrawerVisible = true"
+                @click="isAddNewMonografiaDrawerVisible = true"
               >
-                Cadastrar Utilizador
+                Cadastrar monografia
               </VBtn>
             </div>
           </VCardText>
@@ -330,28 +471,27 @@ const deleteUser = id => {
           <VDivider />
         </VCard>
 
-        
         <!-- SECTION -->
         <section class="mt-7">
           <VRow text-align="center">
             <VCol
-              v-for="user in utilizadores"
+              v-for="user in monografia"
               :key="user.id"
               cols="12"
               sm="6"
-              md="4"
-              lg="3"
+              md="3"
+              lg="4"
             >
               <VCard class="mb-3">
-                <VCardTitle class="mb-4 mt-2">
-                  {{ user.nome }}
+                <VCardTitle class="mb-4 mt-2 text-wrap">
+                  {{ user.titulo }}
                 </VCardTitle>
 
                 <VImg
-                  :src="user.avatar"
+                  :src="user.fotografia"
                   aspect-ratio="2"
                 />
-                  
+
                 <!--
                   <span
                   v-else
@@ -360,62 +500,55 @@ const deleteUser = id => {
                 -->
 
                 <VCardText>
-                  <div class="d-flex align-center gap-4">
-                    <span
-                      variant="tonal"
-                      size="small"
-                      label
-                      class="mb-3"
-                    >
-                      {{ user.sexo }}
-                    </span>
+                  <div class="d-flex align-center gap-4 text-wrap">
                     <VBtn
-                      :color="resolveUsertipoUtilizadorVariant(user.tipoUtilizador).color"
+                      :color="resolveFaculdadeVariant(user.faculdade).color"
                       variant="tonal"
                       size="small"
                       label
                       class="mb-3"
                     >
-                      {{ user.tipoUtilizador }}
-                    </VBtn>
-                    <VBtn
-                      variant="tonal"
-                      size="small"
-                      label
-                      class="mb-3"
-                    >
-                      {{ user.departamento }}
+                      {{ user.faculdade }}
                     </VBtn>
                   </div>
-                  <p class="font-weight-small">
-                    <br> {{ user.contacto }}
-                    <br> {{ user.email }}
-                  </p>
-                  <VChip
-                    :color="primary"
+                  <VBtn
+                    :color="resolvEstadoVariant(user.estado)"
+                    variant="tonal"
                     size="small"
                     label
-                    class="text-capitalize"
+                    class="mb-3"
                   >
-                    {{ user.areaCientifica }}
-                  </VChip>
+                    {{ user.estado }}
+                  </VBtn>
+                  <p class="font-weight-small text-justify">
+                    Esta Monografia do curso de <b>{{ user.curso }}</b> tem {{ user.nrPaginas }} paginas, supervisionado por
+                    <b>{{ user.supervisor +" ; "+ user.coSupervisor }}</b> publcado no ano de {{ user.anoPublicacao }},  {{ user.faculdade }}
+                    <Strong>
+                      <br>
+                      Autor </Strong>: {{ user.autores }}
+                    <Strong>
+                      <br>
+                      Idioma</Strong>: {{ user.idioma }}
+                    <Strong>
+                      <br>
+                      Localizacao </Strong>: {{ user.localizacao }}
+                  </p>
                 </VCardText>
 
-                
                 <VCardText
                   v-if="administrador()"
                   class="text-center"
                 >
                   <VBtn
-                    style="margin-right: 0.25rem;"
+                    style="margin-right: 0.25rem"
                     size="small"
                     color="error"
-                    @click="deleteUser(user.id)"
+                    @click="deleteMonografia(user.id)"
                   >
                     Remover
                   </VBtn>
                   <VBtn
-                    style="margin-left: 0.25rem;"
+                    style="margin-left: 0.25rem"
                     size="small"
                     color="primary"
                     :to="{
@@ -432,15 +565,15 @@ const deleteUser = id => {
                   class="text-center"
                 >
                   <VBtn
-                    style="margin-right: 0.25rem;"
+                    style="margin-right: 0.25rem"
                     size="small"
                     color="success"
-                    @click="deleteUser(user.id)"
+                    @click="deleteMonografia(user.id)"
                   >
                     Reservar
                   </VBtn>
                   <VBtn
-                    style="margin-left: 0.25rem;"
+                    style="margin-left: 0.25rem"
                     size="small"
                     color="primary"
                     :to="{
@@ -460,15 +593,15 @@ const deleteUser = id => {
 
           <div>
             <p class="text-sm text-disabled mb-0">
-              {{ paginationMeta(options, totalUsers) }}
+              {{ paginationMeta(options, totalMonografias) }}
             </p>
             <VPagination
               v-model="options.page"
-              :length="Math.ceil(totalUsers / options.itemsPerPage)"
+              :length="Math.ceil(totalMonografias / options.itemsPerPage)"
               :total-visible="
                 $vuetify.display.xs
                   ? 1
-                  : Math.ceil(totalUsers / options.itemsPerPage)
+                  : Math.ceil(totalMonografias / options.itemsPerPage)
               "
             >
               <template #prev="slotProps">
@@ -496,11 +629,10 @@ const deleteUser = id => {
         </section>
         <!-- SECTION -->
 
-
         <!-- 👉 Add New User -->
-        <AddNewUserDrawer
-          v-model:isDrawerOpen="isAddNewUserDrawerVisible"
-          @user-data="addNewUser"
+        <AddNewMonografiaDrawer
+          v-model:isDrawerOpen="isAddNewMonografiaDrawerVisible"
+          @user-data="addNewMonografia"
         />
       </VCol>
     </VRow>

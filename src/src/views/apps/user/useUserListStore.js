@@ -1,7 +1,7 @@
 import axios from '@axios'
 import { defineStore } from 'pinia'
 
-export const useUserListStore = defineStore('UserObraStore', {
+export const useUserListStore = defineStore('MonografiaStore', {
   actions: {
     // 👉 Fetch users data
     fetchUsers(params) { return axios.get('/apps/users/list', { params }) },

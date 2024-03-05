@@ -236,7 +236,6 @@ const areaCientifica = [
   },
 ]
 
-
 const options = ref({
   page: 1,
   itemsPerPage: 6,
@@ -371,11 +370,10 @@ const isAddNewObraDrawerVisible = ref(false)
       </VCol>
 
       <VCol cols="12">
-        <VCard title="Pesquisar Uma Obra">
+        <VCard title="Pesquisar obras">
           <!-- 👉 Filters -->
           <VCardText>
             <VRow>
-              <!-- 👉 Select tipoUtilizador -->
               <VCol
                 cols="12"
                 sm="4"
@@ -388,7 +386,6 @@ const isAddNewObraDrawerVisible = ref(false)
                   clear-icon="tabler-x"
                 />
               </VCol>
-              <!-- 👉 Select departamento -->
               <VCol
                 cols="12"
                 sm="4"
@@ -401,7 +398,6 @@ const isAddNewObraDrawerVisible = ref(false)
                   clear-icon="tabler-x"
                 />
               </VCol>
-              <!-- 👉 Select areaCientifica -->
               <VCol
                 cols="12"
                 sm="4"
@@ -439,7 +435,6 @@ const isAddNewObraDrawerVisible = ref(false)
             <VSpacer />
 
             <div class="app-user-search-filter d-flex align-center flex-wrap gap-4">
-              <!-- 👉 Search  -->
               <div style="inline-size: 10rem;">
                 <AppTextField
                   v-model="searchQuery"
@@ -448,7 +443,6 @@ const isAddNewObraDrawerVisible = ref(false)
                 />
               </div>
 
-              <!-- 👉 Add user button -->
               <VBtn
                 prepend-icon="tabler-plus"
                 @click="isAddNewObraDrawerVisible = true"
