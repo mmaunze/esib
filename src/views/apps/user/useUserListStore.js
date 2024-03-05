@@ -1,7 +1,7 @@
-import { defineStore } from 'pinia'
 import axios from '@axios'
+import { defineStore } from 'pinia'
 
-export const useUserListStore = defineStore('UserListStore', {
+export const useUserListStore = defineStore('UserObraStore', {
   actions: {
     // 👉 Fetch users data
     fetchUsers(params) { return axios.get('/apps/users/list', { params }) },

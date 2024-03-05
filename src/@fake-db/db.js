@@ -1,5 +1,6 @@
 import './app-bar-search'
 import './apps/user-list'
+import './apps/obras'
 import './jwt'
 import mock from './mock'
 import './pages/ajuda'

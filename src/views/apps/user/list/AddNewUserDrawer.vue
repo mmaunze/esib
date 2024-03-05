@@ -1,40 +1,40 @@
 <script setup>
-import { emailValidator, requiredValidator } from "@validators"
-import { PerfectScrollbar } from "vue3-perfect-scrollbar"
+import { emailValidator, requiredValidator } from "@validators";
+import { PerfectScrollbar } from "vue3-perfect-scrollbar";
 
 const props = defineProps({
   isDrawerOpen: {
     type: Boolean,
     required: true,
   },
-})
+});
 
-const emit = defineEmits(["update:isDrawerOpen", "userData"])
+const emit = defineEmits(["update:isDrawerOpen", "obraData"]);
 
-const isFormValid = ref(false)
-const refForm = ref()
-const nome = ref("")
-const email = ref("")
-const departamento = ref("")
-const areaCientifica = ref("")
-const contacto = ref("")
-const tipoUtilizador = ref()
-const sexo = ref()
-const status = ref()
+const isFormValid = ref(false);
+const refForm = ref();
+const nome = ref("");
+const email = ref("");
+const departamento = ref("");
+const areaCientifica = ref("");
+const contacto = ref("");
+const tipoUtilizador = ref();
+const sexo = ref();
+const status = ref();
 
 // 👉 drawer close
 const closeNavigationDrawer = () => {
-  emit("update:isDrawerOpen", false)
+  emit("update:isDrawerOpen", false);
   nextTick(() => {
-    refForm.value?.reset()
-    refForm.value?.resetValidation()
-  })
-}
+    refForm.value?.reset();
+    refForm.value?.resetValidation();
+  });
+};
 
 const onSubmit = () => {
   refForm.value?.validate().then(({ valid }) => {
     if (valid) {
-      emit("userData", {
+      emit("obraData", {
         id: 0,
         nome: nome.value,
         departamento: departamento.value,
@@ -46,19 +46,19 @@ const onSubmit = () => {
         status: status.value,
         avatar: "",
         billing: "Auto Debit",
-      })
-      emit("update:isDrawerOpen", false)
+      });
+      emit("update:isDrawerOpen", false);
       nextTick(() => {
-        refForm.value?.reset()
-        refForm.value?.resetValidation()
-      })
+        refForm.value?.reset();
+        refForm.value?.resetValidation();
+      });
     }
-  })
-}
+  });
+};
 
-const handleDrawerModelValueUpdate = val => {
-  emit("update:isDrawerOpen", val)
-}
+const handleDrawerModelValueUpdate = (val) => {
+  emit("update:isDrawerOpen", val);
+};
 </script>
 
 <template>
@@ -80,11 +80,7 @@ const handleDrawerModelValueUpdate = val => {
       <VCard flat>
         <VCardText>
           <!-- 👉 Form -->
-          <VForm
-            ref="refForm"
-            v-model="isFormValid"
-            @submit.prevent="onSubmit"
-          >
+          <VForm ref="refForm" v-model="isFormValid" @submit.prevent="onSubmit">
             <VRow>
               <!-- 👉 Nome -->
               <VCol cols="12">
@@ -119,11 +115,7 @@ const handleDrawerModelValueUpdate = val => {
                   v-model="areaCientifica"
                   label=" 👉 Area Cientifica "
                   :rules="[requiredValidator]"
-                  :items="[
-                    'Biologia',
-                    'Quimica',
-                    'Matematica'
-                  ]"
+                  :items="['Biologia', 'Quimica', 'Matematica']"
                 />
               </VCol>
 
@@ -179,12 +171,7 @@ const handleDrawerModelValueUpdate = val => {
 
               <!-- 👉 Submit and Cancel -->
               <VCol cols="12">
-                <VBtn
-                  type="submit"
-                  class="me-3"
-                >
-                  Submit
-                </VBtn>
+                <VBtn type="submit" class="me-3"> Submit </VBtn>
                 <VBtn
                   type="reset"
                   variant="tonal"

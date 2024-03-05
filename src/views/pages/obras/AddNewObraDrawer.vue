@@ -1,5 +1,6 @@
 <script setup>
-import { emailValidator, requiredValidator } from "@validators"
+import AppAutocomplete from "@/src/@core/components/app-form-elements/AppAutocomplete.vue"
+import { requiredValidator } from "@validators"
 import { PerfectScrollbar } from "vue3-perfect-scrollbar"
 
 const props = defineProps({
@@ -9,18 +10,21 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(["update:isDrawerOpen", "userData"])
+const emit = defineEmits(["update:isDrawerOpen", "obraData"])
 
 const isFormValid = ref(false)
 const refForm = ref()
-const nome = ref("")
-const email = ref("")
-const departamento = ref("")
+const id = ref("")
+const titulo = ref("")
+const autores = ref("")
+const idioma = ref("")
 const areaCientifica = ref("")
-const contacto = ref("")
-const tipoUtilizador = ref()
-const sexo = ref()
-const status = ref()
+const nrPaginas = ref("")
+const tipoObra = ref()
+const localizacao = ref("")
+const anoPublicacao = ref("")
+const referencia = ref("")
+const fotografia = ref("")
 
 // 👉 drawer close
 const closeNavigationDrawer = () => {
@@ -34,18 +38,19 @@ const closeNavigationDrawer = () => {
 const onSubmit = () => {
   refForm.value?.validate().then(({ valid }) => {
     if (valid) {
-      emit("userData", {
+      emit("obraData", {
         id: 0,
-        nome: nome.value,
-        departamento: departamento.value,
-        tipoUtilizador: tipoUtilizador.value,
+        titulo: titulo.value,
+        idioma: idioma.value,
+        tipoObra: tipoObra.value,
         areaCientifica: areaCientifica.value,
-        contacto: contacto.value,
-        email: email.value,
-        sexo: sexo.value,
-        status: status.value,
-        avatar: "",
-        billing: "Auto Debit",
+        nrPaginas: nrPaginas.value,
+        autores: autores.value,
+        localizacao: localizacao.value,
+        localPublicacao: localPublicacao.value,
+        fotografia: fotografia.value,
+        anoPublicacao: anoPublicacao.value,
+        referencia: referencia.value,
       })
       emit("update:isDrawerOpen", false)
       nextTick(() => {
@@ -72,7 +77,7 @@ const handleDrawerModelValueUpdate = val => {
   >
     <!-- 👉 Title -->
     <AppDrawerHeaderSection
-      title="Cadastrar Utilizador"
+      title="Cadastrar Obra"
       @cancel="closeNavigationDrawer"
     />
 
@@ -89,91 +94,91 @@ const handleDrawerModelValueUpdate = val => {
               <!-- 👉 Nome -->
               <VCol cols="12">
                 <AppTextField
-                  v-model="nome"
+                  v-model="id"
+                  type="number"
                   :rules="[requiredValidator]"
-                  label="Nome Completo"
+                  label="👉 Numero de Registo da obra"
+                />
+              </VCol>
+
+              <!-- 👉 Nome -->
+              <VCol cols="12">
+                <AppTextField
+                  v-model="titulo"
+                  :rules="[requiredValidator]"
+                  label="Titulo da Obra"
                 />
               </VCol>
 
               <!-- 👉 Email -->
               <VCol cols="12">
                 <AppTextField
-                  v-model="email"
-                  :rules="[requiredValidator, emailValidator]"
-                  label="Email"
+                  v-model="autores"
+                  :rules="[requiredValidator]"
+                  label="autores"
                 />
               </VCol>
 
               <!-- 👉 company -->
               <VCol cols="12">
-                <AppTextField
-                  v-model="departamento"
+                <AppAutocomplete
+                  v-model="idioma"
+                  label=" 👉 Idioma "
                   :rules="[requiredValidator]"
-                  label="Company"
+                  :items="['Biologia', 'Quimica', 'Matematica']"
                 />
               </VCol>
 
               <!-- 👉 Area Cientifica -->
               <VCol cols="12">
-                <AppSelect
+                <AppAutocomplete
                   v-model="areaCientifica"
                   label=" 👉 Area Cientifica "
                   :rules="[requiredValidator]"
-                  :items="[
-                    'Biologia',
-                    'Quimica',
-                    'Matematica'
-                  ]"
+                  :items="['Biologia', 'Quimica', 'Matematica']"
                 />
               </VCol>
 
               <!-- 👉 Contact -->
               <VCol cols="12">
                 <AppTextField
-                  v-model="contacto"
+                  v-model="nrPaginas"
                   type="number"
                   :rules="[requiredValidator]"
-                  label="👉 Contact"
+                  label="👉 Numero de Paginas"
                 />
               </VCol>
 
               <!-- 👉 Role -->
               <VCol cols="12">
-                <AppSelect
-                  v-model="tipoUtilizador"
-                  label="👉 Tipo de Utilizador"
+                <AppAutocomplete
+                  v-model="tipoObra"
+                  label="👉 Tipo de Obra"
                   :rules="[requiredValidator]"
                   :items="[
-                    'Administrador',
-                    'Estudante',
-                    'Docente',
-                    'Cta',
-                    'Bibliotecario',
+                    'Livro Academico',
+                    'Monografia',
+                    'Livro Literario',
+                    'Revista',
                   ]"
                 />
               </VCol>
 
               <!-- 👉 Plan -->
               <VCol cols="12">
-                <AppSelect
-                  v-model="sexo"
-                  label="Sexo"
+                <AppTextField
+                  v-model="localizacao"
                   :rules="[requiredValidator]"
-                  :items="['F', 'M']"
+                  label="👉 Localizacao"
                 />
               </VCol>
 
               <!-- 👉 Status -->
               <VCol cols="12">
-                <AppSelect
-                  v-model="status"
-                  label="Select Status"
+                <AppTextField
+                  v-model="localPublicacao"
                   :rules="[requiredValidator]"
-                  :items="[
-                    { title: 'publico', value: 'publico' },
-                    { title: 'Inactive', value: 'inactive' },
-                    { title: 'privado', value: 'privado' },
-                  ]"
+                  label="👉 Local de Publicacao da Obra"
                 />
               </VCol>
 

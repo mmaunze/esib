@@ -1,96 +1,93 @@
 <script setup>
 import { paginationMeta } from "@/@fake-db/utils"
-import AddNewUserDrawer from "@/views/apps/user/list/AddNewUserDrawer.vue"
-import { useUserListStore } from "@/views/apps/user/useUserListStore"
+import AddNewObraDrawer from "@/views/pages/obras/AddNewObraDrawer.vue"
+import { useObraListStore } from "@/views/pages/obras/useObraListStore"
 import { avatarText } from "@core/utils/formatters"
 
-const listaUtilizadores = useUserListStore()
+// Dados 
+
+const listaObras = useObraListStore()
 
 const searchQuery = ref("")
-const selectedTipoUtilizador = ref()
-const selectedDepartamento = ref()
+const selectedTipoObra = ref()
+const selectedEstado = ref()
 const selectedAreaCientifica = ref()
 const totalPage = ref(1)
-const totalUsers = ref(0)
-const utilizadores = ref([])
+const totalObras = ref(0)
+const obras = ref([])
 
-const options = ref({
-  page: 1,
-  itemsPerPage: 6,
-  sortBy: [],
-  groupBy: [],
-  search: undefined,
-})
-
-// 👉 Fetching users
-const buscarUtilizadores = () => {
-  listaUtilizadores
-    .fetchUsers({
-      q: searchQuery.value,
-      areaCientifica: selectedAreaCientifica.value,
-      departamento: selectedDepartamento.value,
-      tipoUtilizador: selectedTipoUtilizador.value,
-      options: options.value,
-    })
-    .then(response => {
-      utilizadores.value = response.data.users
-      totalPage.value = response.data.totalPage
-      totalUsers.value = response.data.totalUsers
-      options.value.page = response.data.page
-    })
-    .catch(error => {
-      console.error(error)
-    })
-}
-
-watchEffect(buscarUtilizadores)
+// 👉 Estatisticas
+const userListMeta = [
+  {
+    icon: "tabler-book",
+    color: "primary",
+    title: "Livros Academicos",
+    stats: "459",
+   
+  
+  },
+  {
+    icon: "tabler-book-2",
+    color: "error",
+    title: "Monografia",
+    stats: "163",
+   
+  },
+  {
+    icon: "tabler-library",
+    color: "success",
+    title: "Revistas",
+    stats: "87",
+   
+  },
+  {
+    icon: "tabler-book",
+    color: "warning",
+    title: "Livros Literarios",
+    stats: "237",
+   
+  },
+]
 
 // 👉 search filters
-const tipoUtilizadors = [
+//******* Tipos de Obras ********/
+const tipoObras = [
   {
-    title: "Administrador",
-    value: "administrador",
+    title: "Livro Academico",
+    value: "Livro Academico",
   },
   {
-    title: "Bibliotecario",
-    value: "bibliotecario",
+    title: "Monografia",
+    value: "Monografia",
   },
   {
-    title: "Estudante",
-    value: "estudante",
+    title: "Revista",
+    value: "Revista",
   },
   {
-    title: "Docente",
-    value: "docente",
-  },
-  {
-    title: "Cta",
-    value: "cta",
+    title: "Livro Literario",
+    value: "Livro Literario",
   },
 ]
 
-const departamentos = [
+//******* Estados *********/
+
+const estados = [
   {
-    title: "Departamento de Engenharia Informatica",
-    value: "DEI",
+    title: "Disponível",
+    value: "Disponível",
   },
   {
-    title: "Departamento de Engenharia Mecanica",
-    value: "DEM",
+    title: "Emprestado",
+    value: "Emprestado",
   },
   {
-    title: "Departamento de Engenharia Geologica",
-    value: "DEG",
-  },
-  {
-    title: "Departamento de Engenharia Civil",
-    value: "DEC",
+    title: "Reservado",
+    value: "Reservado",
   },
 ]
 
-function administrador() {
-  return true
-}
+//****** Area Cientificas *********/
 
 const areaCientifica = [
   {
@@ -240,32 +237,79 @@ const areaCientifica = [
 ]
 
 
-const resolveUsertipoUtilizadorVariant = tipoUtilizador => {
-  const tipoUtilizadorLowerCase = tipoUtilizador.toLowerCase()
-  if (tipoUtilizadorLowerCase === "cta")
+const options = ref({
+  page: 1,
+  itemsPerPage: 6,
+  sortBy: [],
+  groupBy: [],
+  search: undefined,
+})
+
+
+// Funcoes
+
+// 👉 Fetching users
+const buscarObras = () => {
+  listaObras
+    .fetchObras({
+      q: searchQuery.value,
+      areaCientifica: selectedAreaCientifica.value,
+      estado: selectedEstado.value,
+      tipoObra: selectedTipoObra.value,
+      options: options.value,
+    })
+    .then(response => {
+      obras.value = response.data.obras
+      totalPage.value = response.data.totalPage
+      totalObras.value = response.data.totalObras
+      options.value.page = response.data.page
+    })
+    .catch(error => {
+      console.error(error)
+    })
+}
+
+const addNewObra = obraData => {
+  listaObras.addObra(obraData)
+
+  // refetch User
+  buscarObras()
+}
+
+const deleteObra = id => {
+  listaObras.deleteObra(id)
+
+  // refetch User
+  buscarObras()
+}
+
+watchEffect(buscarObras)
+
+function administrador() {
+  return true
+}
+
+const resolveTipoObraVariant = tipoObra => {
+  const tipoUtilizadorLowerCase = tipoObra //  tipoObra.toLowerCase()
+  if (tipoUtilizadorLowerCase === "Revista")
     return {
       color: "primary",
       icon: "tabler-circle-check",
     }
-  if (tipoUtilizadorLowerCase === "bibliotecario")
+  if (tipoUtilizadorLowerCase === "Monografia")
     return {
       color: "info",
       icon: "tabler-user",
     }
-  if (tipoUtilizadorLowerCase === "docente")
+  if (tipoUtilizadorLowerCase === "Livro Academico")
     return {
       color: "warning",
       icon: "tabler-chart-pie-2",
     }
-  if (tipoUtilizadorLowerCase === "estudante")
+  if (tipoUtilizadorLowerCase === "Livro Literario")
     return {
       color: "error",
       icon: "tabler-edit",
-    }
-  if (tipoUtilizadorLowerCase === "Administrador")
-    return {
-      color: "success",
-      icon: "tabler-device-laptop",
     }
 
   return {
@@ -283,54 +327,16 @@ const resolveUserareaCientificaVariant = areaCientifica => {
   return "error"
 }
 
-const isAddNewUserDrawerVisible = ref(false)
+const resolvEstadoVariant = estado => {
+  const statLowerCase = estado.toLowerCase()
+  if (statLowerCase == "Disponível") return "success"
+  if (statLowerCase === "Reservado") return "waring"
+  if (statLowerCase === "Emprestado") return "error"
 
-const addNewUser = userData => {
-  listaUtilizadores.addUser(userData)
-
-  // refetch User
-  buscarUtilizadores()
+  return "info"
 }
 
-// 👉 List
-const userListMeta = [
-  {
-    icon: "tabler-user",
-    color: "primary",
-    title: "Estudantes",
-    stats: "459",
-   
-  
-  },
-  {
-    icon: "tabler-user-plus",
-    color: "error",
-    title: "Docentes",
-    stats: "4,567",
-   
-  },
-  {
-    icon: "tabler-user-check",
-    color: "success",
-    title: "Bibliotecarios",
-    stats: "19,860",
-   
-  },
-  {
-    icon: "tabler-user-exclamation",
-    color: "warning",
-    title: "CTA",
-    stats: "237",
-   
-  },
-]
-
-const deleteUser = id => {
-  listaUtilizadores.deleteUser(id)
-
-  // refetch User
-  buscarUtilizadores()
-}
+const isAddNewObraDrawerVisible = ref(false)
 </script>
 
 <template>
@@ -375,9 +381,9 @@ const deleteUser = id => {
                 sm="4"
               >
                 <VAutocomplete
-                  v-model="selectedTipoUtilizador"
+                  v-model="selectedTipoObra"
                   label="Seleccionar tipo de obra "
-                  :items="tipoUtilizadors"
+                  :items="tipoObras"
                   clearable
                   clear-icon="tabler-x"
                 />
@@ -388,9 +394,9 @@ const deleteUser = id => {
                 sm="4"
               >
                 <VAutocomplete
-                  v-model="selectedDepartamento"
+                  v-model="selectedEstado"
                   label="Seleccionar o estado da obra"
-                  :items="departamentos"
+                  :items="estados"
                   clearable
                   clear-icon="tabler-x"
                 />
@@ -437,7 +443,7 @@ const deleteUser = id => {
               <div style="inline-size: 10rem;">
                 <AppTextField
                   v-model="searchQuery"
-                  placeholder="Search"
+                  placeholder="Pesquisar Obras"
                   density="compact"
                 />
               </div>
@@ -445,9 +451,9 @@ const deleteUser = id => {
               <!-- 👉 Add user button -->
               <VBtn
                 prepend-icon="tabler-plus"
-                @click="isAddNewUserDrawerVisible = true"
+                @click="isAddNewObraDrawerVisible = true"
               >
-                Cadastrar Utilizador
+                Cadastrar Obra
               </VBtn>
             </div>
           </VCardText>
@@ -460,7 +466,7 @@ const deleteUser = id => {
         <section class="mt-7">
           <VRow text-align="center">
             <VCol
-              v-for="user in utilizadores"
+              v-for="user in obras"
               :key="user.id"
               cols="12"
               sm="6"
@@ -468,12 +474,12 @@ const deleteUser = id => {
               lg="4"
             >
               <VCard class="mb-3">
-                <VCardTitle class="mb-4 mt-2">
-                  {{ user.nome }}
+                <VCardTitle class="mb-4 mt-2 text-wrap">
+                  {{ user.titulo }}
                 </VCardTitle>
 
                 <VImg
-                  :src="user.avatar"
+                  :src="user.fotografia"
                   aspect-ratio="2"
                 />
                   
@@ -486,36 +492,33 @@ const deleteUser = id => {
 
                 <VCardText>
                   <div class="d-flex align-center gap-4">
-                    <span
-                      variant="tonal"
-                      size="small"
-                      label
-                      class="mb-3"
-                    >
-                      {{ user.sexo }}
-                    </span>
                     <VBtn
-                      :color="resolveUsertipoUtilizadorVariant(user.tipoUtilizador).color"
+                      :color="resolveTipoObraVariant(user.tipoObra).color"
                       variant="tonal"
                       size="small"
                       label
                       class="mb-3"
                     >
-                      {{ user.tipoUtilizador }}
+                      {{ user.tipoObra }}
                     </VBtn>
                     <VBtn
+                      :color="resolvEstadoVariant(user.estado)"
                       variant="tonal"
                       size="small"
                       label
                       class="mb-3"
                     >
-                      {{ user.departamento }}
+                      {{ user.estado }}
                     </VBtn>
                   </div>
                   <p class="font-weight-small">
-                    <br> {{ user.contacto }}
-                    <br> {{ user.email }}
+                    A obra tem {{ user.nrPaginas }} Paginas, publicada em {{ user.localPublicacao }} no ano de {{ user.anoPublicacao }}
+                    <Strong> <br> Autor(es) </Strong>: {{ user.autores }}
+                    <Strong> <br> Idioma</Strong>: {{ user.idioma }}
+                    <Strong> <br> Referencia</Strong>: {{ user.referencia }}
+                    <Strong> <br> Localizacao </Strong>: {{ user.localizacao }}
                   </p>
+                  Area Cientifica:
                   <VChip
                     :color="resolveUserareaCientificaVariant(user.areaCientifica)"
                     size="small"
@@ -535,7 +538,7 @@ const deleteUser = id => {
                     style="margin-right: 0.25rem;"
                     size="small"
                     color="error"
-                    @click="deleteUser(user.id)"
+                    @click="deleteObra(user.id)"
                   >
                     Remover
                   </VBtn>
@@ -560,7 +563,7 @@ const deleteUser = id => {
                     style="margin-right: 0.25rem;"
                     size="small"
                     color="success"
-                    @click="deleteUser(user.id)"
+                    @click="deleteObra(user.id)"
                   >
                     Reservar
                   </VBtn>
@@ -585,15 +588,15 @@ const deleteUser = id => {
 
           <div>
             <p class="text-sm text-disabled mb-0">
-              {{ paginationMeta(options, totalUsers) }}
+              {{ paginationMeta(options, totalObras) }}
             </p>
             <VPagination
               v-model="options.page"
-              :length="Math.ceil(totalUsers / options.itemsPerPage)"
+              :length="Math.ceil(totalObras / options.itemsPerPage)"
               :total-visible="
                 $vuetify.display.xs
                   ? 1
-                  : Math.ceil(totalUsers / options.itemsPerPage)
+                  : Math.ceil(totalObras / options.itemsPerPage)
               "
             >
               <template #prev="slotProps">
@@ -623,9 +626,9 @@ const deleteUser = id => {
 
 
         <!-- 👉 Add New User -->
-        <AddNewUserDrawer
-          v-model:isDrawerOpen="isAddNewUserDrawerVisible"
-          @user-data="addNewUser"
+        <AddNewObraDrawer
+          v-model:isDrawerOpen="isAddNewObraDrawerVisible"
+          @user-data="addNewObra"
         />
       </VCol>
     </VRow>
