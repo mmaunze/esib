@@ -1,4 +1,4 @@
-# Sistema de Biblioteca em Vue.js com Vite e npm
+# Sistema de Biblioteca em Vue.js com Vite
 
 ## Descrição
 
@@ -6,73 +6,89 @@ Este projeto implementa o frontend de um sistema de biblioteca completo, utiliza
 
 ## Funcionalidades
 
-### Gerenciamento de Livros:
+### Gerenciamento de Livros
 
-- Cadastrar, editar e excluir livros.
-- Pesquisar livros por título, autor e ISBN.
-- Visualizar detalhes de um livro.
+- **Cadastro de Livros:** Permite adicionar novos livros ao sistema com informações detalhadas como título, autor, ISBN, gênero e descrição.
+- **Edição de Livros:** Possibilidade de editar informações de livros já cadastrados.
+- **Exclusão de Livros:** Remoção de livros do sistema.
+- **Pesquisa de Livros:** Pesquisa avançada por título, autor ou ISBN.
+- **Detalhes do Livro:** Visualização de informações detalhadas de cada livro.
 
-### Gerenciamento de Autores:
+### Gerenciamento de Autores
 
-- Cadastrar, editar e excluir autores.
-- Pesquisar autores por nome.
-- Visualizar detalhes de um autor.
+- **Cadastro de Autores:** Adição de novos autores com detalhes biográficos.
+- **Edição de Autores:** Atualização das informações dos autores existentes.
+- **Exclusão de Autores:** Remoção de autores do sistema.
+- **Pesquisa de Autores:** Busca rápida por nome de autor.
+- **Detalhes do Autor:** Visualização de informações detalhadas sobre cada autor.
 
-### Gerenciamento de Empréstimos:
+### Gerenciamento de Empréstimos
 
-- Registrar empréstimos de livros para usuários.
-- Devolver livros emprestados.
-- Visualizar histórico de empréstimos de um usuário.
-- Registar e pagar multas associadas aos empréstimos.
+- **Registro de Empréstimos:** Permite registrar o empréstimo de livros para usuários cadastrados.
+- **Devolução de Livros:** Gerenciamento das devoluções de livros emprestados.
+- **Histórico de Empréstimos:** Visualização do histórico completo de empréstimos de cada usuário.
+- **Multas por Atraso:** Registro e gestão de multas associadas a devoluções atrasadas.
 
-### Gerenciamento de Usuários:
+### Gerenciamento de Usuários
 
-- Cadastrar, editar e excluir usuários.
-- Pesquisar usuários por nome e email.
-- Visualizar detalhes de um usuário.
+- **Cadastro de Usuários:** Inclusão de novos usuários no sistema com informações de contato e identificação.
+- **Edição de Usuários:** Atualização de dados de usuários cadastrados.
+- **Exclusão de Usuários:** Remoção de usuários do sistema.
+- **Pesquisa de Usuários:** Busca por nome ou e-mail.
+- **Detalhes do Usuário:** Acesso a informações detalhadas de cada usuário.
 
-### Registo e Pagamento de Multas:
+### Registro e Pagamento de Multas
 
-- Registar multas associadas a atrasos na devolução de livros.
-- Efetuar o pagamento das multas pendentes.
+- **Registro de Multas:** Registro de multas para usuários com devoluções atrasadas.
+- **Pagamento de Multas:** Funcionalidade para efetuar e registrar o pagamento de multas pendentes.
 
-### Consulta de Movimentos:
+### Consulta de Movimentos
 
-- Consultar o histórico de movimentos, incluindo empréstimos, devoluções e pagamentos de multas.
+- **Histórico de Movimentos:** Consulta detalhada do histórico de todas as operações, incluindo empréstimos, devoluções e pagamentos de multas.
 
-### Produção de Relatórios Periódicos:
+### Produção de Relatórios Periódicos
 
-- Gerar relatórios periódicos em formato PDF com estatísticas e informações relevantes do sistema.
+- **Geração de Relatórios:** Criação automática de relatórios periódicos em formato PDF com estatísticas e informações relevantes sobre o sistema, como livros mais emprestados, usuários mais ativos, etc.
 
 ## Tecnologias Utilizadas
 
-### Frontend:
+### Frontend
 
-- Vue.js 3
-- Vite
-- npm
+- **Vue.js 3:** Framework JavaScript progressivo para construir interfaces de usuário.
+- **Vite:** Ferramenta de bundling e build para desenvolvimento rápido de frontends modernos.
+- **npm:** Gerenciador de pacotes para instalar dependências e scripts.
 
-### Backend:
+### Backend
 
-- Java 17
-- Spring Boot 2.7.0
-- PostgreSQL
-- Lombok
-- Hibernate
-- Spring Data JPA
-- Spring Security
-- JWT
+- **Java 17:** Linguagem de programação utilizada para o desenvolvimento do backend.
+- **Spring Boot 2.7.0:** Framework para criação de aplicações Java com configuração mínima.
+- **PostgreSQL:** Sistema de gerenciamento de banco de dados relacional utilizado para armazenar os dados.
+- **Lombok:** Biblioteca Java para reduzir a verbosidade do código.
+- **Hibernate:** Framework de mapeamento objeto-relacional (ORM) para facilitar a persistência dos dados.
+- **Spring Data JPA:** Abstração de persistência que simplifica o acesso ao banco de dados.
+- **Spring Security:** Framework de segurança para proteger a aplicação.
+- **JWT (JSON Web Token):** Técnica para implementação de autenticação segura.
 
 ## Instalação e Configuração
 
-### Frontend:
+### Frontend
 
-1. Clone este repositório.
+1. Clone este repositório:
+   ```sh
+   git clone https://github.com/seuusuario/sistema-biblioteca-vue.git
+   cd sistema-biblioteca-vue
+   ```
 2. Certifique-se de ter o [Node.js](https://nodejs.org/) instalado.
-3. Execute `npm install` para instalar as dependências.
-4. Execute `npm run dev` para iniciar o servidor de desenvolvimento.
+3. Instale as dependências:
+   ```sh
+   npm install
+   ```
+4. Inicie o servidor de desenvolvimento:
+   ```sh
+   npm run dev
+   ```
 
-### Backend:
+### Backend
 
 1. Siga as instruções de instalação e configuração do backend, conforme mencionado no README do [repositório do backend](https://github.com/mmaunze/api.esib.com).
 
@@ -94,8 +110,16 @@ Meldo Leonardo Maunze
 
 ## Agradecimentos
 
+Agradecemos a todos os colaboradores e utilizadores que contribuíram para o desenvolvimento deste sistema.
+
 ## Links Úteis
 
 - [Repositório do Backend](https://github.com/mmaunze/api.esib.com)
 - [Documentação da API](#) (link a ser fornecido)
 - [Guia de Contribuição](#) (link a ser fornecido)
+
+---
+
+Obrigado por utilizar o Sistema de Biblioteca! Esperamos que ele atenda a todas as suas necessidades de gestão de bibliotecas de forma eficiente e eficaz.
+
+---
